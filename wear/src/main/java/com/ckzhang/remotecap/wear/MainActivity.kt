@@ -6,17 +6,16 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.wearable.Wearable
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     private val TAG = "WearShutter"
@@ -29,6 +28,13 @@ class MainActivity : ComponentActivity() {
                 val bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                 ivPreview.setImageBitmap(bitmap)
             }
+        }
+    }
+    
+    private val shutterDoneReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            Log.d(TAG, "收到拍照完成通知，執行雙重震動")
+            vibrateSuccess()
         }
     }
 
@@ -59,20 +65,44 @@ class MainActivity : ComponentActivity() {
         layout.addView(btnShutter)
         setContentView(layout)
 
-        LocalBroadcastManager.getInstance(this).registerReceiver(
-            previewReceiver, IntentFilter("ACTION_PREVIEW_FRAME")
-        )
+        LocalBroadcastManager.getInstance(this).apply {
+            registerReceiver(previewReceiver, IntentFilter("ACTION_PREVIEW_FRAME"))
+            registerReceiver(shutterDoneReceiver, IntentFilter("ACTION_SHUTTER_DONE"))
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(previewReceiver)
+        LocalBroadcastManager.getInstance(this).apply {
+            unregisterReceiver(previewReceiver)
+            unregisterReceiver(shutterDoneReceiver)
+        }
+    }
+    
+    private fun vibrateTrigger() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            vibrator.vibrate(50)
+        }
+    }
+    
+    private fun vibrateSuccess() {
+        val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val timings = longArrayOf(0, 100, 50, 100) // 等待, 震100ms, 停50ms, 震100ms
+            vibrator.vibrate(VibrationEffect.createWaveform(timings, -1))
+        } else {
+            vibrator.vibrate(longArrayOf(0, 100, 50, 100), -1)
+        }
     }
 
     private fun sendShutterMessage() {
+        vibrateTrigger() // 發送訊號時先短震一次
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
             if (nodes.isEmpty()) {
-                Toast.makeText(this, "未連接到手機", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "找不到連線手機", Toast.LENGTH_SHORT).show()
                 return@addOnSuccessListener
             }
             val messageClient = Wearable.getMessageClient(this)

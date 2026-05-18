@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".WatchPreviewListenerService" android:exported="true"><intent-filter><action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" /><data android:scheme="wear" android:host="*" android:path="/preview" /></intent-filter></service>
+        
+        <service android:name=".WatchPreviewListenerService" android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
+                <data android:scheme="wear" android:host="*" android:path="/preview" />
+                <data android:scheme="wear" android:host="*" android:path="/shutter_done" />
+            </intent-filter>
+        </service>
     </application>
 </manifest>
-

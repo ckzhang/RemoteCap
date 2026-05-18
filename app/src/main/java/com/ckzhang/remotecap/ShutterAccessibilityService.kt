@@ -8,6 +8,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import com.google.android.gms.wearable.Wearable
 
 class ShutterAccessibilityService : AccessibilityService() {
 
@@ -37,6 +38,15 @@ class ShutterAccessibilityService : AccessibilityService() {
         return super.onStartCommand(intent, flags, startId)
     }
 
+    private fun sendShutterDoneToWatch() {
+        Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
+            val messageClient = Wearable.getMessageClient(this)
+            for (node in nodes) {
+                messageClient.sendMessage(node.id, "/shutter_done", byteArrayOf())
+            }
+        }
+    }
+
     fun performShutterClick() {
         val x = TargetManager.targetX
         val y = TargetManager.targetY
@@ -60,7 +70,9 @@ class ShutterAccessibilityService : AccessibilityService() {
             
             val result = dispatchGesture(gestureBuilder.build(), object : GestureResultCallback() {
                 override fun onCompleted(gestureDescription: GestureDescription?) {
-                    Log.d("ShutterAccessibility", "目標座標點擊成功！")
+                    Log.d("ShutterAccessibility", "目標座標點擊成功！通知手錶震動")
+                    sendShutterDoneToWatch()
+                    
                     Handler(Looper.getMainLooper()).postDelayed({
                         FloatingTargetService.instance?.showAndCatch()
                     }, 500)

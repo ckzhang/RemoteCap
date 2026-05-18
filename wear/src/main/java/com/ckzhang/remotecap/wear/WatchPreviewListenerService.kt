@@ -11,6 +11,9 @@ class WatchPreviewListenerService : WearableListenerService() {
             val intent = Intent("ACTION_PREVIEW_FRAME")
             intent.putExtra("image_data", messageEvent.data)
             LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
+        } else if (messageEvent.path == "/shutter_done") {
+            val intent = Intent("ACTION_SHUTTER_DONE")
+            LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
         }
     }
 }
