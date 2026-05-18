@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="accent">#FF4D80</color>
+    <color name="background">#121212</color>
+    <color name="button_disabled">#404040</color>
+    <color name="primary">#FF2A65</color>
+    <color name="primary_dark">#D1194E</color>
+    <color name="surface">#1E1E1E</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B3B3B3</color>
     <string name="accessibility_service_description">Remote Cap 需使用無障礙服務，以便在您按下手錶按鈕時，代為點擊螢幕上的相機快門。</string>
     <string name="app_name">Remote Cap</string>
 </resources>
