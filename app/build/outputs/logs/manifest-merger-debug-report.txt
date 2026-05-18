@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-53:12
-INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-53:12
-INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-53:12
-INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-53:12
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-54:12
+INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-54:12
+INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-54:12
+INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:1-54:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\ckzhang\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\ckzhang\.gradle\caches\transforms-3\2fd0cb4fe98f737439d366f57b52369e\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\ckzhang\.gradle\caches\transforms-3\fffb3d29cce5e588feee309082b11d5f\transformed\constraintlayout-2.0.1\AndroidManifest.xml:2:1-11:12
@@ -58,24 +58,32 @@ MERGED from [androidx.print:print:1.0.0] C:\Users\ckzhang\.gradle\caches\transfo
 	xmlns:android
 		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:2:11-69
 uses-permission#android.permission.SYSTEM_ALERT_WINDOW
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:5:5-78
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:4:5-78
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:5:22-75
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:4:22-75
 uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:6:5-77
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:5:5-77
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:6:22-74
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:5:22-74
 uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:7:5-94
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:6:5-94
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:7:22-91
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:6:22-91
 uses-permission#android.permission.PROJECT_MEDIA
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:10:5-72
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:7:5-72
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:10:22-69
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:7:22-69
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:10:5-80
+	android:name
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:10:22-77
+uses-permission#android.permission.READ_MEDIA_IMAGES
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:11:5-76
+	android:name
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:11:22-73
 application
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:12:5-52:19
-INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:12:5-52:19
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:13:5-53:19
+INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:13:5-53:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\ckzhang\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\ckzhang\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.0.1] C:\Users\ckzhang\.gradle\caches\transforms-3\fffb3d29cce5e588feee309082b11d5f\transformed\constraintlayout-2.0.1\AndroidManifest.xml:9:5-20
@@ -105,83 +113,83 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\ckzhang\.gradle\ca
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\ckzhang\.gradle\caches\transforms-3\440a64c1659b3784956be1ef27019da1\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:15:9-35
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:16:9-35
 	android:label
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:15:9-35
 	android:allowBackup
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:13:9-35
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:14:9-35
 	android:theme
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:16:9-65
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:17:9-65
 activity#com.ckzhang.remotecap.MainActivity
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:18:9-25:20
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:19:9-26:20
 	android:exported
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:20:13-36
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:21:13-36
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:19:13-41
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:20:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:21:13-24:29
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:22:13-25:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:22:17-69
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:23:17-69
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:22:25-66
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:23:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:23:17-77
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:24:17-77
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:23:27-74
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:24:27-74
 service#com.ckzhang.remotecap.FloatingTargetService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:27:9-29:40
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:28:9-30:40
 	android:exported
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:29:13-37
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:30:13-37
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:28:13-50
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:29:13-50
 service#com.ckzhang.remotecap.ShutterAccessibilityService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:31:9-41:19
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:32:9-42:19
 	android:exported
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:34:13-37
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:35:13-37
 	android:permission
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:33:13-79
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:34:13-79
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:32:13-56
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:33:13-56
 intent-filter#action:name:android.accessibilityservice.AccessibilityService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:35:13-37:29
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:36:13-38:29
 action#android.accessibilityservice.AccessibilityService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:36:17-92
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:37:17-92
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:36:25-89
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:37:25-89
 meta-data#android.accessibilityservice
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:38:13-40:72
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:39:13-41:72
 	android:resource
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:40:17-69
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:41:17-69
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:39:17-60
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:40:17-60
 service#com.ckzhang.remotecap.WatchMessageListenerService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:43:9-50:19
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:44:9-51:19
 	android:exported
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:45:13-36
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:46:13-36
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:44:13-56
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:45:13-56
 intent-filter#action:name:com.google.android.gms.wearable.MESSAGE_RECEIVED+data:host:*+data:path:/shutter+data:scheme:wear
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:46:13-49:29
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:47:13-50:29
 action#com.google.android.gms.wearable.MESSAGE_RECEIVED
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:47:17-91
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:17-91
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:47:25-88
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:25-88
 data
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:17-88
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:49:17-88
 	android:path
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:62-85
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:49:62-85
 	android:host
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:45-61
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:49:45-61
 	android:scheme
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:48:23-44
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:49:23-44
 service#com.ckzhang.remotecap.ScreenCaptureService
-ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:51:9-139
+ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:52:9-139
 	android:exported
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:51:112-136
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:52:112-136
 	android:foregroundServiceType
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:51:55-111
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:52:55-111
 	android:name
-		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:51:18-54
+		ADDED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml:52:18-54
 uses-sdk
 INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\ckzhang\clawd\RemoteCap\app\src\main\AndroidManifest.xml

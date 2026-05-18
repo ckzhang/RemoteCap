@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <!-- 懸浮窗所需權限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
-
-        <!-- MediaProjection requires project_media on some devices/Android 14 -->
     <uses-permission android:name="android.permission.PROJECT_MEDIA" />
+    
+    <!-- 新增讀取照片權限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
@@ -51,6 +52,3 @@
         <service android:name=".ScreenCaptureService" android:foregroundServiceType="mediaProjection|dataSync" android:exported="false" />
     </application>
 </manifest>
-
-
-

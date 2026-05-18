@@ -8,13 +8,14 @@
         android:minSdkVersion="26"
         android:targetSdkVersion="34" />
 
-    <!-- 懸浮窗所需權限 -->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
-
-    <!-- MediaProjection requires project_media on some devices/Android 14 -->
     <uses-permission android:name="android.permission.PROJECT_MEDIA" />
+
+    <!-- 新增讀取照片權限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <permission
         android:name="com.ckzhang.remotecap.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
