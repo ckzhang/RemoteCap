@@ -23,18 +23,19 @@ class MainActivity : ComponentActivity() {
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 startForegroundService(intent)
-                // For Android 14+, we MUST wait until the Foreground Service is fully running before MediaProjection creates virtual display.
             } else {
                 startService(intent)
             }
-            Toast.makeText(this, "開始投射畫面至手錶", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "開始投射螢幕畫面", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "投射被拒絕", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "授權被拒絕", Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        TargetManager.init(this)
         
         val layout = android.widget.LinearLayout(this).apply {
             orientation = android.widget.LinearLayout.VERTICAL
@@ -43,13 +44,13 @@ class MainActivity : ComponentActivity() {
         }
         
         val btnPermission = Button(this).apply {
-            text = "1. 允許懸浮窗權限 (用於瞄準星)"
+            text = "1. 允許顯示在其他應用程式上層 (用於瞄準星)"
             setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this@MainActivity)) {
                     val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:$packageName"))
                     startActivity(intent)
                 } else {
-                    Toast.makeText(context, "懸浮窗權限已開啟", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "顯示在其他應用程式上層權限已開啟", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -62,10 +63,15 @@ class MainActivity : ComponentActivity() {
         }
         
         val btnStartTarget = Button(this).apply {
-            text = "3. 顯示懸浮瞄準星 🎯"
+            text = "3. 顯示/隱藏懸浮游標 🎯"
             setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this@MainActivity)) {
-                    startService(Intent(this@MainActivity, FloatingTargetService::class.java))
+                    val intent = Intent(this@MainActivity, FloatingTargetService::class.java)
+                    if (FloatingTargetService.instance != null) {
+                        stopService(intent)
+                    } else {
+                        startService(intent)
+                    }
                 } else {
                     Toast.makeText(context, "請先完成步驟 1", Toast.LENGTH_SHORT).show()
                 }
@@ -73,12 +79,11 @@ class MainActivity : ComponentActivity() {
         }
         
         val btnStartPreview = Button(this).apply {
-            text = "4. 開始將畫面傳給手錶 (Live View)"
+            text = "4. 開始將螢幕畫面傳給手錶 (Live View)"
             setOnClickListener {
                 val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
                 val captureIntent = mpm.createScreenCaptureIntent()
                 captureLauncher.launch(captureIntent)
-                // For Android 14+, the user MUST grant the permission prompt before the Foreground Service is started.
             }
         }
         
@@ -99,6 +104,9 @@ class MainActivity : ComponentActivity() {
         
         setContentView(layout)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(Intent(this, FloatingTargetService::class.java))
+    }
 }
-
-

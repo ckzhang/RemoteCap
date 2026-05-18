@@ -17,10 +17,14 @@ class ShutterAccessibilityService : AccessibilityService() {
 
     override fun onServiceConnected() {
         instance = this
+        // Initialize TargetManager in case the Service is woken up while Activity is dead
+        TargetManager.init(applicationContext)
         Log.d("ShutterAccessibility", "無障礙服務已連接")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        // Also initialize here in case onStartCommand is called directly
+        TargetManager.init(applicationContext)
         if (intent?.action == "ACTION_CLICK_SHUTTER") {
             performShutterClick()
         }

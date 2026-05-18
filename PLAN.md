@@ -1,36 +1,22 @@
-# Remote Cap 開發計畫 (Development Plan)
+﻿# Overnight Development Plan (Loop until 07:00 AM)
 
-## 核心產品定位與痛點
-- **產品名稱/類型**：Android 手機與 Wear OS 手表跨裝置連動相機快門/預覽應用。
-- **核心痛點**：不綁定特定相機，使用者可維持使用手機內建的原生相機 App，將本應用作為「背景畫面回傳」與「虛擬藍牙快門」工具。
+## Constraints & Rules
+- **Development Loop:** For every task: 1) Write code, 2) Build & Deploy, 3) Test & Verify on physical device, 4) git add . and git commit the working feature, 5) Move to the next task.
+- **CRITICAL HARDWARE SAFETY:** ONLY open the camera app (com.android.camera) when specifically running an E2E test. IMMEDIATELY force-stop it (db shell am force-stop com.android.camera) after the test. DO NOT leave it running in the background. Overheating risk.
+- **Manager (Main Agent):** Oversees progress, checks in hourly, assigns tasks to sub-agents.
+- **Worker Agents:** 
+  - Builder (Writes code, compiles)
+  - Tester (Runs ADB tests, verifies logs, reports back)
 
-## 系統架構
-- **手機端 (Phone App)**：背景服務，負責螢幕擷取、壓縮處理、傳輸給手錶，並接收手錶指令模擬實體按鍵觸發拍照。
-- **手錶端 (Wear OS App)**：即時畫面預覽，提供拍照按鈕發送指令。
+## Bug Backlog
+- [ ] **Fix Accessibility Click Bug (Null Context):** The recent SharedPreferences change broke the click because TargetManager.init(this) is only called in MainActivity and onServiceConnected. When the app is swiped away and memory is cleared, WatchMessageListenerService starts ShutterAccessibilityService, but prefs is null, so it reads (0,0). 
+  - *Fix:* Call TargetManager.init(applicationContext) inside ShutterAccessibilityService.onStartCommand() and WatchMessageListenerService.
 
-## 開發階段規劃
+## Feature Roadmap
+1. [ ] **Countdown Timer:** Add selectable countdown options (3 / 5 / 10 seconds) on the watch or phone UI. Wait this amount of time before executing the shutter click.
+2. [ ] **Two-Way Haptic Feedback:**
+   - Watch vibrates *once* when the Phone Service successfully receives the /shutter intent.
+   - Watch vibrates *again* (or differently) when the actual photo is taken (after the countdown finishes).
+3. [ ] **Image Transmission:** Fetch the newly generated photo from /sdcard/DCIM/Camera and transmit the image back to the Watch over the Wear OS Data Layer (Asset/Channel) so the user can preview what was just captured.
+4. [ ] **UI Beautification:** Refactor the Phone and Watch UI to look polished, modern, and delightful. 
 
-### 第一階段：專案初始化與通訊基礎 (打好地基)
-- 建立包含雙模組的 Android 專案：`app` (手機端) 和 `wear` (手錶端)。
-- 導入 Google 官方 **Wear OS Data Layer API**。
-- **目標驗證**：實作 `MessageClient`，確認手錶按鈕能發送訊號至手機端。
-
-### 第二階段：快門觸發實作 (解決第一個痛點)
-- 手機端實作 **無障礙服務 (Accessibility Service)**。
-- 接收手錶指令後，模擬按下「實體音量鍵」以觸發快門。
-- **目標驗證**：手錶成為可跨 App 使用的盲拍遙控器。
-
-### 第三階段：螢幕擷取與壓縮 (最吃效能的部分)
-- 手機端建立 **前台服務 (Foreground Service)** 及常駐通知。
-- 實作 **MediaProjection API** 擷取手機即時畫面。
-- 加入影像縮放與壓縮邏輯 (JPEG/WebP) 以降低傳輸資料量。
-
-### 第四階段：畫面串流與手錶端預覽 (整合)
-- 使用 Wear OS 的 `ChannelClient` 傳輸壓縮好的圖片流。
-- 手錶端接收並即時渲染圖片數據。
-- 處理螢幕方向與畫面裁切/旋轉。
-
-### 第五階段：UI 介面與權限引導 (收尾準備上架)
-- **手機端介面**：極簡首頁，引導開啟無障礙服務、螢幕錄影、通知權限，提供服務開關。
-- **手錶端介面**：即時預覽畫面加上明顯的快門按鈕。
-- 效能調優：測試 FPS、耗電量與延遲，尋找最佳平衡點。

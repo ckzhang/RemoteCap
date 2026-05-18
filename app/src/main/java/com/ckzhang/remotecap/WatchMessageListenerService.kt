@@ -9,13 +9,16 @@ class WatchMessageListenerService : WearableListenerService() {
     private val TAG = "WatchListener"
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
-        Log.d(TAG, "收到來自手錶的訊息: ${messageEvent.path}")
-        if (messageEvent.path == "/shutter") {
-            Log.d(TAG, "觸發快門點擊!")
+        val path = messageEvent.path
+        Log.d(TAG, "收到來自手錶的訊息: $path")
+        
+        TargetManager.init(applicationContext)
+
+        if (path == "/shutter") {
+            Log.d(TAG, "觸發拍照點擊!")
             val intent = Intent(this, ShutterAccessibilityService::class.java)
             intent.action = "ACTION_CLICK_SHUTTER"
             startService(intent)
         }
     }
 }
-
