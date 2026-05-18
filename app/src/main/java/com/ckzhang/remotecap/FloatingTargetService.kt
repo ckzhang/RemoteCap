@@ -1,0 +1,125 @@
+﻿package com.ckzhang.remotecap
+
+import android.app.Service
+import android.content.Intent
+import android.graphics.Color
+import android.graphics.PixelFormat
+import android.os.Build
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
+import android.widget.TextView
+
+class FloatingTargetService : Service() {
+    companion object {
+        var instance: FloatingTargetService? = null
+    }
+
+    private lateinit var windowManager: WindowManager
+    private lateinit var floatingView: TextView
+    private lateinit var params: WindowManager.LayoutParams
+
+    override fun onBind(intent: Intent?): IBinder? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+        windowManager = getSystemService(WINDOW_SERVICE) as WindowManager
+
+        floatingView = TextView(this).apply {
+            text = "🎯"
+            textSize = 45f
+            setTextColor(Color.RED)
+            setShadowLayer(5f, 0f, 0f, Color.BLACK)
+        }
+
+        val layoutFlag = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
+        } else {
+            WindowManager.LayoutParams.TYPE_PHONE
+        }
+
+        params = WindowManager.LayoutParams(
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.WRAP_CONTENT,
+            layoutFlag,
+            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            PixelFormat.TRANSLUCENT
+        )
+        params.gravity = Gravity.TOP or Gravity.START
+        
+        val displayMetrics = resources.displayMetrics
+        params.x = (displayMetrics.widthPixels / 2) - 50
+        params.y = (displayMetrics.heightPixels * 0.8).toInt()
+
+        floatingView.setOnTouchListener(object : View.OnTouchListener {
+            private var initialX = 0
+            private var initialY = 0
+            private var initialTouchX = 0f
+            private var initialTouchY = 0f
+
+            override fun onTouch(v: View, event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        initialX = params.x
+                        initialY = params.y
+                        initialTouchX = event.rawX
+                        initialTouchY = event.rawY
+                        return true
+                    }
+                    MotionEvent.ACTION_MOVE -> {
+                        params.x = initialX + (event.rawX - initialTouchX).toInt()
+                        params.y = initialY + (event.rawY - initialTouchY).toInt()
+                        windowManager.updateViewLayout(floatingView, params)
+                        return true
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        val loc = IntArray(2)
+                        floatingView.getLocationOnScreen(loc)
+                        TargetManager.targetX = loc[0].toFloat() + (floatingView.width / 2f)
+                        TargetManager.targetY = loc[1].toFloat() + (floatingView.height / 2f)
+                        return true
+                    }
+                }
+                return false
+            }
+        })
+
+        windowManager.addView(floatingView, params)
+        
+        floatingView.post {
+            val loc = IntArray(2)
+            floatingView.getLocationOnScreen(loc)
+            TargetManager.targetX = loc[0].toFloat() + (floatingView.width / 2f)
+            TargetManager.targetY = loc[1].toFloat() + (floatingView.height / 2f)
+        }
+    }
+
+    fun hideAndPassThrough() {
+        Handler(Looper.getMainLooper()).post {
+            floatingView.visibility = View.INVISIBLE
+            params.flags = params.flags or WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+            windowManager.updateViewLayout(floatingView, params)
+        }
+    }
+
+    fun showAndCatch() {
+        Handler(Looper.getMainLooper()).post {
+            floatingView.visibility = View.VISIBLE
+            params.flags = params.flags and WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE.inv()
+            windowManager.updateViewLayout(floatingView, params)
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        instance = null
+        if (::floatingView.isInitialized) {
+            windowManager.removeView(floatingView)
+        }
+    }
+}

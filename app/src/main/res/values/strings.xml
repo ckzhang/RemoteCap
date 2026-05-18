@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Remote Cap</string>
+    <string name="accessibility_service_description">Remote Cap 需使用無障礙服務，以便在您按下手錶按鈕時，代為點擊螢幕上的相機快門。</string>
+</resources>
