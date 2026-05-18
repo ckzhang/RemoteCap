@@ -96,6 +96,20 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+                                val btnCountdown = Button(this).apply {
+            text = "倒數計時: " + TargetManager.countdownSec + " 秒"
+            setOnClickListener {
+                val next = when (TargetManager.countdownSec) {
+                    0 -> 3
+                    3 -> 5
+                    5 -> 10
+                    else -> 0
+                }
+                TargetManager.countdownSec = next
+                text = "倒數計時: " + next + " 秒"
+            }
+        }
+        layout.addView(btnCountdown)
         layout.addView(btnPermission)
         layout.addView(btnAccSettings)
         layout.addView(btnStartTarget)
@@ -110,3 +124,6 @@ class MainActivity : ComponentActivity() {
         stopService(Intent(this, FloatingTargetService::class.java))
     }
 }
+
+
+
