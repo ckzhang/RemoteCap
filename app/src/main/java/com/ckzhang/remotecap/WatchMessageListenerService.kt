@@ -31,10 +31,19 @@ class WatchMessageListenerService : WearableListenerService() {
             }
             "/wake_preview" -> {
                 Log.i(TAG, "Watch mode: With Preview. Launching MainActivity to request MediaProjection.")
+                ScreenCaptureService.instance?.setStreamingState(true)
                 val intent = Intent(this, MainActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
                 startActivity(intent)
+            }
+            "/ambient_mode_on" -> {
+                Log.i(TAG, "Watch entered ambient mode. Slowing down preview stream.")
+                ScreenCaptureService.instance?.setStreamingState(false)
+            }
+            "/ambient_mode_off" -> {
+                Log.i(TAG, "Watch exited ambient mode. Restoring preview stream.")
+                ScreenCaptureService.instance?.setStreamingState(true)
             }
             "/get_countdown" -> {
                 Log.i(TAG, "Watch requested countdown config.")

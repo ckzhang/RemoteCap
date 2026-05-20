@@ -52,6 +52,11 @@
     <string name="common_open_on_phone">ഫോണിൽ തുറക്കുക</string>
     <string name="common_signin_button_text">സൈൻ ഇൻ ചെയ്യുക</string>
     <string name="common_signin_button_text_long">Google ഉപയോഗിച്ച് സൈൻ ഇൻ ചെയ്യുക</string>
+    <string msgid="6412144553299494336" name="confirmation_overlay_a11y_description_fail">"പരാജയം"</string>
+    <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"നിങ്ങളുടെ ഫോണിൽ തുറന്നത്"</string>
+    <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"വിജയകരം"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"തിരയുക"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"ആക്ഷൻ ഡ്രോയർ"</string>
+    <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"നാവിഗേഷൻ ഡ്രോയർ"</string>
 </resources>

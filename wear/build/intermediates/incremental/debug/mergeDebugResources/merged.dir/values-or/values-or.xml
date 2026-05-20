@@ -52,6 +52,11 @@
     <string name="common_open_on_phone">ଫୋନ୍‌ରେ ଖୋଲନ୍ତୁ</string>
     <string name="common_signin_button_text">ସାଇନ୍‌-ଇନ୍ କରନ୍ତୁ</string>
     <string name="common_signin_button_text_long">Google ସହ ସାଇନ୍‌-ଇନ୍ କରନ୍ତୁ</string>
+    <string msgid="6412144553299494336" name="confirmation_overlay_a11y_description_fail">"ବିଫଳ ହୋଇଛି"</string>
+    <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"ଆପଣଙ୍କ ଫୋନରେ ଖୋଲାଯାଇଛି"</string>
+    <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"ସଫଳ ହୋଇଛି"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"ସନ୍ଧାନ କରନ୍ତୁ"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"କାର୍ଯ୍ୟକାରୀ ପ୍ୟାନେଲ୍"</string>
+    <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"ନେଭିଗେଶନ୍ ପ୍ୟାନେଲ୍"</string>
 </resources>

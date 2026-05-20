@@ -61,6 +61,10 @@
             </intent-filter>
         </service>
 
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="false" />
+
         <activity
             android:name="com.google.android.gms.common.api.GoogleApiActivity"
             android:exported="false"

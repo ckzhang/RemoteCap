@@ -22,8 +22,12 @@ import androidx.activity.ComponentActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.android.gms.wearable.Wearable
 
-class MainActivity : ComponentActivity() {
+import androidx.fragment.app.FragmentActivity
+import androidx.wear.ambient.AmbientModeSupport
+
+class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvider {
     private val TAG = "WearShutter"
+    private lateinit var ambientController: AmbientModeSupport.AmbientController
     
     // UI Elements
     private lateinit var mainLayout: FrameLayout
@@ -202,6 +206,7 @@ class MainActivity : ComponentActivity() {
         
         checkConnectionStatus()
         fetchCountdownFromPhone()
+        ambientController = AmbientModeSupport.attach(this)
     }
     
     private fun checkConnectionStatus() {
@@ -349,6 +354,27 @@ class MainActivity : ComponentActivity() {
         }
     }
     
+    override fun getAmbientCallback(): AmbientModeSupport.AmbientCallback = MyAmbientCallback()
+
+    private inner class MyAmbientCallback : AmbientModeSupport.AmbientCallback() {
+        override fun onEnterAmbient(ambientDetails: Bundle?) {
+            super.onEnterAmbient(ambientDetails)
+            Log.d(TAG, "Entering ambient mode")
+            sendSignalToPhone("/ambient_mode_on")
+        }
+
+        override fun onExitAmbient() {
+            super.onExitAmbient()
+            Log.d(TAG, "Exiting ambient mode")
+            sendSignalToPhone("/ambient_mode_off")
+        }
+
+        override fun onUpdateAmbient() {
+            super.onUpdateAmbient()
+            // Update UI periodically if needed
+        }
+    }
+
     private fun vibrateTrigger() {
         if (!isHapticEnabled) return
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

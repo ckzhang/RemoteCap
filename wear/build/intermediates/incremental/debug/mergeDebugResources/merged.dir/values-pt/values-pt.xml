@@ -34,6 +34,11 @@
     <string msgid="6107532579223922871" name="call_notification_incoming_text">"Chamada recebida"</string>
     <string msgid="8623827134497363134" name="call_notification_ongoing_text">"Chamada em andamento"</string>
     <string msgid="59049573811482460" name="call_notification_screening_text">"Filtrando uma ligação recebida"</string>
+    <string msgid="6412144553299494336" name="confirmation_overlay_a11y_description_fail">"Falha"</string>
+    <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"Item aberto no seu smartphone"</string>
+    <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"Pronto"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Pesquisar"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"Gaveta de ações"</string>
+    <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"Gaveta de navegação"</string>
 </resources>

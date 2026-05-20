@@ -37,6 +37,9 @@ dependencies {
     
     // Wear OS Data Layer API (Watch side)
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
+    
+    // Wear OS specific APIs (Ambient Mode)
+    implementation("androidx.wear:wear:1.3.0")
 }
 
 

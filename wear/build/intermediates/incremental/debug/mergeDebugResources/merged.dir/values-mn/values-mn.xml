@@ -52,6 +52,11 @@
     <string name="common_open_on_phone">Утсаар нээх</string>
     <string name="common_signin_button_text">Нэвтрэх</string>
     <string name="common_signin_button_text_long">Google-р нэвтрэх:</string>
+    <string msgid="6412144553299494336" name="confirmation_overlay_a11y_description_fail">"Амжилтгүй"</string>
+    <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"Таны утсан дээр нээсэн"</string>
+    <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"Амжилттай"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"Хайх"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"Үйлдлийн татуурга"</string>
+    <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"Навигацын шургуулга"</string>
 </resources>

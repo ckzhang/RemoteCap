@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.ckzhang.remotecap.wear-mergeDebugResources-28:/values-v22/values-v22.xml",
+            "outputFile": "com.ckzhang.remotecap.wear-mergeDebugResources-30:/values-v22/values-v22.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\9756fab58daf3b55028a539310104216\\transformed\\appcompat-1.6.1\\res\\values-v22\\values-v22.xml",

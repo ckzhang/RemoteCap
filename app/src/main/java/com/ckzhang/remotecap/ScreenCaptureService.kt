@@ -29,8 +29,18 @@ class ScreenCaptureService : Service() {
     private var virtualDisplay: VirtualDisplay? = null
     private var imageReader: ImageReader? = null
     private var isStreaming = false
+    private var transmissionIntervalMs = 250L // Default: 4 FPS
     private var lastSendTime = 0L
     private var handlerThread: HandlerThread? = null
+
+    companion object {
+        var instance: ScreenCaptureService? = null
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        instance = this
+    }
 
     override fun onBind(intent: Intent?): IBinder? = null
 
@@ -94,7 +104,7 @@ class ScreenCaptureService : Service() {
             if (!isStreaming) return@setOnImageAvailableListener
             
             val currentTime = System.currentTimeMillis()
-            if (currentTime - lastSendTime < 100) {
+            if (currentTime - lastSendTime < transmissionIntervalMs) {
                 reader.acquireLatestImage()?.close()
                 return@setOnImageAvailableListener
             }
@@ -149,6 +159,18 @@ class ScreenCaptureService : Service() {
         }
     }
 
+    // Wear Data Layer limits: High FPS or High Res causes massive lag queueing
+    // We adjust this dynamically based on watch state.
+    fun setStreamingState(active: Boolean) {
+        if (!active) {
+            transmissionIntervalMs = 5000L // 0.2 FPS (almost paused) when watch is ambient/inactive
+            Log.d(TAG, "Watch is ambient/inactive. Reduced stream to 0.2 FPS to save battery.")
+        } else {
+            transmissionIntervalMs = 250L // 4 FPS normal
+            Log.d(TAG, "Watch is active. Restored stream to 4 FPS.")
+        }
+    }
+
     private fun stopCapture() {
         isStreaming = false
         virtualDisplay?.release()
@@ -159,6 +181,7 @@ class ScreenCaptureService : Service() {
 
     override fun onDestroy() {
         stopCapture()
+        instance = null
         super.onDestroy()
     }
 }

@@ -52,6 +52,11 @@
     <string name="common_open_on_phone">ಫೋನ್‌ನಲ್ಲಿ ತೆರೆಯಿರಿ</string>
     <string name="common_signin_button_text">ಸೈನ್ ಇನ್</string>
     <string name="common_signin_button_text_long">Google ಮೂಲಕ ಸೈನ್ ಇನ್ ಮಾಡಿ</string>
+    <string msgid="6412144553299494336" name="confirmation_overlay_a11y_description_fail">"ವಿಫಲವಾಗಿದೆ"</string>
+    <string msgid="8809042819843332546" name="confirmation_overlay_a11y_description_phone">"ನಿಮ್ಮ ಫೋನ್‌ನಲ್ಲಿ ತೆರೆಯಲಾಗಿದೆ"</string>
+    <string msgid="2936753235333429892" name="confirmation_overlay_a11y_description_success">"ಯಶಸ್ವಿಯಾಗಿದೆ"</string>
     <string msgid="6264217191555673260" name="search_menu_title">"ಹುಡುಕಿ"</string>
     <string msgid="6277540029070332960" name="status_bar_notification_info_overflow">"999+"</string>
+    <string msgid="8863821639144537553" name="ws_action_drawer_content_description">"ಕ್ರಿಯೆ ಡ್ರಾಯರ್"</string>
+    <string msgid="777117228299084604" name="ws_navigation_drawer_content_description">"ನ್ಯಾವಿಗೇಶನ್ ಡ್ರಾಯರ್"</string>
 </resources>

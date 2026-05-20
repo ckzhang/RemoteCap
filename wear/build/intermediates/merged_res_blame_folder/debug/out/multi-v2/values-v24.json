@@ -1,8 +1,27 @@
 {
     "logs": [
         {
-            "outputFile": "com.ckzhang.remotecap.wear-mergeDebugResources-28:/values-v24/values-v24.xml",
+            "outputFile": "com.ckzhang.remotecap.wear-mergeDebugResources-30:/values-v24/values-v24.xml",
             "map": [
+                {
+                    "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\de6c817ee3a3ca75c4a678fc1681201a\\transformed\\wear-1.3.0\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "929"
+                    },
+                    "to": {
+                        "startLines": "4",
+                        "startColumns": "4",
+                        "startOffsets": "347",
+                        "endLines": "16",
+                        "endColumns": "12",
+                        "endOffsets": "1221"
+                    }
+                },
                 {
                     "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\9756fab58daf3b55028a539310104216\\transformed\\appcompat-1.6.1\\res\\values-v24\\values-v24.xml",
                     "from": {
