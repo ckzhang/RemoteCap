@@ -29,10 +29,12 @@ class MainActivity : ComponentActivity() {
     private lateinit var mainLayout: FrameLayout
     private lateinit var promptLayout: LinearLayout
     private lateinit var cameraLayout: FrameLayout
+    private lateinit var settingsLayout: LinearLayout
     private lateinit var ivPreview: ImageView
     private lateinit var tvStatus: TextView
     private lateinit var tvCountdown: TextView
     private lateinit var btnShutter: Button
+    private lateinit var btnCycleCountdown: Button
     
     // Default countdown value until we fetch it from phone
     private var configuredCountdownSec = 3
@@ -88,9 +90,16 @@ class MainActivity : ComponentActivity() {
             setOnClickListener { startCameraMode(true) }
         }
         
+        val btnSettings = Button(this).apply {
+            text = "⚙️ Settings"
+            textSize = 14f
+            setOnClickListener { showSettingsMode(true) }
+        }
+        
         promptLayout.addView(tvStatus)
         promptLayout.addView(btnShutterOnly)
         promptLayout.addView(btnWithPreview)
+        promptLayout.addView(btnSettings)
         
         // --- 2. Camera Layout (Preview & Shutter Button) ---
         cameraLayout = FrameLayout(this).apply {
@@ -137,9 +146,42 @@ class MainActivity : ComponentActivity() {
         cameraLayout.addView(tvCountdown)
         cameraLayout.addView(btnShutter)
         
+        // --- 3. Settings Layout (Watch Settings) ---
+        settingsLayout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            setPadding(16, 16, 16, 16)
+            visibility = View.GONE
+        }
+        
+        val tvSettingsTitle = TextView(this).apply {
+            text = "Settings"
+            textSize = 16f
+            setTextColor(android.graphics.Color.WHITE)
+            gravity = Gravity.CENTER
+            setPadding(0, 0, 0, 12)
+        }
+        
+        btnCycleCountdown = Button(this).apply {
+            text = "Countdown: ${configuredCountdownSec}s"
+            textSize = 14f
+            setOnClickListener { cycleCountdown() }
+        }
+        
+        val btnBackSettings = Button(this).apply {
+            text = "◀ Back"
+            textSize = 14f
+            setOnClickListener { showSettingsMode(false) }
+        }
+        
+        settingsLayout.addView(tvSettingsTitle)
+        settingsLayout.addView(btnCycleCountdown)
+        settingsLayout.addView(btnBackSettings)
+        
         // Add to main layout
         mainLayout.addView(cameraLayout)
         mainLayout.addView(promptLayout)
+        mainLayout.addView(settingsLayout)
         
         setContentView(mainLayout)
 
@@ -193,6 +235,9 @@ class MainActivity : ComponentActivity() {
                     tvStatus.text = "$connectionPart\n$modeText"
                     
                     btnShutter.text = if (sec > 0) "📸 (${sec}s)" else "📸"
+                    if (::btnCycleCountdown.isInitialized) {
+                        btnCycleCountdown.text = if (sec > 0) "Countdown: ${sec}s" else "Countdown: Off"
+                    }
                 }
             } catch (e: Exception) {
                 Log.e(TAG, "Error parsing countdown", e)
@@ -213,10 +258,46 @@ class MainActivity : ComponentActivity() {
     
     private fun startCameraMode(withPreview: Boolean) {
         promptLayout.visibility = View.GONE
+        settingsLayout.visibility = View.GONE
         cameraLayout.visibility = View.VISIBLE
         
         val path = if (withPreview) "/wake_preview" else "/wake_shutter_only"
         sendSignalToPhone(path)
+    }
+    
+    private fun showSettingsMode(show: Boolean) {
+        if (show) {
+            promptLayout.visibility = View.GONE
+            cameraLayout.visibility = View.GONE
+            settingsLayout.visibility = View.VISIBLE
+        } else {
+            settingsLayout.visibility = View.GONE
+            cameraLayout.visibility = View.GONE
+            promptLayout.visibility = View.VISIBLE
+        }
+    }
+    
+    private fun cycleCountdown() {
+        val next = when (configuredCountdownSec) {
+            0 -> 3
+            3 -> 5
+            5 -> 10
+            10 -> 0
+            else -> 0
+        }
+        configuredCountdownSec = next
+        btnCycleCountdown.text = if (next > 0) "Countdown: ${next}s" else "Countdown: Off"
+        btnShutter.text = if (next > 0) "📸 (${next}s)" else "📸"
+        
+        // Update phone
+        sendSignalToPhone("/set_countdown/$next")
+        
+        // Show status update on prompt layout
+        val currentText = tvStatus.text.toString()
+        val parts = currentText.split("\n")
+        val connectionPart = if (parts.isNotEmpty()) parts[0] else "Phone Connection:"
+        val modeText = if (next > 0) "Countdown: ${next}s" else "No Countdown"
+        tvStatus.text = "$connectionPart\n$modeText"
     }
 
     private fun startCountdown(seconds: Int) {

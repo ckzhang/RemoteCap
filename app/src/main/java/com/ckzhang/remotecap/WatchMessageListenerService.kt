@@ -41,6 +41,13 @@ class WatchMessageListenerService : WearableListenerService() {
                 val currentSec = TargetManager.countdownSec
                 Wearable.getMessageClient(this).sendMessage(sourceNodeId, "/set_countdown/$currentSec", byteArrayOf())
             }
+            else -> {
+                if (path.startsWith("/set_countdown/")) {
+                    val sec = path.substringAfter("/set_countdown/").toIntOrNull() ?: 0
+                    TargetManager.countdownSec = sec
+                    Log.i(TAG, "手錶同步更新倒數時間為: $sec 秒")
+                }
+            }
         }
     }
 }
