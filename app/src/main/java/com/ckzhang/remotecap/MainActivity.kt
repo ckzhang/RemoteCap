@@ -13,24 +13,11 @@ import android.widget.Toast
 import android.graphics.Color
 import android.view.Gravity
 import androidx.activity.ComponentActivity
-import androidx.activity.result.contract.ActivityResultContracts
-import android.content.pm.PackageManager
-import androidx.core.content.ContextCompat
 import com.google.android.gms.wearable.Wearable
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var statusText: TextView
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(this, "權限已允許", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "權限被拒絕", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,19 +81,8 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
             }
         }
-
-        val btnCameraPermission = createStyledButton("3. 授權相機 (閃光燈倒數用)").apply {
-            setOnClickListener {
-                val permission = android.Manifest.permission.CAMERA
-                if (ContextCompat.checkSelfPermission(this@MainActivity, permission) == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this@MainActivity, "相機權限已允許", Toast.LENGTH_SHORT).show()
-                } else {
-                    requestPermissionLauncher.launch(permission)
-                }
-            }
-        }
         
-        val btnStartTarget = createStyledButton("4. 顯示/隱藏瞄準星 🎯").apply {
+        val btnStartTarget = createStyledButton("3. 顯示/隱藏瞄準星 🎯").apply {
             setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this@MainActivity)) {
                     val intent = Intent(this@MainActivity, FloatingTargetService::class.java)
@@ -124,7 +100,6 @@ class MainActivity : ComponentActivity() {
         layout.addView(btnCountdown)
         layout.addView(btnPermission)
         layout.addView(btnAccSettings)
-        layout.addView(btnCameraPermission)
         layout.addView(btnStartTarget)
         
         setContentView(layout)

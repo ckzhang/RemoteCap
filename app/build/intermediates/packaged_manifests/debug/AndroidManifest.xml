@@ -10,15 +10,7 @@
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
-    <uses-permission android:name="android.permission.PROJECT_MEDIA" />
-
-    <!-- 新增讀取照片權限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <!-- 為了倒數時閃爍閃光燈 -->
-    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <permission
         android:name="com.ckzhang.remotecap.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
@@ -31,12 +23,15 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:extractNativeLibs="false"
-        android:label="Remote Cap"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
         <activity
             android:name="com.ckzhang.remotecap.MainActivity"
-            android:exported="true" >
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,10 +41,13 @@
 
         <service
             android:name="com.ckzhang.remotecap.FloatingTargetService"
-            android:exported="false" />
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="specialUse" />
         <service
             android:name="com.ckzhang.remotecap.ShutterAccessibilityService"
-            android:exported="false"
+            android:enabled="true"
+            android:exported="true"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE" >
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
@@ -61,20 +59,17 @@
         </service>
         <service
             android:name="com.ckzhang.remotecap.WatchMessageListenerService"
+            android:enabled="true"
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.MESSAGE_RECEIVED" />
 
                 <data
                     android:host="*"
-                    android:path="/shutter"
+                    android:pathPrefix="/"
                     android:scheme="wear" />
             </intent-filter>
         </service>
-        <service
-            android:name="com.ckzhang.remotecap.ScreenCaptureService"
-            android:exported="false"
-            android:foregroundServiceType="mediaProjection|dataSync" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"

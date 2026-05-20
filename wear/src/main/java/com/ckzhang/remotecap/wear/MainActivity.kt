@@ -161,12 +161,11 @@ class MainActivity : ComponentActivity() {
                 .addOnSuccessListener { capabilityInfo ->
                     val hasApp = capabilityInfo.nodes.isNotEmpty()
                     
-                    val nodeStatus = if (hasNode) "✅ OS" else "❌ OS"
+                    val nodeStatus = if (hasNode) "✅ OS" else "❌ App"
                     val appStatus = if (hasApp) "✅ App" else "❌ App"
                     
                     runOnUiThread {
                         val currentText = tvStatus.text.toString()
-                        // Replace connection part but keep countdown part if it exists
                         val parts = currentText.split("\n")
                         val countdownPart = if (parts.size > 1) parts[1] else ""
                         tvStatus.text = "Phone: $nodeStatus | $appStatus\n$countdownPart"
@@ -176,11 +175,9 @@ class MainActivity : ComponentActivity() {
     }
     
     private fun fetchCountdownFromPhone() {
-        // Request the current countdown setting from the phone
         sendSignalToPhone("/get_countdown")
     }
     
-    // Add MessageListener to receive countdown value from phone
     private val messageClientListener = com.google.android.gms.wearable.MessageClient.OnMessageReceivedListener { messageEvent ->
         if (messageEvent.path.startsWith("/set_countdown/")) {
             val secStr = messageEvent.path.substringAfter("/set_countdown/")
@@ -190,13 +187,11 @@ class MainActivity : ComponentActivity() {
                     configuredCountdownSec = sec
                     val modeText = if (sec > 0) "Countdown: ${sec}s" else "No Countdown"
                     
-                    // Update Status TV
                     val currentText = tvStatus.text.toString()
                     val parts = currentText.split("\n")
                     val connectionPart = if (parts.isNotEmpty()) parts[0] else "Phone Connection:"
                     tvStatus.text = "$connectionPart\n$modeText"
                     
-                    // Update Shutter button
                     btnShutter.text = if (sec > 0) "📸 (${sec}s)" else "📸"
                 }
             } catch (e: Exception) {
@@ -220,7 +215,6 @@ class MainActivity : ComponentActivity() {
         promptLayout.visibility = View.GONE
         cameraLayout.visibility = View.VISIBLE
         
-        // Send wake signal to phone
         val path = if (withPreview) "/wake_preview" else "/wake_shutter_only"
         sendSignalToPhone(path)
     }
@@ -232,10 +226,6 @@ class MainActivity : ComponentActivity() {
             override fun onTick(millisUntilFinished: Long) {
                 val secLeft = (millisUntilFinished / 1000) + 1
                 tvCountdown.text = secLeft.toString()
-                
-                // Signal phone to flash torch
-                sendSignalToPhone("/flashlight_tick")
-                
                 vibrateTrigger()
             }
 
