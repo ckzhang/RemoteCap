@@ -25,6 +25,17 @@ class FloatingTargetService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent?.action == "ACTION_POSITION_TARGET") {
+            val screenX = intent.getIntExtra("SCREEN_X", -1)
+            val screenY = intent.getIntExtra("SCREEN_Y", -1)
+            if (screenX >= 0 && screenY >= 0) {
+                positionTargetAt(screenX.toFloat(), screenY.toFloat())
+            }
+        }
+        return START_STICKY
+    }
+
     override fun onCreate() {
         super.onCreate()
         instance = this
@@ -96,6 +107,21 @@ class FloatingTargetService : Service() {
             floatingView.getLocationOnScreen(loc)
             TargetManager.targetX = loc[0].toFloat() + (floatingView.width / 2f)
             TargetManager.targetY = loc[1].toFloat() + (floatingView.height / 2f)
+        }
+    }
+
+    /** Positions crosshair center at screen coordinates (for ADB/automation). */
+    fun positionTargetAt(screenCenterX: Float, screenCenterY: Float) {
+        if (!::floatingView.isInitialized) return
+        floatingView.post {
+            val halfW = floatingView.width / 2f
+            val halfH = floatingView.height / 2f
+            params.x = (screenCenterX - halfW).toInt().coerceAtLeast(0)
+            params.y = (screenCenterY - halfH).toInt().coerceAtLeast(0)
+            windowManager.updateViewLayout(floatingView, params)
+            TargetManager.init(applicationContext)
+            TargetManager.targetX = screenCenterX
+            TargetManager.targetY = screenCenterY
         }
     }
 

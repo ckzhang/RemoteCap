@@ -2,9 +2,12 @@ package com.ckzhang.remotecap
 
 import android.content.Context
 import android.content.Intent
+import android.media.projection.MediaProjectionManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.provider.Settings
 import android.widget.Button
 import android.widget.LinearLayout
@@ -18,6 +21,8 @@ import com.google.android.gms.wearable.Wearable
 class MainActivity : ComponentActivity() {
 
     private lateinit var statusText: TextView
+    private lateinit var btnCountdown: Button
+    private val SCREEN_RECORD_REQUEST_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +54,7 @@ class MainActivity : ComponentActivity() {
         layout.addView(title)
         layout.addView(statusText)
         
-        val btnCountdown = createStyledButton("⏳ 倒數計時: " + TargetManager.countdownSec + " 秒").apply {
+        btnCountdown = createStyledButton("⏳ 倒數計時: " + TargetManager.countdownSec + " 秒").apply {
             setOnClickListener {
                 val next = when (TargetManager.countdownSec) {
                     0 -> 3
@@ -96,15 +101,71 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        
+        val btnPreview = createStyledButton("4. 畫面預覽 (擷取截圖傳至手錶)").apply {
+            setOnClickListener {
+                val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+                startActivityForResult(mpm.createScreenCaptureIntent(), SCREEN_RECORD_REQUEST_CODE)
+            }
+        }
 
         layout.addView(btnCountdown)
         layout.addView(btnPermission)
         layout.addView(btnAccSettings)
         layout.addView(btnStartTarget)
+        layout.addView(btnPreview)
         
         setContentView(layout)
 
         checkConnectionStatus()
+        handleAutomationIntent(intent)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        handleAutomationIntent(intent)
+    }
+
+    private fun handleAutomationIntent(intent: Intent?) {
+        when (intent?.action) {
+            "ACTION_AUTO_POSITION_TARGET" -> {
+                val x = intent.getIntExtra("SCREEN_X", -1)
+                val y = intent.getIntExtra("SCREEN_Y", -1)
+                if (x < 0 || y < 0) return
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) return
+                startService(Intent(this, FloatingTargetService::class.java))
+                Handler(Looper.getMainLooper()).postDelayed({
+                    FloatingTargetService.instance?.positionTargetAt(x.toFloat(), y.toFloat())
+                }, 800)
+            }
+            "ACTION_AUTO_SET_COUNTDOWN" -> {
+                val sec = intent.getIntExtra("COUNTDOWN_SEC", 0)
+                TargetManager.countdownSec = sec
+                btnCountdown.text = "⏳ 倒數計時: $sec 秒"
+                syncCountdownToWatch(sec)
+            }
+        }
+    }
+    
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == SCREEN_RECORD_REQUEST_CODE) {
+            if (resultCode == RESULT_OK && data != null) {
+                Toast.makeText(this, "授權成功，開始傳送預覽畫面...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, ScreenCaptureService::class.java).apply {
+                    action = "START_CAPTURE"
+                    putExtra("RESULT_CODE", resultCode)
+                    putExtra("RESULT_DATA", data)
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    startForegroundService(intent)
+                } else {
+                    startService(intent)
+                }
+            } else {
+                Toast.makeText(this, "必須允許螢幕錄製才能傳送預覽畫面", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
     
     private fun syncCountdownToWatch(sec: Int) {
@@ -155,5 +216,6 @@ class MainActivity : ComponentActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopService(Intent(this, FloatingTargetService::class.java))
+        stopService(Intent(this, ScreenCaptureService::class.java).apply { action = "STOP_CAPTURE" })
     }
 }

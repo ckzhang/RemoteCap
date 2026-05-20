@@ -29,15 +29,9 @@ class ShutterAccessibilityService : AccessibilityService() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         TargetManager.init(applicationContext)
         if (intent?.action == "ACTION_CLICK_SHUTTER") {
-            val countdown = TargetManager.countdownSec
-            if (countdown > 0) {
-                Log.d("ShutterAccessibility", "開始倒數 " + countdown + " 秒...")
-                Handler(Looper.getMainLooper()).postDelayed({
-                    performShutterClick()
-                }, countdown * 1000L)
-            } else {
-                performShutterClick()
-            }
+            // Countdown UI runs on the watch only. When /shutter arrives here, click immediately.
+            Log.d("ShutterAccessibility", "收到快門指令，立即點擊（倒數僅在手錶執行）")
+            performShutterClick()
         }
         return super.onStartCommand(intent, flags, startId)
     }
