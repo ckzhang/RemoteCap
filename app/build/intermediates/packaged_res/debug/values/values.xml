@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string-array name="android_wear_capabilities">
+        <item>remote_cap_phone_app</item>
+    </string-array>
     <color name="accent">#FF4D80</color>
     <color name="background">#121212</color>
     <color name="button_disabled">#404040</color>

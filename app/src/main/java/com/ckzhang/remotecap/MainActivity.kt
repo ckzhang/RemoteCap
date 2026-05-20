@@ -1,8 +1,7 @@
-﻿package com.ckzhang.remotecap
+package com.ckzhang.remotecap
 
 import android.content.Context
 import android.content.Intent
-import android.media.projection.MediaProjectionManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -15,8 +14,23 @@ import android.graphics.Color
 import android.view.Gravity
 import androidx.activity.ComponentActivity
 import androidx.activity.result.contract.ActivityResultContracts
+import android.content.pm.PackageManager
+import androidx.core.content.ContextCompat
+import com.google.android.gms.wearable.Wearable
 
 class MainActivity : ComponentActivity() {
+
+    private lateinit var statusText: TextView
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(this, "權限已允許", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "權限被拒絕", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,18 +40,27 @@ class MainActivity : ComponentActivity() {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER_HORIZONTAL
             setPadding(64, 80, 64, 80)
-            setBackgroundColor(Color.parseColor("#121212")) // Dark background
+            setBackgroundColor(Color.parseColor("#121212"))
         }
         
         val title = TextView(this).apply {
-            text = "Remote Cap \uD83D\uDCF8"
+            text = "Remote Cap 📸"
             textSize = 32f
             setTextColor(Color.WHITE)
             gravity = Gravity.CENTER
-            setPadding(0, 0, 0, 80)
+            setPadding(0, 0, 0, 40)
+        }
+
+        statusText = TextView(this).apply {
+            text = "連線狀態: 檢查中...\n手錶 App: 檢查中..."
+            textSize = 14f
+            setTextColor(Color.LTGRAY)
+            gravity = Gravity.CENTER
+            setPadding(0, 0, 0, 60)
         }
         
         layout.addView(title)
+        layout.addView(statusText)
         
         val btnCountdown = createStyledButton("⏳ 倒數計時: " + TargetManager.countdownSec + " 秒").apply {
             setOnClickListener {
@@ -52,7 +75,7 @@ class MainActivity : ComponentActivity() {
             }
         }
         
-        val btnPermission = createStyledButton("1. 允許懸浮窗權限").apply {
+        val btnPermission = createStyledButton("1. 允許懸浮窗權限 (必要)").apply {
             setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this@MainActivity)) {
                     val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + packageName))
@@ -63,13 +86,24 @@ class MainActivity : ComponentActivity() {
             }
         }
         
-        val btnAccSettings = createStyledButton("2. 開啟無障礙服務").apply {
+        val btnAccSettings = createStyledButton("2. 開啟無障礙服務 (必要, 控制快門)").apply {
             setOnClickListener {
                 startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
             }
         }
+
+        val btnCameraPermission = createStyledButton("3. 授權相機 (閃光燈倒數用)").apply {
+            setOnClickListener {
+                val permission = android.Manifest.permission.CAMERA
+                if (ContextCompat.checkSelfPermission(this@MainActivity, permission) == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this@MainActivity, "相機權限已允許", Toast.LENGTH_SHORT).show()
+                } else {
+                    requestPermissionLauncher.launch(permission)
+                }
+            }
+        }
         
-        val btnStartTarget = createStyledButton("3. 顯示/隱藏瞄準星 \uD83C\uDFAF").apply {
+        val btnStartTarget = createStyledButton("4. 顯示/隱藏瞄準星 🎯").apply {
             setOnClickListener {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(this@MainActivity)) {
                     val intent = Intent(this@MainActivity, FloatingTargetService::class.java)
@@ -87,21 +121,42 @@ class MainActivity : ComponentActivity() {
         layout.addView(btnCountdown)
         layout.addView(btnPermission)
         layout.addView(btnAccSettings)
+        layout.addView(btnCameraPermission)
         layout.addView(btnStartTarget)
         
         setContentView(layout)
+
+        checkConnectionStatus()
     }
     
+    private fun checkConnectionStatus() {
+        Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
+            val hasNode = nodes.isNotEmpty()
+            Wearable.getCapabilityClient(this)
+                .getCapability("remote_cap_watch_app", com.google.android.gms.wearable.CapabilityClient.FILTER_REACHABLE)
+                .addOnSuccessListener { capabilityInfo ->
+                    val hasApp = capabilityInfo.nodes.isNotEmpty()
+                    
+                    val nodeStatus = if (hasNode) "✅ 已連線" else "❌ 未連線"
+                    val appStatus = if (hasApp) "✅ 已安裝" else "❌ 未安裝或未開啟"
+                    
+                    runOnUiThread {
+                        statusText.text = "手錶連線 (OS): $nodeStatus\n手錶 App (Capability): $appStatus"
+                    }
+                }
+        }
+    }
+
     private fun createStyledButton(text: String): Button {
         return Button(this).apply {
             this.text = text
-            this.textSize = 16f
+            this.textSize = 14f
             this.setTextColor(Color.WHITE)
             this.isAllCaps = false
             
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                160
+                140
             )
             params.setMargins(0, 0, 0, 32)
             this.layoutParams = params
