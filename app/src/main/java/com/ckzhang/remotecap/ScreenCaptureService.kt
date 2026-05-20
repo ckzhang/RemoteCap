@@ -1,4 +1,4 @@
-﻿package com.ckzhang.remotecap
+package com.ckzhang.remotecap
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -94,7 +94,7 @@ class ScreenCaptureService : Service() {
             if (!isStreaming) return@setOnImageAvailableListener
             
             val currentTime = System.currentTimeMillis()
-            if (currentTime - lastSendTime < 250) {
+            if (currentTime - lastSendTime < 100) {
                 reader.acquireLatestImage()?.close()
                 return@setOnImageAvailableListener
             }
@@ -113,7 +113,7 @@ class ScreenCaptureService : Service() {
                     bitmap.copyPixelsFromBuffer(buffer)
                     
                     val croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
-                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 200, 200, true)
+                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 360, 360, true)
                     sendBitmapToWatch(scaledBitmap)
                     
                     scaledBitmap.recycle()
@@ -138,7 +138,7 @@ class ScreenCaptureService : Service() {
 
     private fun sendBitmapToWatch(bitmap: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 15, stream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
         val bytes = stream.toByteArray()
 
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
