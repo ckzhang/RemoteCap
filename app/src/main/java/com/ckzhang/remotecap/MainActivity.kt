@@ -27,6 +27,10 @@ class MainActivity : ComponentActivity() {
     private lateinit var layoutContent: LinearLayout
     private lateinit var billingManager: BillingManager
     private val SCREEN_RECORD_REQUEST_CODE = 1001
+    
+    // For easter egg testing
+    private var titleClickCount = 0
+    private var lastTitleClickTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +57,21 @@ class MainActivity : ComponentActivity() {
             setTextColor(Color.WHITE)
             gravity = Gravity.CENTER
             setPadding(0, 0, 0, 40)
+            setOnClickListener {
+                val now = System.currentTimeMillis()
+                if (now - lastTitleClickTime > 500) {
+                    titleClickCount = 0
+                }
+                titleClickCount++
+                lastTitleClickTime = now
+                if (titleClickCount >= 5) {
+                    titleClickCount = 0
+                    val currentProState = billingManager.isPro
+                    billingManager.isPro = !currentProState
+                    Toast.makeText(context, "Pro Mode (Test): ${!currentProState}", Toast.LENGTH_SHORT).show()
+                    renderOnboardingUI()
+                }
+            }
         }
 
         statusText = TextView(this).apply {

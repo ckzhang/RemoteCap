@@ -16,7 +16,6 @@ class BillingManager(
     private val PRODUCT_ID_PRO = "remotecap_pro_unlock" // Set this in Google Play Console
     
     var isPro = false
-        private set
 
     init {
         billingClient = BillingClient.newBuilder(context)
