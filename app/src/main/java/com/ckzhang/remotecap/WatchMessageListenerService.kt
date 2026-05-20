@@ -55,25 +55,34 @@ class WatchMessageListenerService : WearableListenerService() {
         try {
             val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
             val cameraIdList = cameraManager.cameraIdList
-            if (cameraIdList.isEmpty()) return
+            if (cameraIdList.isEmpty()) {
+                Log.e(TAG, "No cameras found!")
+                return
+            }
             
             // Try to find a back-facing camera with flash
-            var targetCameraId = cameraIdList[0]
+            var targetCameraId = cameraIdList[0] // fallback to first
             for (id in cameraIdList) {
-                val characteristics = cameraManager.getCameraCharacteristics(id)
-                val hasFlash = characteristics.get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
-                val facing = characteristics.get(android.hardware.camera2.CameraCharacteristics.LENS_FACING)
-                if (hasFlash && facing == android.hardware.camera2.CameraCharacteristics.LENS_FACING_BACK) {
-                    targetCameraId = id
-                    break
+                try {
+                    val characteristics = cameraManager.getCameraCharacteristics(id)
+                    val hasFlash = characteristics.get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+                    val facing = characteristics.get(android.hardware.camera2.CameraCharacteristics.LENS_FACING)
+                    if (hasFlash && facing == android.hardware.camera2.CameraCharacteristics.LENS_FACING_BACK) {
+                        targetCameraId = id
+                        break
+                    }
+                } catch (e: Exception) {
+                    Log.e(TAG, "Error checking camera $id", e)
                 }
             }
 
+            Log.d(TAG, "Turning on torch for camera $targetCameraId")
             cameraManager.setTorchMode(targetCameraId, true)
             
             // Turn off after 150ms
             Handler(Looper.getMainLooper()).postDelayed({
                 try {
+                    Log.d(TAG, "Turning off torch for camera $targetCameraId")
                     cameraManager.setTorchMode(targetCameraId, false)
                 } catch (e: Exception) {
                     Log.e(TAG, "Failed to turn off torch", e)
