@@ -148,16 +148,40 @@ class ScreenCaptureService : Service() {
         isStreaming = true
     }
 
+    private var isSendingFrame = false
+
     private fun sendBitmapToWatch(bitmap: Bitmap) {
+        if (isSendingFrame) {
+            // Drop frame if the previous one is still transmitting
+            return
+        }
+        
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, currentQuality, stream)
         val bytes = stream.toByteArray()
+        
+        Log.d(TAG, "TX Data: ${bytes.size} bytes (${bytes.size / 1024} KB) @ FPS Target: ${1000L / transmissionIntervalMs}")
 
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
             val messageClient = Wearable.getMessageClient(this)
-            for (node in nodes) {
-                messageClient.sendMessage(node.id, "/preview", bytes)
+            var tasksPending = nodes.size
+            
+            if (tasksPending == 0) {
+                isSendingFrame = false
+                return@addOnSuccessListener
             }
+            
+            isSendingFrame = true
+            for (node in nodes) {
+                messageClient.sendMessage(node.id, "/preview", bytes).addOnCompleteListener {
+                    tasksPending--
+                    if (tasksPending <= 0) {
+                        isSendingFrame = false
+                    }
+                }
+            }
+        }.addOnFailureListener {
+            isSendingFrame = false
         }
     }
 
