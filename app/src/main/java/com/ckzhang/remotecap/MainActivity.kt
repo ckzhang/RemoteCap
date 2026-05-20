@@ -109,11 +109,18 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        val btnGalleryPermission = createStyledButton("5. 允許讀取相簿權限 (必要, 傳送照片)").apply {
+            setOnClickListener {
+                requestGalleryPermission()
+            }
+        }
+
         layout.addView(btnCountdown)
         layout.addView(btnPermission)
         layout.addView(btnAccSettings)
         layout.addView(btnStartTarget)
         layout.addView(btnPreview)
+        layout.addView(btnGalleryPermission)
         
         setContentView(layout)
 
@@ -164,6 +171,30 @@ class MainActivity : ComponentActivity() {
                 }
             } else {
                 Toast.makeText(this, "必須允許螢幕錄製才能傳送預覽畫面", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    
+    private fun requestGalleryPermission() {
+        val perm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            android.Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+        if (checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(this, "相簿讀取權限已開啟", Toast.LENGTH_SHORT).show()
+        } else {
+            requestPermissions(arrayOf(perm), 1002)
+        }
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1002) {
+            if (grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "成功取得相簿讀取權限！", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "未能取得相簿讀取權限，將無法傳送照片至手錶", Toast.LENGTH_SHORT).show()
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿package com.ckzhang.remotecap
+package com.ckzhang.remotecap
 
 import android.app.Service
 import android.content.Intent
@@ -54,13 +54,20 @@ class FloatingTargetService : Service() {
             WindowManager.LayoutParams.TYPE_PHONE
         }
 
+        val flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+
         params = WindowManager.LayoutParams(
             WindowManager.LayoutParams.WRAP_CONTENT,
             WindowManager.LayoutParams.WRAP_CONTENT,
             layoutFlag,
-            WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+            flags,
             PixelFormat.TRANSLUCENT
         )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            params.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
         params.gravity = Gravity.TOP or Gravity.START
         
         val displayMetrics = resources.displayMetrics
