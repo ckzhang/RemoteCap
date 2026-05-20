@@ -17,7 +17,7 @@
 
 ## Phase 8: Adaptive Streaming & Performance
 - [x] **Smart FPS (Battery Saver)**: Stop the `ScreenCaptureService` transmission (0 FPS) immediately when the Watch enters Ambient Mode (screen off/dimmed). Resume when active.
-- [ ] **Dynamic Quality**: Automatically adjust FPS and resolution based on connection bandwidth (e.g., 15 FPS / 400x400 for Wi-Fi direct, 4 FPS / 200x200 for Bluetooth).
+- [x] **Dynamic Quality**: Automatically adjust FPS and resolution based on connection bandwidth (e.g., 15 FPS / 400x400 for Wi-Fi direct, 4 FPS / 200x200 for Bluetooth).
 
 ## Phase 9: Monetization (Freemium Model)
 - [ ] **Free Tier Setup**: Core universal remote shutter functionality (Floating Target + Accessibility Click).

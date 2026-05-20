@@ -123,7 +123,7 @@ class ScreenCaptureService : Service() {
                     bitmap.copyPixelsFromBuffer(buffer)
                     
                     val croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
-                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 360, 360, true)
+                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 200, 200, true)
                     sendBitmapToWatch(scaledBitmap)
                     
                     scaledBitmap.recycle()
@@ -148,7 +148,7 @@ class ScreenCaptureService : Service() {
 
     private fun sendBitmapToWatch(bitmap: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream)
         val bytes = stream.toByteArray()
 
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
