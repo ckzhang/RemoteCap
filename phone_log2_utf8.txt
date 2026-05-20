@@ -1,0 +1,101 @@
+﻿--------- beginning of main
+05-21 00:58:54.081  6348 11367 I eija    : (REDACTED) HDM. appOpsListener %s %s
+05-21 00:58:54.081  6348 11367 I eija    : (REDACTED) HDM. Ignoring irrelevant audio permission changes for package %s
+05-21 00:58:55.848 21445 14256 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 57770677]
+05-21 00:58:55.855 21445 12881 W ChimeraUtils: Module com.google.android.gms.gcm missing resource null(0)
+05-21 00:58:55.864 21445 14286 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 57770693]
+05-21 00:58:55.885 21445 14292 I GCM     : Message from 745476177629
+05-21 00:58:55.885 21445 14292 E GCM     : Dropping message to GMS from 745476177629 as no component is set
+05-21 00:58:55.891 12905 14290 I WatchListener: ?嗅靘????? /shutter
+05-21 00:58:55.891 12905 14290 I WatchListener: 閫貊?暺?!
+05-21 00:58:55.892 12905 12905 I ShutterAccessibility: ?嗅敹恍??誘嚗??喲???????瑁?嚗?
+05-21 00:58:55.893 12905 12905 I ShutterAccessibility: 皞?暺??豢筑蝒璅漣璅? X=630.0, Y=2395.0
+05-21 00:58:55.895 12905 13880 I HWUI    : [destroy] CanvasContext will be destroyed.
+05-21 00:58:55.911  7034  7766 I NotificationPipeline: Processing notification dismissal on phone: 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000
+05-21 00:58:55.911  7034  7766 I Notification4Watch6_NB: NotificationBridgeCallback.onNotificationRemoved->>> Enter <<<
+05-21 00:58:55.913  7034  7766 I Notification4Watch6_NB: PendingManager.requestListenerHints - [Type : RECOVER]
+05-21 00:58:55.913  7034  7766 I Notification4Watch6_NB: NotificationBridgeApi.requestListenerHints-last: RECOVER_EFFECTS, set: RECOVER_EFFECTS
+05-21 00:58:55.914  7034  7766 I Notification4Watch6_NB: PhoneStatus.isActive-isScreenOn: true, isKeyLocked: false
+05-21 00:58:55.914  7034  7766 W Notification4Watch6_NB: PendingManager.onBridgeFlushQueueEvent-pending maintain why USING_PHONE
+05-21 00:58:55.914  7034  7766 I NotifDismissalHandler: Notification 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000 dismissed on phone, deleting data item /bridger/stream_item:1cb69065:android:0:com.android.server.wm.AlertWindowNotification~20-~20com.ckzhang.remotecap:0~7Candroid~7C0~7Ccom.android.server.wm.AlertWindowNotification~20-~20com.ckzhang.remotecap~7C1000
+05-21 00:58:55.918  7034  7766 I NotificationImportance: Falling back to notification fields
+05-21 00:58:55.924  7034  7766 I ugin:persistent: AssetManager2(0xb4000072a8608218) locale list changing from [] to [zh-Hant-TW]
+05-21 00:58:55.925  7034  7766 W HWUI    : Image decoding logging dropped!
+05-21 00:58:55.926  7034  7766 W NotifFrequencyLogger: Missing frequency data when notification is being removed
+05-21 00:58:55.998 12905 12905 I ShutterAccessibility: dispatchGesture ?澆蝯?: true
+05-21 00:58:56.081 12905 12905 I ShutterAccessibility: ?格?摨扳?暺???嚗???
+05-21 00:58:56.082 12905 12905 I ShutterAccessibility: 皞?????啁?蝯行???..
+05-21 00:58:56.408 21445 21958 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidirectionalStream@58bc1a
+05-21 00:58:56.613 12905 13880 I BLASTBufferQueue: QoSAllocBuff Successful. Ret 0 
+05-21 00:58:56.887  7034  7034 I NotificationListener: [Service]v6.1.9-eap02 Received new notification
+05-21 00:58:56.888  7034  7766 I NotificationPipeline: Processing new notification: 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000
+05-21 00:58:56.888  7034  7766 W Notification4Watch6_NB: Watch.isEnabled-not found packageName : [0] android
+05-21 00:58:56.889  7034  7766 W Notification4Watch6_NB: NotificationBridgeCallback.onNotificationPosted-block : [0] android
+05-21 00:58:56.889  7034  7766 I NotificationPipeline: Discarding notification: 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000
+05-21 00:58:57.599  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) AND ((date_added >= ?)) ORDER BY date_added DESC LIMIT 5
+05-21 00:58:57.633 12905 12905 I ShutterAccessibility: Retry MediaStore query without date filter (relaxed auth)
+05-21 00:58:57.635  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) ORDER BY date_added DESC LIMIT 8
+05-21 00:58:57.654 12905 12905 I ShutterAccessibility: ??啁?云??(added=1779296202, need>=1779296330)
+05-21 00:58:57.657 12905 12905 I ShutterAccessibility: 蝚?1 甈∪??芣?唳?抒?嚗?敺?閰?(epochSec=1779296330)
+05-21 00:59:00.166  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) AND ((date_added >= ?)) ORDER BY date_added DESC LIMIT 5
+05-21 00:59:00.192 12905 12905 I ShutterAccessibility: Retry MediaStore query without date filter (relaxed auth)
+05-21 00:59:00.194  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) ORDER BY date_added DESC LIMIT 8
+05-21 00:59:00.215 12905 12905 I ShutterAccessibility: ??啁?云??(added=1779296202, need>=1779296330)
+05-21 00:59:00.219 12905 12905 I ShutterAccessibility: 蝚?2 甈∪??芣?唳?抒?嚗?敺?閰?(epochSec=1779296330)
+05-21 00:59:00.433 11160 11173 W org.cwb : Reducing the number of considered missed Gc histogram windows from 138 to 100
+05-21 00:59:02.225  7822  7822 I [BatteryProvider]:PhoneBatteryProvider .onReceive(): ACTION_BATTERY_CHANGED no change
+05-21 00:59:03.730  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) AND ((date_added >= ?)) ORDER BY date_added DESC LIMIT 5
+05-21 00:59:03.755 12905 12905 I ShutterAccessibility: Retry MediaStore query without date filter (relaxed auth)
+05-21 00:59:03.758  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) ORDER BY date_added DESC LIMIT 8
+05-21 00:59:03.779 12905 12905 I ShutterAccessibility: ??啁?云??(added=1779296202, need>=1779296330)
+05-21 00:59:03.783 12905 12905 I ShutterAccessibility: 蝚?3 甈∪??芣?唳?抒?嚗?敺?閰?(epochSec=1779296330)
+05-21 00:59:08.292  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) AND ((date_added >= ?)) ORDER BY date_added DESC LIMIT 5
+05-21 00:59:08.316 12905 12905 I ShutterAccessibility: Retry MediaStore query without date filter (relaxed auth)
+05-21 00:59:08.318  6334  6349 D SQLiteQueryBuilder: SELECT _id, date_added FROM images WHERE ((((is_pending=0 AND NOT _modifier=4) OR (is_pending=1 AND lower(_data) NOT REGEXP '.*/\.pending-(\d+)-([^/]+)$' AND owner_package_name IN ( 'com.ckzhang.remotecap' )))) AND (is_trashed=0) AND (volume_name IN ( 'external_primary' ))) ORDER BY date_added DESC LIMIT 8
+05-21 00:59:08.339 12905 12905 I ShutterAccessibility: ??啁?云??(added=1779296202, need>=1779296330)
+05-21 00:59:08.343 12905 12905 I ShutterAccessibility: 蝚?4 甈∪??芣?唳?抒?嚗?敺?閰?(epochSec=1779296330)
+05-21 00:59:09.793 14339 14339 E cmd     : BBinder_init Processname  cmd  
+05-21 00:59:09.794 14339 14339 E cmd     : BBinder_init hasGetProcessName  cmd
+05-21 00:59:09.848 15565 15565 I bwgn    : (REDACTED) onApplyWindowInsets: systemWindowInsets=%s
+05-21 00:59:09.848 15565 15565 I bwgn    : (REDACTED) onApplyWindowInsets: systemWindowInsets=%s
+05-21 00:59:09.849 15565 23372 W BLASTBufferQueue: Unable to open /proc/vivo_rsc/frame_set_priority: Permission denied
+05-21 00:59:09.849 15565 23372 I BLASTBufferQueue: QoSAllocBuff Successful. Ret 0 
+05-21 00:59:09.856 15565 15565 I bwmt    : onStart
+05-21 00:59:09.856 15565 15565 I buhd    : (REDACTED) [%s] onStart()
+05-21 00:59:09.856 15565 15565 I bujo    : Reloading theme data
+05-21 00:59:09.857 15565 15565 E NetworkErrorMessage: (REDACTED) Invalid connectivity state: %s
+05-21 00:59:09.857 15565 15565 I bwmt    : onResume
+05-21 00:59:09.859 23201 23633 I dslk    : onCloseSystemDialogs
+05-21 00:59:09.871 23201 23633 I drsn    : (REDACTED) Listener was null, %s is not propagated
+05-21 00:59:09.885 14357 14357 E cmd     : BBinder_init Processname  cmd  
+05-21 00:59:09.885 14357 14357 E cmd     : BBinder_init hasGetProcessName  cmd
+05-21 00:59:09.933  6307  6307 W y       : onStartInput event aborted
+05-21 00:59:09.933  6307  6307 W y       : yb0.v: could not obtain extracted text
+05-21 00:59:09.933  6307  6307 W y       : 	at yb0.m0.H(Unknown Source:329)
+05-21 00:59:09.933  6307  6307 W y       : 	at c70.h0.h(Unknown Source:283)
+05-21 00:59:09.933  6307  6307 W y       : 	at c70.o5.h(Unknown Source:2)
+05-21 00:59:09.933  6307  6307 W y       : 	at com.touchtype.KeyboardService.onStartInput(Unknown Source:11)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.inputmethodservice.InputMethodService.doStartInput(InputMethodService.java:3633)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.inputmethodservice.InputMethodService$InputMethodImpl.startInput(InputMethodService.java:886)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.inputmethodservice.InputMethodService$InputMethodImpl.dispatchStartInput(InputMethodService.java:915)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.inputmethodservice.IInputMethodWrapper.executeMessage(IInputMethodWrapper.java:204)
+05-21 00:59:09.933  6307  6307 W y       : 	at com.android.internal.os.HandlerCaller$MyHandler.handleMessage(HandlerCaller.java:44)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.os.Handler.dispatchMessage(Handler.java:114)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.os.Looper.loopOnce(Looper.java:266)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.os.Looper.loop(Looper.java:361)
+05-21 00:59:09.933  6307  6307 W y       : 	at android.app.ActivityThread.main(ActivityThread.java:10308)
+05-21 00:59:09.933  6307  6307 W y       : 	at java.lang.reflect.Method.invoke(Native Method)
+05-21 00:59:09.933  6307  6307 W y       : 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:675)
+05-21 00:59:09.933  6307  6307 W y       : 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:1002)
+05-21 00:59:09.984 14365 14365 E cmd     : BBinder_init Processname  cmd  
+05-21 00:59:09.984 14365 14365 E cmd     : BBinder_init hasGetProcessName  cmd
+05-21 00:59:10.013  7822  7822 I WatchSettings_Watch6*: SettingsCompanion > Talkback is on : false isFirstOn : true
+05-21 00:59:10.055  7034  7766 I NotificationPipeline: Processing notification dismissal on phone: 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000
+05-21 00:59:10.055  7034  7766 I Notification4Watch6_NB: NotificationBridgeCallback.onNotificationRemoved->>> Enter <<<
+05-21 00:59:10.058  7034  7766 I Notification4Watch6_NB: PendingManager.requestListenerHints - [Type : RECOVER]
+05-21 00:59:10.059  7034  7766 I Notification4Watch6_NB: NotificationBridgeApi.requestListenerHints-last: RECOVER_EFFECTS, set: RECOVER_EFFECTS
+05-21 00:59:10.061  7034  7766 I Notification4Watch6_NB: PhoneStatus.isActive-isScreenOn: true, isKeyLocked: false
+05-21 00:59:10.062  7034  7766 W Notification4Watch6_NB: PendingManager.onBridgeFlushQueueEvent-pending maintain why USING_PHONE
+05-21 00:59:10.062  7034  7766 I NotifDismissalHandler: Notification 0|android|0|com.android.server.wm.AlertWindowNotification - com.ckzhang.remotecap|1000 dismissed on phone, deleting data item /bridger/stream_item:1cb69065:android:0:com.android.server.wm.AlertWindowNotification~20-~20com.ckzhang.remotecap:0~7Candroid~7C0~7Ccom.android.server.wm.AlertWindowNotification~20-~20com.ckzhang.remotecap~7C1000
+05-21 00:59:10.066  7034  7766 I NotificationImportance: Falling back to notification fields
+05-21 00:59:10.075  7034  7766 W NotifFrequencyLogger: Missing frequency data when notification is being removed

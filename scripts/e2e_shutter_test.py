@@ -60,6 +60,7 @@ def clean_xml_and_parse(xml_str):
 def find_shutter_center(xml_str, phone_serial):
     root = clean_xml_and_parse(xml_str)
     
+    # 1. Look for shutter_button by resource-id
     for node in root.iter('node'):
         res_id = node.get('resource-id', '')
         if 'shutter_button' in res_id or res_id.endswith('shutter'):
@@ -70,6 +71,7 @@ def find_shutter_center(xml_str, phone_serial):
                 cy = (y1 + y2) // 2
                 return cx, cy, f"resource-id: {res_id}"
                 
+    # 2. Look for keywords in text/desc
     patterns = ["快門", "快门", "拍照", "shutter", "capture", "photo", "camera_shutter"]
     for node in root.iter('node'):
         text = node.get('text', '').lower()
@@ -85,31 +87,38 @@ def find_shutter_center(xml_str, phone_serial):
                         cy = (y1 + y2) // 2
                         return cx, cy, f"keyword({pat}) in text/desc"
                         
+    # 3. Fallback to screen resolution based heuristic (X center, Y around 0.85 * height)
     size_str = run_adb(phone_serial, ["shell", "wm", "size"])
-    h = 2800
+    w, h = 1260, 2800
     match = re.search(r"(\d+)x(\d+)", size_str)
     if match:
+        w = int(match.group(1))
         h = int(match.group(2))
-    bottom_min = int(h * 0.75)
+    
+    cx_target = w // 2
+    cy_target = int(h * 0.85)
     
     best_node = None
-    best_area = 0
+    best_dist = 999999
     
     for node in root.iter('node'):
         clickable = node.get('clickable', '').lower() == 'true'
         if clickable:
             bounds = node.get('bounds', '')
             x1, y1, x2, y2 = parse_bounds(bounds)
-            if y1 >= bottom_min and x2 > x1 and y2 > y1:
-                area = (x2 - x1) * (y2 - y1)
-                if area > best_area:
-                    best_area = area
-                    best_node = ( (x1 + x2) // 2, (y1 + y2) // 2, "largest bottom clickable" )
-                    
-    if best_node:
+            if x2 > x1 and y2 > y1:
+                cx = (x1 + x2) // 2
+                cy = (y1 + y2) // 2
+                if abs(cx - cx_target) < (w * 0.1): # Must be horizontally centered
+                    dist = abs(cy - cy_target)
+                    if dist < best_dist:
+                        best_dist = dist
+                        best_node = (cx, cy, "centered bottom clickable")
+                        
+    if best_node and best_dist < (h * 0.15):
         return best_node[0], best_node[1], best_node[2]
         
-    raise RuntimeError("Could not find shutter button in UI dump")
+    return w // 2, int(h * 0.855), "hardcoded fallback center-bottom"
 
 def main():
     parser = argparse.ArgumentParser()

@@ -52,8 +52,9 @@ $adb = "$env:LOCALAPPDATA\Android\Sdk\platform-tools\adb.exe"
 | Issue | Status |
 |-------|--------|
 | Double countdown (watch + phone both waited N seconds) | **Fixed** — phone clicks immediately on `/shutter` |
+| Photo not sent to watch after capture | **Fixed** — restore `READ_MEDIA_IMAGES`, query via content URI, send on `/photo` path |
 | Duplicate `ScreenCaptureService` in manifest | **Fixed** |
-| Preview lag over Bluetooth | Mitigated via 200×200 / 15% JPEG / 4 FPS |
+| Preview lag over Bluetooth | Mitigated via 200×200 / 15% JPEG / 4 FPS (live stream uses `/preview`; captured still uses `/photo`) |
 
 ## 7. Autonomous Agent Testing Protocol (DO NOT ask user to tap)
 

@@ -1,0 +1,214 @@
+﻿--------- beginning of main
+05-21 00:54:54.938   609  2992 D InputDispatcher: Inject motion (2376/2000): action=0x0, time=77847171000000, f=0x0, d=0 dsdx=1.000000 dtdx=0.000000
+05-21 00:54:54.939   609   860 I InputDispatcher: Delivering touch to (1468): action: 0x0, f=0x0, d=0, 'cf1e49 ', t=1 
+--------- beginning of system
+05-21 00:54:54.939   609   860 D PowerManagerService: [api] userActivityFromNative : touch displayId=0 eventTime=77847171
+05-21 00:54:54.939  1468  1468 I VRI[MainActivity]@9699ecc: ViewPostIme pointer 0
+05-21 00:54:54.940   609   860 D PowerManagerService: UserActivityStateListenerState: 1
+05-21 00:54:54.941  3076  3076 D SYSTEM_UI: QuickpanelInputMonitor$4.onInputEvent(47): touch down position Y: 229.0
+05-21 00:54:54.942   609  2992 D InputDispatcher: Inject motion (2376/2000): action=0x1, time=77847171000000, f=0x0, d=0 dsdx=1.000000 dtdx=0.000000
+05-21 00:54:54.943   609   860 I InputDispatcher: Delivering touch to (1468): action: 0x1, f=0x0, d=0, 'cf1e49 ', t=1 
+05-21 00:54:54.943  1468  1468 I VRI[MainActivity]@9699ecc: ViewPostIme pointer 1
+05-21 00:54:54.944  3076  3076 W UserActivityTracker: Trying to record user activity with timestamp 77847171 that is not later than last timestamp 77847171
+05-21 00:54:55.040   609   849 I SSRM:Temperature: SIOP:: AP : 321 CP : 328 BLK : 313 BAT : 317
+05-21 00:54:55.596   609  1567 D MARsmini_FreecessController$LcdOnFreecessStateMachine: FHandler process FreezeableState important:true uid:10177
+05-21 00:54:56.168   327   327 D io_stats: !@ Read_top(KB): system_server(609) 8
+05-21 00:54:57.159   609  2992 D InputDispatcher: Inject motion (2381/2000): action=0x0, time=77849393000000, f=0x0, d=0 dsdx=1.000000 dtdx=0.000000
+05-21 00:54:57.160  1468  1468 I VRI[MainActivity]@9699ecc: ViewPostIme pointer 0
+05-21 00:54:57.161   609   860 I InputDispatcher: Delivering touch to (1468): action: 0x0, f=0x0, d=0, 'cf1e49 ', t=1 
+05-21 00:54:57.163   609   860 D PowerManagerService: [api] userActivityFromNative : touch displayId=0 eventTime=77849393
+05-21 00:54:57.165   609  2992 D InputDispatcher: Inject motion (2381/2000): action=0x1, time=77849393000000, f=0x0, d=0 dsdx=1.000000 dtdx=0.000000
+05-21 00:54:57.165  3076  3076 D SYSTEM_UI: QuickpanelInputMonitor$4.onInputEvent(47): touch down position Y: 390.0
+05-21 00:54:57.166  1468  1468 I VRI[MainActivity]@9699ecc: ViewPostIme pointer 1
+05-21 00:54:57.168   609   860 I InputDispatcher: Delivering touch to (1468): action: 0x1, f=0x0, d=0, 'cf1e49 ', t=1 
+05-21 00:54:57.176  3076  3076 W UserActivityTracker: Trying to record user activity with timestamp 77849393 that is not later than last timestamp 77849393
+05-21 00:54:57.217 19616 19679 D CloudNode: Entering the handler: 1 pending rpcs in queue.
+05-21 00:54:57.273   609   983 D NetdEventListenerService: DNS Requested by 175, 10134(com.google.android.gms,...), SUCCESS, 33ms
+05-21 00:54:57.344   609   679 E BLASTSyncEngine: WM sent Transaction (#796, Transition-OPEN, tx=2615635168545) to organizer, but never received commit callback. Application ANR likely to follow.
+05-21 00:54:57.780 19616 19758 I cn_CronetUrlRequestContext: destroyNativeStreamLocked org.chromium.net.impl.CronetBidirectionalStream@6ae025e
+05-21 00:54:57.995   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:54:58.001   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:54:58.001  2386  2386 E HidlServiceManagement: Service android.hardware.memtrack@1.0::IMemtrack/default must be in VINTF manifest in order to register/get.
+05-21 00:54:58.002  2386  2386 E LegacySupport: Could not register service android.hardware.memtrack@1.0::IMemtrack/default (-2147483648).
+05-21 00:54:58.154  1114  1420 I BluetoothHciVendorSpecificJni: android/app/jni/com_android_bluetooth_BluetoothHciVendorSpecific.cpp:84 onEvent: 
+05-21 00:54:58.155  1114  1420 I BluetoothHciVendorSpecificJni: android/app/jni/com_android_bluetooth_BluetoothHciVendorSpecific.cpp:84 onEvent: 
+05-21 00:54:58.173   327   327 D io_stats: !@ 179,0 r 4211308 56302738 w 1496314 10371108 d 22062 1603344 f 134419 173501 iot 7053384 0 th 0 0 0 pt 0 inp 0 0 77850.407
+05-21 00:54:58.441 19616  2357 D ConnectivityManager: StackLog: [android.net.ConnectivityManager.reportNetworkConnectivity(ConnectivityManager.java:3685)] [aztl.a(:com.google.android.gms@261833081@26.18.33 (240300-913931251):15)] [azvr.n(:com.google.android.gms@261833081@26.18.33 (240300-913931251):6)] [azvf.run(:com.google.android.gms@261833081@26.18.33 (240300-913931251):501)] [azwc.run(:com.google.android.gms@261833081@26.18.33 (240300-913931251):5)] [dqnr.run(:com.google.android.gms@261833081@26.18.33 (240300-913931251):23)] [angi.c(:com.google.android.gms@261833081@26.18.33 (240300-913931251):50)] [angi.run(:com.google.android.gms@261833081@26.18.33 (240300-913931251):66)] [java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1156)] [java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:651)] [anlr.run(:com.google.android.gms@261833081@26.18.33 (240300-913931251):8)] [java.lang.Thread.run(Thread.java:1119)]
+05-21 00:54:58.447 19616  2357 I AlarmManager: setExactAndAllowWhileIdle [name: GCM_HB_ALARM type: 2 triggerAtMillis: 367950761]
+05-21 00:54:58.492 19616  2358 W ChimeraUtils: Module com.google.android.gms.gcm missing resource null(0)
+05-21 00:54:58.544   609  1069 W ActivityManager: pid 19616 com.google.android.gms.persistent sent binder code 18 with flags 2 to frozen apps and got error -74
+05-21 00:54:58.553  1468  1468 D WearShutter: ?嗅?摰??嚗銵?????
+05-21 00:54:58.555   609  1143 D VibratorManagerService: vibrate - uid: 10156, opPkg: com.ckzhang.remotecap, effect: Mono{mEffect=Composed{segments=[Step{amplitude=0.0, frequencyHz=0.0, duration=0}, Step{amplitude=-1.0, frequencyHz=0.0, duration=100}, Step{amplitude=0.0, frequencyHz=0.0, duration=50}, Step{amplitude=-1.0, frequencyHz=0.0, duration=100}], repeat=-1, mMagnitudeType=TYPE_EXTRA}}, attrs: VibrationAttributes{mUsage=UNKNOWN, mAudioUsage= USAGE_UNKNOWN, mFlags=0, tags=}, reason: null, token: android.os.BinderProxy@a5ca86c
+05-21 00:54:58.555   609  1143 D VibratorManagerService: Starting vibrate for vibration 547
+05-21 00:54:58.555   609  1143 D VibratorManagerService: Check AppOp mode VIBRATE for uid 10156 and package com.ckzhang.remotecap returned audio=allow, op=allow
+05-21 00:54:58.555   609  1143 D VibratorManagerService: Starting vibration 547 on thread
+05-21 00:54:58.555   609  1143 D VibratorManagerService: Start AppOp mode VIBRATE for uid 10156 and package com.ckzhang.remotecap returned allow
+05-21 00:54:58.557   609   844 D VibrationThread: Playing vibration id 547 StartSequentialEffectStep
+05-21 00:54:58.557   609   844 D VibrationThread: StartSequentialEffectStep for effect #0
+05-21 00:54:58.557   609   844 E VibratorController: vibratorSetIntensity setAmplitude successfully
+05-21 00:54:58.559   509   509 E SecVibrator-HAL-AIDL-EXT: V_5_0: setAmplitude 10000
+05-21 00:54:58.559   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: >> writeNode node:/timed_output/vibrator/intensity val:10000
+05-21 00:54:58.560   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: << writeNode node OK : 6
+05-21 00:54:58.560   609   844 D VibrationThread: Running amplitude step with 0ms latency.
+05-21 00:54:58.562   609   844 D VibrationThread: Playing vibration id 547 on vibrator 0 SetAmplitudeVibratorStep
+05-21 00:54:58.562   609   844 D VibrationThread: Running amplitude step with 2ms latency.
+05-21 00:54:58.563   609   844 D VibrationThread: Turning on vibrator 0 for 100ms
+05-21 00:54:58.563   609   844 D VibrationThread: Turning on vibrator 0 for 100ms
+05-21 00:54:58.564   509   509 E SecVibrator-HAL-AIDL-CORE: V_2_0: Vibrator on for timeoutMs: 100
+05-21 00:54:58.564   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: do_on for timeoutMs: 100
+05-21 00:54:58.564   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: >> writeNode node:/timed_output/vibrator/enable val:100
+05-21 00:54:58.567 19616  2388 I GCM     : Message from 745476177629
+05-21 00:54:58.567 19616  2388 E GCM     : Dropping message to GMS from 745476177629 as no component is set
+05-21 00:54:58.568   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: << writeNode node OK : 4
+05-21 00:54:58.569   609   844 D VibrationThread: Turned on vibrator 0, result = 100
+05-21 00:54:58.570   471   535 W Sensors : handleDataMessageFromSemsensorService: fd open failed(-1)
+05-21 00:54:58.660   609   844 D VibrationThread: Playing vibration id 547 on vibrator 0 SetAmplitudeVibratorStep
+05-21 00:54:58.661   609   844 D VibrationThread: Running amplitude step with 1ms latency.
+05-21 00:54:58.661   609   844 D VibrationThread: Turning off vibrator 0
+05-21 00:54:58.662   509   509 E SecVibrator-HAL-AIDL-CORE: V_2_0: Vibrator off
+05-21 00:54:58.663   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: do_off
+05-21 00:54:58.663   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: >> writeNode node:/timed_output/vibrator/enable val:0
+05-21 00:54:58.667   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: << writeNode node OK : 2
+05-21 00:54:58.712   609   844 D VibrationThread: Playing vibration id 547 on vibrator 0 SetAmplitudeVibratorStep
+05-21 00:54:58.712   609   844 D VibrationThread: Running amplitude step with 2ms latency.
+05-21 00:54:58.713   609   844 D VibrationThread: Turning on vibrator 0 for 100ms
+05-21 00:54:58.713   609   844 D VibrationThread: Turning on vibrator 0 for 100ms
+05-21 00:54:58.716   509   509 E SecVibrator-HAL-AIDL-CORE: V_2_0: Vibrator on for timeoutMs: 100
+05-21 00:54:58.717   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: do_on for timeoutMs: 100
+05-21 00:54:58.718   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: >> writeNode node:/timed_output/vibrator/enable val:100
+05-21 00:54:58.725   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: << writeNode node OK : 4
+05-21 00:54:58.727   609   844 D VibrationThread: Turned on vibrator 0, result = 100
+05-21 00:54:58.812   609   844 D VibrationThread: Playing vibration id 547 on vibrator 0 CompleteEffectVibratorStep
+05-21 00:54:58.813   609   844 D VibrationThread: Running complete vibration step on vibrator 0
+05-21 00:54:58.827   609  2044 D VibratorManagerService: Vibration 547 step 0 on vibrator 0 complete, notifying thread
+05-21 00:54:58.828   609  2044 D VibrationThread: Vibration complete reported by vibrator 0
+05-21 00:54:58.829   609   844 D VibrationThread: Received completion callback from 0, accepted = true
+05-21 00:54:58.829   609   844 D VibrationThread: Playing vibration id 547 on vibrator 0 TurnOffVibratorStep
+05-21 00:54:58.830   609   844 D VibrationThread: Turning off vibrator 0
+05-21 00:54:58.832   509   509 E SecVibrator-HAL-AIDL-CORE: V_2_0: Vibrator off
+05-21 00:54:58.833   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: do_off
+05-21 00:54:58.833   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: >> writeNode node:/timed_output/vibrator/enable val:0
+05-21 00:54:58.840   509   509 E SecVibrator-HAL-AIDL-CORE: HW_API: << writeNode node OK : 2
+05-21 00:54:58.843   609   844 D VibrationThread: Vibration 547 finished with EndInfo{status=FINISHED, endedBy=null}
+05-21 00:54:58.844   609   844 D VibrationThread: Playing vibration id 547 FinishSequentialEffectStep (cleanup)
+05-21 00:54:58.844   609   844 D VibrationThread: FinishSequentialEffectStep for effect #0
+05-21 00:54:58.850   609   844 D VibratorManagerService: VibrationThread released vibration 547
+05-21 00:54:58.851   609   844 D VibratorManagerService: Finish AppOp mode VIBRATE for uid 10156 and package com.ckzhang.remotecap
+05-21 00:54:58.852   609   844 D VibratorManagerService: Vibration for uid=10156 and with attrs=VibrationAttributes{mUsage=UNKNOWN, mAudioUsage= USAGE_UNKNOWN, mFlags=0, tags=} ended with status FINISHED
+05-21 00:54:59.603   471   535 W Sensors : handleDataMessageFromSemsensorService: fd open failed(-1)
+05-21 00:54:59.987 19616 19645 E AuthPII : [RequestTokenManager] getToken() -> BAD_AUTHENTICATION. App: com.google.android.wearable.assistant, Service: oauth2:https://www.googleapis.com/auth/assistant-sdk-prototype https://www.googleapis.com/auth/assistant
+05-21 00:54:59.987 19616 19645 E AuthPII : amac: Long live credential not available.
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at xmu.a(:com.google.android.gms@261833081@26.18.33 (240300-913931251):1439)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at xnb.b(:com.google.android.gms@261833081@26.18.33 (240300-913931251):26)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at xmz.a(:com.google.android.gms@261833081@26.18.33 (240300-913931251):757)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at xmy.b(:com.google.android.gms@261833081@26.18.33 (240300-913931251):151)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at uqp.d(:com.google.android.gms@261833081@26.18.33 (240300-913931251):800)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at uqp.eM(:com.google.android.gms@261833081@26.18.33 (240300-913931251):153)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at txi.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):88)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at bfxp.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):12)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at azkb.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):169)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at android.os.Binder.execTransactInternal(Binder.java:1426)
+05-21 00:54:59.987 19616 19645 E AuthPII : 	at android.os.Binder.execTransact(Binder.java:1365)
+05-21 00:54:59.988 19616 19645 E AuthPII : Message is Long live credential not available.
+05-21 00:54:59.988 19616 19645 E AuthPII : amac: Long live credential not available.
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at xmu.a(:com.google.android.gms@261833081@26.18.33 (240300-913931251):1439)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at xnb.b(:com.google.android.gms@261833081@26.18.33 (240300-913931251):26)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at xmz.a(:com.google.android.gms@261833081@26.18.33 (240300-913931251):757)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at xmy.b(:com.google.android.gms@261833081@26.18.33 (240300-913931251):151)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at uqp.d(:com.google.android.gms@261833081@26.18.33 (240300-913931251):800)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at uqp.eM(:com.google.android.gms@261833081@26.18.33 (240300-913931251):153)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at txi.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):88)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at bfxp.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):12)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at azkb.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):169)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at android.os.Binder.execTransactInternal(Binder.java:1426)
+05-21 00:54:59.988 19616 19645 E AuthPII : 	at android.os.Binder.execTransact(Binder.java:1365)
+05-21 00:55:00.028 19616 19645 I Auth    : [WearableAuthDelegateChimeraService] WearableAuthDelegate getTokenRetrievalWorkflowIntent is invoked [CONTEXT service_id=153 ]
+05-21 00:55:00.040 19616 19645 I Auth    : (REDACTED) [GetToken] GetToken failed for app=%s with userRecoverable status: %s 
+05-21 00:55:00.042 19616 19645 W Auth    : [ChimeraGetToken] exception while trying to fetch auth tokens for app=com.google.android.wearable.assistant, scope=oauth2:https://www.googleapis.com/auth/assistant-sdk-prototype https://www.googleapis.com/auth/assistant [CONTEXT service_id=153 ]
+05-21 00:55:00.042 19616 19645 W Auth    : xmt: GetToken failed with status code and recovery intent: BadAuthentication
+05-21 00:55:00.042 19616 19645 W Auth    : 	at xmy.b(:com.google.android.gms@261833081@26.18.33 (240300-913931251):352)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at uqp.d(:com.google.android.gms@261833081@26.18.33 (240300-913931251):800)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at uqp.eM(:com.google.android.gms@261833081@26.18.33 (240300-913931251):153)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at txi.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):88)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at bfxp.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):12)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at android.os.Binder.transact(Binder.java:1273)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at azkb.onTransact(:com.google.android.gms@261833081@26.18.33 (240300-913931251):169)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at android.os.Binder.execTransactInternal(Binder.java:1426)
+05-21 00:55:00.042 19616 19645 W Auth    : 	at android.os.Binder.execTransact(Binder.java:1365)
+05-21 00:55:00.066 22411 22449 W Auth    : [GoogleAuthUtil] [GoogleAuthUtil] error status:BAD_AUTHENTICATION with method:getTokenWithDetails
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: Failed to force refresh auth token
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: wyo: com.google.android.gms.auth.UserRecoverableAuthException: BadAuthentication
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wyw.e(PG:130)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wyw.d(PG:97)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at hod.call(PG:1479)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wyw.b(PG:69)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wyw.a(PG:2)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at sbf.b(PG:30)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at rqa.run(PG:60)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at vfi.run(PG:12)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:524)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at java.util.concurrent.FutureTask.run(FutureTask.java:317)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wba.run(PG:44)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at hhr.run(PG:1351)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at java.lang.Thread.run(Thread.java:1119)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at lgl.run(PG:62)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: Caused by: com.google.android.gms.auth.UserRecoverableAuthException: BadAuthentication
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at izh.i(PG:204)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at izd.a(PG:315)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at izh.j(PG:48)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at izh.d(PG:67)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	at wyw.e(PG:33)
+05-21 00:55:00.102 22411 22449 E S3AuthContextManager: 	... 14 more
+05-21 00:55:00.165   609   719 D PowerManagerService: UserActivityStateListenerState: 0
+05-21 00:55:00.176   327   327 D io_stats: !@ 179,0 r 4211495 56304190 w 1496324 10371140 d 22062 1603344 f 134420 173503 iot 7053528 0 th 0 0 0 pt 0 inp 0 0 77852.410
+05-21 00:55:00.177   327   327 D io_stats: !@ Read_top(KB): rable.assistant(22411) 1452
+05-21 00:55:00.179   327   327 D io_stats: !@ Write_top(KB): .gms.persistent(19616) 40
+05-21 00:55:03.006   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:55:03.012   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:55:03.012  2390  2390 E HidlServiceManagement: Service android.hardware.memtrack@1.0::IMemtrack/default must be in VINTF manifest in order to register/get.
+05-21 00:55:03.012  2390  2390 E LegacySupport: Could not register service android.hardware.memtrack@1.0::IMemtrack/default (-2147483648).
+05-21 00:55:04.065 22089 22089 I wpa_supplicant: Heartbeat 7267
+05-21 00:55:04.185   327   327 D io_stats: !@ 179,0 r 4211495 56304190 w 1496327 10371152 d 22062 1603344 f 134420 173503 iot 7053536 0 th 0 0 0 pt 0 inp 0 0 77856.418
+05-21 00:55:04.187   327   327 D io_stats: !@ Write_top(KB): kworker/u4:2(581) 12
+05-21 00:55:04.241   505   520 E BatteryDump: !@new_battery_dump : 4256,-24,2000,200,89,318,313,DisChg,None,Good,NONE,0,Normal,0,0,9300,174,0,0x33,0x88,0x5a,0xa5,0x01,0x80,0x35,0x00,0,0,8820,4278,0,0
+05-21 00:55:04.250   609   654 D BatteryService: Sending ACTION_BATTERY_CHANGED: level:89, status:3, health:2, ac:false, usb:false, wireless:false, misc:0x0, charge_type:0, charger_type:0, voltage:4256, temperature:318, online:1, current_avg:-22, hvc:false, capacity:280000, current_event:0x0, current_now:-24, mcc:0, mcv:0, cc:378250, present:true, scale:100, technology:Li-ion
+05-21 00:55:04.271  3076  3076 D PowerUI : onReceive() Received Action =  android.intent.action.BATTERY_CHANGED
+05-21 00:55:04.271  3076  3076 D PowerUI : plugged=false
+05-21 00:55:04.272  3076  3076 I PowerUI : ACTION_BATTERY_CHANGED : mPlugType=0 mBatteryStatus=3
+05-21 00:55:04.272  3076  3076 I PowerUI : oldMisalign : false, curMisalign : false
+05-21 00:55:04.276  3076  3910 I PowerUI : maybeShowBatteryWarningV2 plugged=false bucket=1
+05-21 00:55:04.277  3076  3796 D SYSTEM_UI: BatteryIndicatorPresenter$3.onReceive(19): onReceive() Received Action =  android.intent.action.BATTERY_CHANGED
+05-21 00:55:04.278  3076  3796 D SYSTEM_UI: BatteryIndicatorPresenter$3.onReceive(103): level          89 --> 89
+05-21 00:55:04.279  3076  3796 D SYSTEM_UI: BatteryIndicatorPresenter$3.onReceive(130): status         3 --> 3
+05-21 00:55:04.281   609   609 D AdaptiveBrightnessLongtermModelBuilder: Received android.intent.action.BATTERY_CHANGED
+05-21 00:55:04.300  1161  1161 D SemBigDataInfoController: Intent: android.intent.action.BATTERY_CHANGED
+05-21 00:55:04.304  1128  1128 I NfcWirelessCharge: chargeMode: 0, isWirelessCharging: false
+05-21 00:55:04.764  1068  1068 I Watchface: [ModelBattery] action:android.intent.action.BATTERY_CHANGED
+05-21 00:55:04.764  1068  1068 I Watchface: [ModelBattery] scale[100] level[89] status[3] isCharging[false] batteryLow[false]
+05-21 00:55:04.764  1068  1068 I Watchface: [ModelBattery] putAll to pendingUpdatedValues!! size:2
+05-21 00:55:04.780 21722 21722 I BATTERY_TILE_WatchDataLayerManager: onReceive(491): onReceive : update watch view 
+05-21 00:55:04.788 21722 21722 I BATTERY_TILE_WatchDataLayerManager: onReceive(532): Watch battery level : 89
+05-21 00:55:04.789 21722 21722 I BATTERY_TILE_WatchDataLayerManager: onReceive(549): Watch charging state : 0
+05-21 00:55:04.976 30722 30752 I Finsky  : [35] Stats for Executor: GrpcBackgroundExecutor lvu@d7e4747[Running, pool size = 2, active threads = 0, queued tasks = 0, completed tasks = 2]
+05-21 00:55:05.096   609   849 I SSRM:Temperature: SIOP:: AP : 321 CP : 329 BLK : 313 BAT : 318
+05-21 00:55:05.467   609   902 D ConnectivityService: notifyType CALLBACK_CAP_CHANGED for [175 WIFI]
+05-21 00:55:05.471  3076  3796 D SYSTEM_UI: QuickpanelView$$ExternalSyntheticOutline0.m(13): wifi rssi : -64
+05-21 00:55:05.475  3076  3796 D SYSTEM_UI: WifiConnection$2.onReceive(42): wifi rssi level : 3
+05-21 00:55:05.481  3076  3076 D SYSTEM_UI: QuickpanelView$$ExternalSyntheticOutline0.m(13): updateMainIcon mMainIconResId= 2131233882
+05-21 00:55:05.599   609  1567 D MARsmini_FreecessController$LcdOnFreecessStateMachine: FHandler process FreezeableState important:true uid:10177
+05-21 00:55:06.191   327   327 D io_stats: !@ 179,0 r 4211495 56304190 w 1496329 10371160 d 22062 1603344 f 134420 173503 iot 7053552 0 th 0 0 0 pt 0 inp 0 0 77858.424
+05-21 00:55:08.039   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:55:08.045   295   295 I hwservicemanager: getTransport: Cannot find entry android.hardware.memtrack@1.0::IMemtrack/default in either framework or device VINTF manifest.
+05-21 00:55:08.045  2391  2391 E HidlServiceManagement: Service android.hardware.memtrack@1.0::IMemtrack/default must be in VINTF manifest in order to register/get.
+05-21 00:55:08.046  2391  2391 E LegacySupport: Could not register service android.hardware.memtrack@1.0::IMemtrack/default (-2147483648).
+05-21 00:55:08.196   327   327 D io_stats: !@ Write_top(KB): vendor.samsung.(505) 8
+05-21 00:55:08.532   609   902 D ConnectivityService: notifyType CALLBACK_CAP_CHANGED for [175 WIFI]
+05-21 00:55:08.543  3076  3796 D SYSTEM_UI: QuickpanelView$$ExternalSyntheticOutline0.m(13): wifi rssi : -62
+05-21 00:55:08.546  3076  3796 D SYSTEM_UI: WifiConnection$2.onReceive(42): wifi rssi level : 4
+05-21 00:55:08.548  3076  3076 D SYSTEM_UI: QuickpanelView$$ExternalSyntheticOutline0.m(13): updateMainIcon mMainIconResId= 2131233883

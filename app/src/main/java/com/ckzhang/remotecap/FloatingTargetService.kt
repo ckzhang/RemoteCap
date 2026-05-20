@@ -23,6 +23,23 @@ class FloatingTargetService : Service() {
     private lateinit var floatingView: TextView
     private lateinit var params: WindowManager.LayoutParams
 
+    private val fadeHandler = Handler(Looper.getMainLooper())
+    private val fadeRunnable = Runnable {
+        if (::floatingView.isInitialized) {
+            floatingView.alpha = 0.2f
+            floatingView.animate().scaleX(0.7f).scaleY(0.7f).setDuration(200).start()
+        }
+    }
+
+    private fun resetFadeTimer() {
+        if (::floatingView.isInitialized) {
+            floatingView.alpha = 1.0f
+            floatingView.animate().scaleX(1.0f).scaleY(1.0f).setDuration(100).start()
+        }
+        fadeHandler.removeCallbacks(fadeRunnable)
+        fadeHandler.postDelayed(fadeRunnable, 3000)
+    }
+
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -83,6 +100,7 @@ class FloatingTargetService : Service() {
             override fun onTouch(v: View, event: MotionEvent): Boolean {
                 when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
+                        resetFadeTimer()
                         initialX = params.x
                         initialY = params.y
                         initialTouchX = event.rawX
@@ -90,12 +108,14 @@ class FloatingTargetService : Service() {
                         return true
                     }
                     MotionEvent.ACTION_MOVE -> {
+                        resetFadeTimer()
                         params.x = initialX + (event.rawX - initialTouchX).toInt()
                         params.y = initialY + (event.rawY - initialTouchY).toInt()
                         windowManager.updateViewLayout(floatingView, params)
                         return true
                     }
                     MotionEvent.ACTION_UP -> {
+                        resetFadeTimer()
                         val loc = IntArray(2)
                         floatingView.getLocationOnScreen(loc)
                         TargetManager.targetX = loc[0].toFloat() + (floatingView.width / 2f)
@@ -114,6 +134,7 @@ class FloatingTargetService : Service() {
             floatingView.getLocationOnScreen(loc)
             TargetManager.targetX = loc[0].toFloat() + (floatingView.width / 2f)
             TargetManager.targetY = loc[1].toFloat() + (floatingView.height / 2f)
+            resetFadeTimer()
         }
     }
 
@@ -151,6 +172,7 @@ class FloatingTargetService : Service() {
     override fun onDestroy() {
         super.onDestroy()
         instance = null
+        fadeHandler.removeCallbacks(fadeRunnable)
         if (::floatingView.isInitialized) {
             windowManager.removeView(floatingView)
         }
