@@ -11,9 +11,9 @@
 - [x] **Auto-Fade Floating Target**: The 🎯 target should turn 20% transparent and shrink slightly after 3 seconds of being idle to avoid blocking the camera viewfinder. Tap to wake/unlock.
 
 ## Phase 7: Watch App Settings & Autonomy (New Feature)
-- [ ] **Wear OS Settings Screen**: Build a dedicated settings UI on the Watch app (accessible via swipe or a gear icon).
-- [ ] **Watch-side Countdown Control**: Allow the user to configure the countdown timer (0s, 3s, 5s, 10s) directly from the watch, rather than relying solely on the phone UI.
-- [ ] **Haptic Feedback Toggle**: Option on the watch to enable/disable vibration feedback during the countdown.
+- [x] **Wear OS Settings Screen**: Build a dedicated settings UI on the Watch app (accessible via swipe or a gear icon).
+- [x] **Watch-side Countdown Control**: Allow the user to configure the countdown timer (0s, 3s, 5s, 10s) directly from the watch, rather than relying solely on the phone UI.
+- [x] **Haptic Feedback Toggle**: Option on the watch to enable/disable vibration feedback during the countdown.
 
 ## Phase 8: Adaptive Streaming & Performance
 - [ ] **Smart FPS (Battery Saver)**: Stop the `ScreenCaptureService` transmission (0 FPS) immediately when the Watch enters Ambient Mode (screen off/dimmed). Resume when active.

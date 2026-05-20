@@ -35,9 +35,11 @@ class MainActivity : ComponentActivity() {
     private lateinit var tvCountdown: TextView
     private lateinit var btnShutter: Button
     private lateinit var btnCycleCountdown: Button
+    private lateinit var btnToggleHaptic: Button
     
     // Default countdown value until we fetch it from phone
     private var configuredCountdownSec = 3
+    private var isHapticEnabled = true
 
     private val previewReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -168,6 +170,12 @@ class MainActivity : ComponentActivity() {
             setOnClickListener { cycleCountdown() }
         }
         
+        btnToggleHaptic = Button(this).apply {
+            text = "Haptic: ON"
+            textSize = 14f
+            setOnClickListener { toggleHaptic() }
+        }
+        
         val btnBackSettings = Button(this).apply {
             text = "◀ Back"
             textSize = 14f
@@ -176,6 +184,7 @@ class MainActivity : ComponentActivity() {
         
         settingsLayout.addView(tvSettingsTitle)
         settingsLayout.addView(btnCycleCountdown)
+        settingsLayout.addView(btnToggleHaptic)
         settingsLayout.addView(btnBackSettings)
         
         // Add to main layout
@@ -300,6 +309,11 @@ class MainActivity : ComponentActivity() {
         tvStatus.text = "$connectionPart\n$modeText"
     }
 
+    private fun toggleHaptic() {
+        isHapticEnabled = !isHapticEnabled
+        btnToggleHaptic.text = if (isHapticEnabled) "Haptic: ON" else "Haptic: OFF"
+    }
+
     private fun startCountdown(seconds: Int) {
         tvCountdown.visibility = View.VISIBLE
         
@@ -336,6 +350,7 @@ class MainActivity : ComponentActivity() {
     }
     
     private fun vibrateTrigger() {
+        if (!isHapticEnabled) return
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
@@ -345,6 +360,7 @@ class MainActivity : ComponentActivity() {
     }
     
     private fun vibrateSuccess() {
+        if (!isHapticEnabled) return
         val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             val timings = longArrayOf(0, 100, 50, 100)
