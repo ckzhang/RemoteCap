@@ -40,6 +40,7 @@ class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvi
     private lateinit var btnShutter: Button
     private lateinit var btnCycleCountdown: Button
     private lateinit var btnToggleHaptic: Button
+    private lateinit var btnCameraBack: Button
     
     // Default countdown value until we fetch it from phone
     private var configuredCountdownSec = 3
@@ -151,6 +152,22 @@ class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvi
         cameraLayout.addView(ivPreview)
         cameraLayout.addView(tvCountdown)
         cameraLayout.addView(btnShutter)
+
+        btnCameraBack = Button(this).apply {
+            text = "X"
+            textSize = 14f
+            layoutParams = FrameLayout.LayoutParams(
+                70, 70, Gravity.TOP or Gravity.CENTER_HORIZONTAL
+            ).apply {
+                topMargin = 40
+            }
+            setBackgroundTintList(android.content.res.ColorStateList.valueOf(android.graphics.Color.DKGRAY))
+            setTextColor(android.graphics.Color.WHITE)
+            setOnClickListener {
+                showPromptModeFromCamera()
+            }
+        }
+        cameraLayout.addView(btnCameraBack)
         
         // --- 3. Settings Layout (Watch Settings) ---
         settingsLayout = LinearLayout(this).apply {
@@ -277,6 +294,14 @@ class MainActivity : FragmentActivity(), AmbientModeSupport.AmbientCallbackProvi
         
         val path = if (withPreview) "/wake_preview" else "/wake_shutter_only"
         sendSignalToPhone(path)
+    }
+
+    private fun showPromptModeFromCamera() {
+        cameraLayout.visibility = View.GONE
+        settingsLayout.visibility = View.GONE
+        promptLayout.visibility = View.VISIBLE
+        // Notify phone to stop preview if needed
+        sendSignalToPhone("/stop_preview")
     }
     
     private fun showSettingsMode(show: Boolean) {
