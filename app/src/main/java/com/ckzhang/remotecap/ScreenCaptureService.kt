@@ -32,6 +32,8 @@ class ScreenCaptureService : Service() {
     private var transmissionIntervalMs = 250L // Default: 4 FPS
     private var lastSendTime = 0L
     private var handlerThread: HandlerThread? = null
+    private var currentQuality = 15
+    private var currentScale = 200
 
     companion object {
         var instance: ScreenCaptureService? = null
@@ -123,7 +125,7 @@ class ScreenCaptureService : Service() {
                     bitmap.copyPixelsFromBuffer(buffer)
                     
                     val croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
-                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, 200, 200, true)
+                    val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, currentScale, currentScale, true)
                     sendBitmapToWatch(scaledBitmap)
                     
                     scaledBitmap.recycle()
@@ -148,7 +150,7 @@ class ScreenCaptureService : Service() {
 
     private fun sendBitmapToWatch(bitmap: Bitmap) {
         val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 20, stream)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, currentQuality, stream)
         val bytes = stream.toByteArray()
 
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
@@ -168,6 +170,20 @@ class ScreenCaptureService : Service() {
         } else {
             transmissionIntervalMs = 250L // 4 FPS normal
             Log.d(TAG, "Watch is active. Restored stream to 4 FPS.")
+        }
+    }
+
+    fun setDynamicQuality(isHighBandwidth: Boolean) {
+        if (isHighBandwidth) {
+            transmissionIntervalMs = 66L // ~15 FPS
+            currentScale = 400
+            currentQuality = 30
+            Log.d(TAG, "Network quality: HIGH. Streaming at 15 FPS, 400x400.")
+        } else {
+            transmissionIntervalMs = 250L // 4 FPS
+            currentScale = 200
+            currentQuality = 15
+            Log.d(TAG, "Network quality: LOW (Bluetooth). Streaming at 4 FPS, 200x200.")
         }
     }
 

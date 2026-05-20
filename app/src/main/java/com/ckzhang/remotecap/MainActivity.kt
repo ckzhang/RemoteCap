@@ -232,12 +232,16 @@ class MainActivity : ComponentActivity() {
     private fun checkConnectionStatus() {
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
             val hasNode = nodes.isNotEmpty()
+            val isWifiDirect = nodes.any { it.isNearby } // Simplified check for nearby/high-bandwidth
+            
+            ScreenCaptureService.instance?.setDynamicQuality(isWifiDirect)
+
             Wearable.getCapabilityClient(this)
                 .getCapability("remote_cap_watch_app", com.google.android.gms.wearable.CapabilityClient.FILTER_REACHABLE)
                 .addOnSuccessListener { capabilityInfo ->
                     val hasApp = capabilityInfo.nodes.isNotEmpty()
 
-                    val nodeStatus = if (hasNode) "✅ 已連線" else "❌ 未連線"
+                    val nodeStatus = if (hasNode) "✅ 已連線 (${if (isWifiDirect) "高速" else "藍牙"})" else "❌ 未連線"
                     val appStatus = if (hasApp) "✅ 已安裝" else "❌ 未安裝或未開啟"
 
                     runOnUiThread {
