@@ -32,6 +32,10 @@ class MainActivity : ComponentActivity() {
     private lateinit var ivPreview: ImageView
     private lateinit var tvStatus: TextView
     private lateinit var tvCountdown: TextView
+    private lateinit var btnShutter: Button
+    
+    // Default countdown value until we fetch it from phone
+    private var configuredCountdownSec = 3
 
     private val previewReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -65,7 +69,7 @@ class MainActivity : ComponentActivity() {
         }
         
         tvStatus = TextView(this).apply {
-            text = "連線中..."
+            text = "連線中...\n"
             textSize = 12f
             setTextColor(android.graphics.Color.LTGRAY)
             gravity = Gravity.CENTER
@@ -114,13 +118,19 @@ class MainActivity : ComponentActivity() {
             visibility = View.GONE
         }
         
-        val btnShutter = Button(this).apply {
-            text = "📸"
-            textSize = 24f
+        btnShutter = Button(this).apply {
+            text = "📸 (${configuredCountdownSec}s)"
+            textSize = 20f
             layoutParams = FrameLayout.LayoutParams(
-                120, 120, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
+                140, 140, Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL
             ).apply { bottomMargin = 20 }
-            setOnClickListener { startCountdown(3) }
+            setOnClickListener { 
+                if (configuredCountdownSec > 0) {
+                    startCountdown(configuredCountdownSec) 
+                } else {
+                    sendShutterMessage()
+                }
+            }
         }
         
         cameraLayout.addView(ivPreview)
@@ -140,6 +150,7 @@ class MainActivity : ComponentActivity() {
         }
         
         checkConnectionStatus()
+        fetchCountdownFromPhone()
     }
     
     private fun checkConnectionStatus() {
@@ -154,10 +165,55 @@ class MainActivity : ComponentActivity() {
                     val appStatus = if (hasApp) "✅ App" else "❌ App"
                     
                     runOnUiThread {
-                        tvStatus.text = "Phone Connection:\n$nodeStatus | $appStatus"
+                        val currentText = tvStatus.text.toString()
+                        // Replace connection part but keep countdown part if it exists
+                        val parts = currentText.split("\n")
+                        val countdownPart = if (parts.size > 1) parts[1] else ""
+                        tvStatus.text = "Phone: $nodeStatus | $appStatus\n$countdownPart"
                     }
                 }
         }
+    }
+    
+    private fun fetchCountdownFromPhone() {
+        // Request the current countdown setting from the phone
+        sendSignalToPhone("/get_countdown")
+    }
+    
+    // Add MessageListener to receive countdown value from phone
+    private val messageClientListener = com.google.android.gms.wearable.MessageClient.OnMessageReceivedListener { messageEvent ->
+        if (messageEvent.path.startsWith("/set_countdown/")) {
+            val secStr = messageEvent.path.substringAfter("/set_countdown/")
+            try {
+                val sec = secStr.toInt()
+                runOnUiThread {
+                    configuredCountdownSec = sec
+                    val modeText = if (sec > 0) "Countdown: ${sec}s" else "No Countdown"
+                    
+                    // Update Status TV
+                    val currentText = tvStatus.text.toString()
+                    val parts = currentText.split("\n")
+                    val connectionPart = if (parts.isNotEmpty()) parts[0] else "Phone Connection:"
+                    tvStatus.text = "$connectionPart\n$modeText"
+                    
+                    // Update Shutter button
+                    btnShutter.text = if (sec > 0) "📸 (${sec}s)" else "📸"
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Error parsing countdown", e)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Wearable.getMessageClient(this).addListener(messageClientListener)
+        fetchCountdownFromPhone()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Wearable.getMessageClient(this).removeListener(messageClientListener)
     }
     
     private fun startCameraMode(withPreview: Boolean) {
@@ -166,13 +222,7 @@ class MainActivity : ComponentActivity() {
         
         // Send wake signal to phone
         val path = if (withPreview) "/wake_preview" else "/wake_shutter_only"
-        
-        Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
-            val messageClient = Wearable.getMessageClient(this)
-            for (node in nodes) {
-                messageClient.sendMessage(node.id, path, byteArrayOf())
-            }
-        }
+        sendSignalToPhone(path)
     }
 
     private fun startCountdown(seconds: Int) {

@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import com.google.android.gms.wearable.MessageEvent
+import com.google.android.gms.wearable.Wearable
 import com.google.android.gms.wearable.WearableListenerService
 
 class WatchMessageListenerService : WearableListenerService() {
@@ -14,6 +15,7 @@ class WatchMessageListenerService : WearableListenerService() {
 
     override fun onMessageReceived(messageEvent: MessageEvent) {
         val path = messageEvent.path
+        val sourceNodeId = messageEvent.sourceNodeId
         Log.d(TAG, "收到來自手錶的訊息: $path")
         
         TargetManager.init(applicationContext)
@@ -27,13 +29,11 @@ class WatchMessageListenerService : WearableListenerService() {
             }
             "/wake_shutter_only" -> {
                 Log.d(TAG, "Watch mode: Shutter Only. Waking up background services.")
-                // Start floating target service silently
                 val intent = Intent(this, FloatingTargetService::class.java)
                 startService(intent)
             }
             "/wake_preview" -> {
                 Log.d(TAG, "Watch mode: With Preview. Launching MainActivity to request MediaProjection.")
-                // Activity is required for MediaProjection prompt
                 val intent = Intent(this, MainActivity::class.java).apply {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 }
@@ -43,23 +43,42 @@ class WatchMessageListenerService : WearableListenerService() {
                 Log.d(TAG, "Watch countdown tick, flashing torch.")
                 flashTorch()
             }
+            "/get_countdown" -> {
+                Log.d(TAG, "Watch requested countdown config.")
+                val currentSec = TargetManager.countdownSec
+                Wearable.getMessageClient(this).sendMessage(sourceNodeId, "/set_countdown/$currentSec", byteArrayOf())
+            }
         }
     }
 
     private fun flashTorch() {
         try {
             val cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
-            val cameraId = cameraManager.cameraIdList[0] // Assume first camera has flash
-            cameraManager.setTorchMode(cameraId, true)
+            val cameraIdList = cameraManager.cameraIdList
+            if (cameraIdList.isEmpty()) return
             
-            // Turn off after 100ms
+            // Try to find a back-facing camera with flash
+            var targetCameraId = cameraIdList[0]
+            for (id in cameraIdList) {
+                val characteristics = cameraManager.getCameraCharacteristics(id)
+                val hasFlash = characteristics.get(android.hardware.camera2.CameraCharacteristics.FLASH_INFO_AVAILABLE) == true
+                val facing = characteristics.get(android.hardware.camera2.CameraCharacteristics.LENS_FACING)
+                if (hasFlash && facing == android.hardware.camera2.CameraCharacteristics.LENS_FACING_BACK) {
+                    targetCameraId = id
+                    break
+                }
+            }
+
+            cameraManager.setTorchMode(targetCameraId, true)
+            
+            // Turn off after 150ms
             Handler(Looper.getMainLooper()).postDelayed({
                 try {
-                    cameraManager.setTorchMode(cameraId, false)
+                    cameraManager.setTorchMode(targetCameraId, false)
                 } catch (e: Exception) {
                     Log.e(TAG, "Failed to turn off torch", e)
                 }
-            }, 100)
+            }, 150)
             
         } catch (e: Exception) {
             Log.e(TAG, "Failed to use flashlight", e)
