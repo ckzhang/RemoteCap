@@ -72,6 +72,9 @@ class MainActivity : ComponentActivity() {
                 }
                 TargetManager.countdownSec = next
                 text = "⏳ 倒數計時: " + next + " 秒"
+                
+                // Notify watch about the new countdown value
+                syncCountdownToWatch(next)
             }
         }
         
@@ -129,6 +132,15 @@ class MainActivity : ComponentActivity() {
         checkConnectionStatus()
     }
     
+    private fun syncCountdownToWatch(sec: Int) {
+        Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
+            val messageClient = Wearable.getMessageClient(this)
+            for (node in nodes) {
+                messageClient.sendMessage(node.id, "/set_countdown/$sec", byteArrayOf())
+            }
+        }
+    }
+
     private fun checkConnectionStatus() {
         Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
             val hasNode = nodes.isNotEmpty()
