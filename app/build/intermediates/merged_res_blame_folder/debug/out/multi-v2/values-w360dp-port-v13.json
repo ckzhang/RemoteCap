@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-31:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
+            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-32:/values-w360dp-port-v13/values-w360dp-port-v13.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\3c6da16fc08c5e7b7caed394bbbfefaa\\transformed\\material-1.11.0\\res\\values-w360dp-port-v13\\values-w360dp-port-v13.xml",

@@ -1,18 +1,18 @@
 [
     {
-        "merged": "com.ckzhang.remotecap.app-merged_res-33:/xml_accessibility_service_config.xml.flat",
-        "source": "com.ckzhang.remotecap.app-main-35:/xml/accessibility_service_config.xml"
+        "merged": "com.ckzhang.remotecap.app-merged_res-34:/drawable_btn_bg_secondary.xml.flat",
+        "source": "com.ckzhang.remotecap.app-main-36:/drawable/btn_bg_secondary.xml"
     },
     {
-        "merged": "com.ckzhang.remotecap.app-merged_res-33:/drawable_btn_bg_primary.xml.flat",
-        "source": "com.ckzhang.remotecap.app-main-35:/drawable/btn_bg_primary.xml"
+        "merged": "com.ckzhang.remotecap.app-merged_res-34:/xml_accessibility_service_config.xml.flat",
+        "source": "com.ckzhang.remotecap.app-main-36:/xml/accessibility_service_config.xml"
     },
     {
-        "merged": "com.ckzhang.remotecap.app-merged_res-33:/layout_activity_main.xml.flat",
-        "source": "com.ckzhang.remotecap.app-main-35:/layout/activity_main.xml"
+        "merged": "com.ckzhang.remotecap.app-merged_res-34:/drawable_btn_bg_primary.xml.flat",
+        "source": "com.ckzhang.remotecap.app-main-36:/drawable/btn_bg_primary.xml"
     },
     {
-        "merged": "com.ckzhang.remotecap.app-merged_res-33:/drawable_btn_bg_secondary.xml.flat",
-        "source": "com.ckzhang.remotecap.app-main-35:/drawable/btn_bg_secondary.xml"
+        "merged": "com.ckzhang.remotecap.app-merged_res-34:/layout_activity_main.xml.flat",
+        "source": "com.ckzhang.remotecap.app-main-36:/layout/activity_main.xml"
     }
 ]

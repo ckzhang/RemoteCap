@@ -20,12 +20,12 @@
 - [x] **Dynamic Quality**: Automatically adjust FPS and resolution based on connection bandwidth (e.g., 15 FPS / 400x400 for Wi-Fi direct, 4 FPS / 200x200 for Bluetooth).
 
 ## Phase 9: Monetization (Freemium Model)
-- [ ] **Free Tier Setup**: Core universal remote shutter functionality (Floating Target + Accessibility Click).
-- [ ] **Pro Tier (IAP)**: 
+- [x] **Free Tier Setup**: Core universal remote shutter functionality (Floating Target + Accessibility Click).
+- [x] **Pro Tier (IAP)**: 
     - Unlocks "Live View" (Watch Preview).
     - Unlocks Advanced Countdown settings.
     - Unlocks "Invisible Target" (fully hide the 🎯 during capture).
-- [ ] **Google Play Billing Integration**: Implement the billing client for a ~$2.99 USD one-time lifetime unlock.
+- [x] **Google Play Billing Integration**: Implement the billing client for a ~$2.99 USD one-time lifetime unlock.
 
 ---
 *Note: Always apply `KARPATHY_CODING_GUIDELINES.md` when implementing these features (Simplicity first, Surgical changes, Goal-driven execution).*

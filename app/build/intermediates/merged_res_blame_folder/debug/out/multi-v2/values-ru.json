@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-31:/values-ru/values-ru.xml",
+            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-32:/values-ru/values-ru.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\3c6da16fc08c5e7b7caed394bbbfefaa\\transformed\\material-1.11.0\\res\\values-ru\\values-ru.xml",
@@ -74,7 +74,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\480bcdc186ba0996ec86ca01a3b34339\\transformed\\play-services-basement-18.0.0\\res\\values-ru\\values.xml",
+                    "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\646c8e67de7ba3539bb3e32541c1c82b\\transformed\\play-services-basement-18.0.1\\res\\values-ru\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

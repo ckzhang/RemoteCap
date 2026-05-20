@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-31:/values-v25/values-v25.xml",
+            "outputFile": "com.ckzhang.remotecap.app-mergeDebugResources-32:/values-v25/values-v25.xml",
             "map": [
                 {
                     "source": "C:\\Users\\ckzhang\\.gradle\\caches\\transforms-3\\9756fab58daf3b55028a539310104216\\transformed\\appcompat-1.6.1\\res\\values-v25\\values-v25.xml",

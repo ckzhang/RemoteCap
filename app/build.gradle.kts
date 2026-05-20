@@ -31,4 +31,7 @@ dependencies {
     
     // Wear OS Data Layer API (Phone side)
     implementation("com.google.android.gms:play-services-wearable:18.1.0")
+
+    // Google Play Billing Library
+    implementation("com.android.billingclient:billing-ktx:6.1.0")
 }

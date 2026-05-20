@@ -25,11 +25,16 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var statusText: TextView
     private lateinit var layoutContent: LinearLayout
+    private lateinit var billingManager: BillingManager
     private val SCREEN_RECORD_REQUEST_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         TargetManager.init(this)
+        
+        billingManager = BillingManager(this, this) { isPro ->
+            renderOnboardingUI()
+        }
 
         val scrollView = ScrollView(this).apply {
             layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
@@ -129,20 +134,39 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        val btnPreview = createStyledButton("啟動手錶即時預覽 📺").apply {
-            setOnClickListener {
-                if (!isAccessibilityServiceEnabled()) {
-                    Toast.makeText(this@MainActivity, "請注意：無障礙服務已被系統休眠，請重新開啟！", Toast.LENGTH_LONG).show()
-                    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                    return@setOnClickListener
-                }
-                val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
-                startActivityForResult(mpm.createScreenCaptureIntent(), SCREEN_RECORD_REQUEST_CODE)
-            }
-        }
-
         layoutContent.addView(btnStartTarget)
-        layoutContent.addView(btnPreview)
+
+        if (billingManager.isPro) {
+            layoutContent.addView(createStepText("👑 Pro 會員", "已解鎖手錶即時預覽與進階功能。"))
+            val btnPreview = createStyledButton("啟動手錶即時預覽 📺").apply {
+                setOnClickListener {
+                    if (!isAccessibilityServiceEnabled()) {
+                        Toast.makeText(this@MainActivity, "請注意：無障礙服務已被系統休眠，請重新開啟！", Toast.LENGTH_LONG).show()
+                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                        return@setOnClickListener
+                    }
+                    val mpm = getSystemService(Context.MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
+                    startActivityForResult(mpm.createScreenCaptureIntent(), SCREEN_RECORD_REQUEST_CODE)
+                }
+            }
+            layoutContent.addView(btnPreview)
+        } else {
+            val btnUpgrade = createStyledButton("解鎖 Pro 版 ($2.99) 👑").apply {
+                setBackgroundColor(Color.parseColor("#FFD700")) // Gold
+                setTextColor(Color.BLACK)
+                setOnClickListener {
+                    billingManager.initiatePurchaseFlow()
+                }
+            }
+            val proDesc = TextView(this).apply {
+                text = "升級 Pro 版可解鎖：\n- 📺 手錶端即時預覽畫面\n- 🎯 隱藏瞄準星浮水印\n- ⏱️ 手錶端自訂倒數秒數"
+                textSize = 14f
+                setTextColor(Color.LTGRAY)
+                setPadding(0, 0, 0, 48)
+            }
+            layoutContent.addView(btnUpgrade)
+            layoutContent.addView(proDesc)
+        }
     }
 
     private fun isAccessibilityServiceEnabled(): Boolean {
