@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>50 AnyCam Fused Concepts</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f13; color: #fff; margin: 0; padding: 40px; }
+        h1 { text-align: center; color: #00E5FF; margin-bottom: 10px; font-size: 2.2rem; }
+        p.subtitle { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 1.1rem; }
+        .category-title { grid-column: 1 / -1; font-size: 1.3rem; color: #FF1744; margin-top: 30px; border-bottom: 1px solid #333; padding-bottom: 10px; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1400px; margin: auto; }
+        .card { background: #1c1c22; padding: 20px 10px; border-radius: 12px; text-align: center; border: 1px solid #2a2a35; transition: transform 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .card:hover { transform: translateY(-5px); border-color: #00E5FF; background: #23232c; box-shadow: 0 8px 16px rgba(0,229,255,0.2); }
+        svg { width: 90px; height: 90px; margin: 0 auto 15px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.5)); }
+        .num { font-size: 12px; color: #00E5FF; margin-bottom: 8px; font-weight: bold; }
+        .desc { font-size: 12px; color: #ccc; padding: 0 10px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <h1>50 Highly-Refined Fused Concepts</h1>
+    <p class="subtitle">Blending: Remote Pills, Overlapping Lenses, Minimal Cameras, Signals, and Cyber Targets.</p>
+    <div class="grid" id="app"></div>
+
+    <script>
+        const defs = '<defs>' +
+            '<linearGradient id="g-red" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF1744"/><stop offset="100%" stop-color="#F50057"/></linearGradient>' +
+            '<linearGradient id="g-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#2979FF"/></linearGradient>' +
+            '<linearGradient id="g-dark" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#37474F"/><stop offset="100%" stop-color="#212121"/></linearGradient>' +
+            '<linearGradient id="g-silver" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ECEFF1"/><stop offset="100%" stop-color="#90A4AE"/></linearGradient>' +
+            '<filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.5"/></filter>' +
+            '<filter id="glow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>' +
+        '</defs>';
+
+        const icons = [
+            // Category 1: The Remote Pill (Based on Option 6)
+            {cat: "1. The Remote Pill (Based on Option 6)"},
+            {n:"01", d:"Classic pill remote with large red shutter", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-dark)" filter="url(#shadow)"/><circle cx="64" cy="44" r="22" fill="url(#g-red)"/><circle cx="64" cy="88" r="8" fill="#111"/>'},
+            {n:"02", d:"Pill with cyan target & red core", c:'<rect x="30" y="10" width="68" height="108" rx="34" fill="url(#g-dark)"/><circle cx="64" cy="48" r="24" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="64" cy="48" r="14" fill="url(#g-red)"/><rect x="52" y="86" width="24" height="6" rx="3" fill="#444"/>'},
+            {n:"03", d:"Silver pill with flush red shutter", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-silver)"/><circle cx="64" cy="44" r="22" fill="url(#g-red)" stroke="#fff" stroke-width="4"/><circle cx="64" cy="88" r="8" fill="#999"/>'},
+            {n:"04", d:"Pill with dual red/cyan buttons", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-dark)"/><circle cx="64" cy="40" r="18" fill="url(#g-red)"/><circle cx="64" cy="84" r="14" fill="url(#g-cyan)"/>'},
+            {n:"05", d:"Slim pill with offset target", c:'<rect x="40" y="14" width="48" height="100" rx="24" fill="url(#g-dark)"/><circle cx="64" cy="44" r="26" fill="url(#g-red)" stroke="#1c1c22" stroke-width="6"/><circle cx="64" cy="44" r="10" fill="#fff"/>'},
+            {n:"06", d:"Pill remote emitting signal", c:'<rect x="24" y="34" width="48" height="80" rx="24" fill="url(#g-dark)"/><circle cx="48" cy="64" r="16" fill="url(#g-red)"/><path d="M84 44 A 28 28 0 0 1 84 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M96 34 A 42 42 0 0 1 96 94" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+            {n:"07", d:"Pill with camera frame inset", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-dark)"/><rect x="44" y="34" width="40" height="28" rx="6" fill="#111" stroke="url(#g-silver)" stroke-width="2"/><circle cx="64" cy="48" r="8" fill="url(#g-red)"/>'},
+            {n:"08", d:"Pill with glowing bullseye", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-dark)"/><circle cx="64" cy="50" r="20" fill="none" stroke="url(#g-red)" stroke-width="6" filter="url(#glow)"/><circle cx="64" cy="50" r="8" fill="url(#g-red)"/>'},
+            {n:"09", d:"Pill overlapping watch face", c:'<rect x="44" y="24" width="40" height="80" rx="20" fill="url(#g-dark)"/><circle cx="64" cy="54" r="32" fill="url(#g-dark)" stroke="url(#g-silver)" stroke-width="4"/><circle cx="64" cy="54" r="16" fill="url(#g-red)"/>'},
+            {n:"10", d:"Minimal outline pill + red dot", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="none" stroke="url(#g-silver)" stroke-width="6"/><circle cx="64" cy="44" r="18" fill="url(#g-red)" filter="url(#shadow)"/>'},
+
+            // Category 2: Phone & Watch Overlap (Based on Option 8 & 01)
+            {cat: "2. Phone & Watch Overlap (Based on Option 8 & 01)"},
+            {n:"11", d:"Phone body + overlapping red lens", c:'<rect x="24" y="14" width="60" height="100" rx="10" fill="url(#g-dark)"/><circle cx="84" cy="64" r="30" fill="url(#g-red)" stroke="#1c1c22" stroke-width="6"/><circle cx="84" cy="64" r="10" fill="#fff"/>'},
+            {n:"12", d:"Phone + central smart watch dial", c:'<rect x="30" y="14" width="68" height="100" rx="12" fill="url(#g-dark)"/><circle cx="64" cy="64" r="28" fill="#111" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="64" cy="64" r="12" fill="url(#g-red)"/>'},
+            {n:"13", d:"Watch strap wrapping phone", c:'<rect x="44" y="10" width="40" height="108" fill="url(#g-dark)" rx="8"/><rect x="24" y="44" width="80" height="40" rx="12" fill="url(#g-silver)"/><circle cx="64" cy="64" r="24" fill="url(#g-red)"/><circle cx="64" cy="64" r="8" fill="#fff"/>'},
+            {n:"14", d:"Phone outline + floating red watch", c:'<rect x="24" y="14" width="60" height="100" rx="12" fill="none" stroke="url(#g-silver)" stroke-width="4"/><circle cx="74" cy="64" r="28" fill="url(#g-red)" filter="url(#shadow)"/><circle cx="74" cy="64" r="12" fill="#fff"/>'},
+            {n:"15", d:"Phone + cyan target overlapping", c:'<rect x="34" y="24" width="60" height="80" rx="8" fill="url(#g-dark)"/><circle cx="44" cy="44" r="24" fill="none" stroke="url(#g-cyan)" stroke-width="6"/><circle cx="44" cy="44" r="10" fill="url(#g-red)"/>'},
+            {n:"16", d:"Silver phone + inset red lens", c:'<rect x="24" y="14" width="80" height="100" rx="16" fill="url(#g-silver)"/><circle cx="64" cy="44" r="22" fill="#111"/><circle cx="64" cy="44" r="12" fill="url(#g-red)"/>'},
+            {n:"17", d:"Phone + watch face & signal", c:'<rect x="14" y="24" width="50" height="80" rx="8" fill="url(#g-dark)"/><circle cx="64" cy="64" r="26" fill="url(#g-red)" stroke="#1c1c22" stroke-width="4"/><path d="M100 44 A 28 28 0 0 1 100 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+            {n:"18", d:"Phone frame + bullseye popup", c:'<rect x="24" y="24" width="70" height="80" rx="10" fill="url(#g-dark)"/><circle cx="84" cy="44" r="24" fill="#fff" filter="url(#shadow)"/><circle cx="84" cy="44" r="12" fill="url(#g-red)"/>'},
+            {n:"19", d:"Phone + camera module intersection", c:'<rect x="24" y="14" width="50" height="100" rx="10" fill="url(#g-dark)"/><rect x="54" y="34" width="50" height="60" rx="12" fill="url(#g-red)" opacity="0.9"/><circle cx="79" cy="64" r="14" fill="#fff"/>'},
+            {n:"20", d:"Dual devices mirroring", c:'<rect x="14" y="34" width="40" height="60" rx="8" fill="url(#g-silver)"/><rect x="74" y="34" width="40" height="60" rx="8" fill="url(#g-dark)"/><circle cx="34" cy="64" r="10" fill="url(#g-red)"/><circle cx="94" cy="64" r="10" fill="url(#g-cyan)"/>'},
+
+            // Category 3: Minimal Camera + Bullseye (Based on Option 12)
+            {cat: "3. Minimal Camera + Bullseye (Based on Option 12)"},
+            {n:"21", d:"Horizontal frame + red bullseye", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="none" stroke="url(#g-silver)" stroke-width="6"/><circle cx="64" cy="64" r="20" fill="none" stroke="url(#g-red)" stroke-width="6"/><circle cx="64" cy="64" r="8" fill="url(#g-red)"/>'},
+            {n:"22", d:"Camera frame + cyan outer / red inner", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="none" stroke="url(#g-dark)" stroke-width="8"/><circle cx="64" cy="64" r="24" fill="none" stroke="url(#g-cyan)" stroke-width="6"/><circle cx="64" cy="64" r="10" fill="url(#g-red)"/>'},
+            {n:"23", d:"Solid camera body + white bullseye", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="url(#g-dark)" filter="url(#shadow)"/><circle cx="64" cy="64" r="22" fill="none" stroke="#fff" stroke-width="4"/><circle cx="64" cy="64" r="10" fill="url(#g-red)"/>'},
+            {n:"24", d:"Red camera body + dark bullseye", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="url(#g-red)" filter="url(#shadow)"/><circle cx="64" cy="64" r="22" fill="none" stroke="#fff" stroke-width="4"/><circle cx="64" cy="64" r="10" fill="url(#g-dark)"/>'},
+            {n:"25", d:"Camera outline + floating red dot", c:'<rect x="24" y="34" width="80" height="60" rx="12" fill="none" stroke="url(#g-silver)" stroke-width="6"/><circle cx="64" cy="64" r="16" fill="url(#g-red)" filter="url(#glow)"/>'},
+            {n:"26", d:"Camera frame + offset bullseye", c:'<rect x="14" y="34" width="80" height="60" rx="12" fill="url(#g-dark)"/><circle cx="84" cy="64" r="26" fill="#1c1c22" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="84" cy="64" r="12" fill="url(#g-red)"/>'},
+            {n:"27", d:"Watch dial inside camera frame", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="url(#g-dark)"/><circle cx="64" cy="64" r="24" fill="#111" stroke="url(#g-silver)" stroke-width="2" stroke-dasharray="4 4"/><circle cx="64" cy="64" r="10" fill="url(#g-red)"/>'},
+            {n:"28", d:"Dual bullseye camera", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="none" stroke="url(#g-dark)" stroke-width="6"/><circle cx="44" cy="64" r="14" fill="none" stroke="url(#g-red)" stroke-width="4"/><circle cx="44" cy="64" r="6" fill="url(#g-red)"/><circle cx="84" cy="64" r="14" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="84" cy="64" r="6" fill="url(#g-cyan)"/>'},
+            {n:"29", d:"Camera + crosshair bullseye", c:'<rect x="14" y="34" width="100" height="60" rx="16" fill="url(#g-dark)"/><circle cx="64" cy="64" r="24" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><line x1="64" y1="30" x2="64" y2="40" stroke="url(#g-cyan)" stroke-width="4"/><line x1="64" y1="88" x2="64" y2="98" stroke="url(#g-cyan)" stroke-width="4"/><line x1="30" y1="64" x2="40" y2="64" stroke="url(#g-cyan)" stroke-width="4"/><line x1="88" y1="64" x2="98" y2="64" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="64" cy="64" r="10" fill="url(#g-red)"/>'},
+            {n:"30", d:"Rounded box + thick glowing bullseye", c:'<rect x="24" y="34" width="80" height="60" rx="20" fill="url(#g-dark)"/><circle cx="64" cy="64" r="18" fill="none" stroke="url(#g-red)" stroke-width="8" filter="url(#glow)"/><circle cx="64" cy="64" r="6" fill="#fff"/>'},
+
+            // Category 4: Signal & Sync (Based on Option 11)
+            {cat: "4. Signal & Sync (Based on Option 11)"},
+            {n:"31", d:"Red camera body + right wifi waves", c:'<rect x="14" y="34" width="60" height="60" rx="12" fill="url(#g-red)" filter="url(#shadow)"/><circle cx="44" cy="64" r="14" fill="#fff"/><path d="M84 44 A 28 28 0 0 1 84 84" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/><path d="M104 24 A 56 56 0 0 1 104 104" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/>'},
+            {n:"32", d:"Phone body + top wifi waves", c:'<rect x="34" y="44" width="60" height="70" rx="10" fill="url(#g-dark)"/><circle cx="64" cy="74" r="16" fill="url(#g-red)"/><path d="M44 24 A 28 28 0 0 1 84 24" fill="none" stroke="url(#g-silver)" stroke-width="6" stroke-linecap="round"/><path d="M24 10 A 56 56 0 0 1 104 10" fill="none" stroke="url(#g-silver)" stroke-width="6" stroke-linecap="round"/>'},
+            {n:"33", d:"Remote pill + signal waves", c:'<rect x="14" y="24" width="40" height="80" rx="20" fill="url(#g-dark)"/><circle cx="34" cy="54" r="12" fill="url(#g-red)"/><path d="M64 44 A 28 28 0 0 1 64 84" fill="none" stroke="url(#g-cyan)" stroke-width="5" stroke-linecap="round"/><path d="M84 24 A 56 56 0 0 1 84 104" fill="none" stroke="url(#g-cyan)" stroke-width="5" stroke-linecap="round"/>'},
+            {n:"34", d:"Camera outline + concentric waves", c:'<rect x="24" y="34" width="80" height="60" rx="12" fill="none" stroke="url(#g-silver)" stroke-width="6"/><circle cx="64" cy="64" r="8" fill="url(#g-red)"/><path d="M64 34 A 30 30 0 0 1 94 64" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M64 14 A 50 50 0 0 1 114 64" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+            {n:"35", d:"Red lens emitting cyan waves", c:'<circle cx="34" cy="64" r="24" fill="url(#g-red)" filter="url(#shadow)"/><circle cx="34" cy="64" r="8" fill="#fff"/><path d="M74 44 A 28 28 0 0 1 74 84" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/><path d="M94 24 A 56 56 0 0 1 94 104" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/>'},
+            {n:"36", d:"Watch face + dual side waves", c:'<circle cx="64" cy="64" r="28" fill="url(#g-dark)" stroke="url(#g-silver)" stroke-width="4"/><circle cx="64" cy="64" r="10" fill="url(#g-red)"/><path d="M24 44 A 28 28 0 0 0 24 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M104 44 A 28 28 0 0 1 104 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+            {n:"37", d:"Pill + overlapping camera + waves", c:'<rect x="24" y="14" width="40" height="100" rx="20" fill="url(#g-dark)"/><rect x="44" y="44" width="50" height="40" rx="8" fill="url(#g-red)"/><circle cx="69" cy="64" r="10" fill="#fff"/><path d="M104 44 A 20 20 0 0 1 104 84" fill="none" stroke="url(#g-silver)" stroke-width="4"/>'},
+            {n:"38", d:"Bullseye + target waves", c:'<circle cx="44" cy="64" r="24" fill="none" stroke="url(#g-red)" stroke-width="6"/><circle cx="44" cy="64" r="10" fill="url(#g-red)"/><path d="M84 34 A 42 42 0 0 1 84 94" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/><path d="M104 14 A 70 70 0 0 1 104 114" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-linecap="round"/>'},
+            {n:"39", d:"Phone + target + waves", c:'<rect x="14" y="24" width="50" height="80" rx="8" fill="url(#g-dark)"/><circle cx="39" cy="64" r="12" fill="url(#g-red)" stroke="url(#g-cyan)" stroke-width="4"/><path d="M84 44 A 28 28 0 0 1 84 84" fill="none" stroke="url(#g-silver)" stroke-width="5" stroke-linecap="round"/><path d="M104 24 A 56 56 0 0 1 104 104" fill="none" stroke="url(#g-silver)" stroke-width="5" stroke-linecap="round"/>'},
+            {n:"40", d:"Camera frame + watch strap + waves", c:'<rect x="44" y="10" width="40" height="108" fill="url(#g-dark)" rx="8"/><rect x="24" y="34" width="80" height="60" rx="12" fill="url(#g-silver)"/><circle cx="64" cy="64" r="16" fill="url(#g-red)"/><path d="M114 44 A 28 28 0 0 1 114 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+
+            // Category 5: Cyber Targets on Devices (Based on Option 28)
+            {cat: "5. Cyber Targets on Devices (Based on Option 28)"},
+            {n:"41", d:"Dark phone + glowing cyan circle + red dot", c:'<rect x="24" y="14" width="80" height="100" rx="12" fill="url(#g-dark)"/><circle cx="64" cy="54" r="26" fill="none" stroke="url(#g-cyan)" stroke-width="4" filter="url(#glow)"/><circle cx="64" cy="54" r="10" fill="url(#g-red)"/>'},
+            {n:"42", d:"Remote pill + cyan target + red center", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="url(#g-dark)" filter="url(#shadow)"/><circle cx="64" cy="44" r="22" fill="#111" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="64" cy="44" r="12" fill="url(#g-red)"/>'},
+            {n:"43", d:"Minimal camera + huge cyan target", c:'<rect x="14" y="34" width="100" height="60" rx="12" fill="url(#g-dark)"/><circle cx="64" cy="64" r="32" fill="none" stroke="url(#g-cyan)" stroke-width="6"/><circle cx="64" cy="64" r="14" fill="url(#g-red)"/>'},
+            {n:"44", d:"Watch dial + cyan/red target", c:'<circle cx="64" cy="64" r="48" fill="url(#g-dark)" stroke="url(#g-silver)" stroke-width="4"/><circle cx="64" cy="64" r="28" fill="none" stroke="url(#g-cyan)" stroke-width="6" stroke-dasharray="10 6"/><circle cx="64" cy="64" r="12" fill="url(#g-red)"/>'},
+            {n:"45", d:"Phone + crosshair cyan target", c:'<rect x="30" y="14" width="68" height="100" rx="10" fill="url(#g-dark)"/><circle cx="64" cy="54" r="24" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><line x1="64" y1="20" x2="64" y2="30" stroke="url(#g-cyan)" stroke-width="4"/><line x1="64" y1="78" x2="64" y2="88" stroke="url(#g-cyan)" stroke-width="4"/><line x1="30" y1="54" x2="40" y2="54" stroke="url(#g-cyan)" stroke-width="4"/><line x1="88" y1="54" x2="98" y2="54" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="64" cy="54" r="10" fill="url(#g-red)"/>'},
+            {n:"46", d:"Pill + offset cyan target", c:'<rect x="24" y="24" width="50" height="80" rx="25" fill="url(#g-dark)"/><circle cx="74" cy="54" r="28" fill="#1c1c22" stroke="url(#g-cyan)" stroke-width="6"/><circle cx="74" cy="54" r="12" fill="url(#g-red)"/>'},
+            {n:"47", d:"Camera + cyan target + waves", c:'<rect x="14" y="34" width="60" height="60" rx="12" fill="url(#g-dark)"/><circle cx="44" cy="64" r="16" fill="none" stroke="url(#g-cyan)" stroke-width="4" filter="url(#glow)"/><circle cx="44" cy="64" r="6" fill="url(#g-red)"/><path d="M84 44 A 28 28 0 0 1 84 84" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M104 24 A 56 56 0 0 1 104 104" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'},
+            {n:"48", d:"Silver phone + glowing cyan target", c:'<rect x="24" y="14" width="80" height="100" rx="12" fill="url(#g-silver)"/><circle cx="64" cy="54" r="26" fill="none" stroke="url(#g-cyan)" stroke-width="6" filter="url(#glow)"/><circle cx="64" cy="54" r="12" fill="url(#g-red)"/>'},
+            {n:"49", d:"Dark pill + glowing red/cyan target", c:'<rect x="34" y="14" width="60" height="100" rx="30" fill="#111" stroke="url(#g-silver)" stroke-width="2"/><circle cx="64" cy="44" r="22" fill="none" stroke="url(#g-cyan)" stroke-width="4" filter="url(#glow)"/><circle cx="64" cy="44" r="10" fill="url(#g-red)" filter="url(#glow)"/>'},
+            {n:"50", d:"Phone + target + wifi waves combo", c:'<rect x="14" y="24" width="50" height="80" rx="8" fill="url(#g-dark)"/><circle cx="39" cy="54" r="16" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><circle cx="39" cy="54" r="6" fill="url(#g-red)"/><path d="M74 40 A 20 20 0 0 1 74 68" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M90 28 A 36 36 0 0 1 90 80" fill="none" stroke="url(#g-cyan)" stroke-width="4"/><path d="M106 16 A 52 52 0 0 1 106 92" fill="none" stroke="url(#g-cyan)" stroke-width="4"/>'}
+        ];
+
+        let html = '';
+        icons.forEach(i => {
+            if (i.cat) {
+                html += '<div class="category-title">' + i.cat + '</div>';
+            } else {
+                html += '<div class="card">' +
+                    '<div class="num">' + i.n + '</div>' +
+                    '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">' +
+                        defs + i.c +
+                    '</svg>' +
+                    '<div class="desc">' + i.d + '</div>' +
+                '</div>';
+            }
+        });
+        document.getElementById('app').innerHTML = html;
+    </script>
+</body>
+</html>
