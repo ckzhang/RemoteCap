@@ -21,7 +21,14 @@ import android.os.Looper
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.wearable.Wearable
+import com.google.android.gms.wearable.ChannelClient
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.io.ByteArrayOutputStream
+import java.io.OutputStream
 
 class ScreenCaptureService : Service() {
     private val TAG = "ScreenCapture"
@@ -34,6 +41,22 @@ class ScreenCaptureService : Service() {
     private var handlerThread: HandlerThread? = null
     private var currentQuality = 15
     private var currentScale = 200
+
+    // ChannelClient streaming
+    private var channelClient: ChannelClient? = null
+    private var activeChannel: ChannelClient.Channel? = null
+    private var channelOutputStream: OutputStream? = null
+    private val scope = CoroutineScope(Dispatchers.IO + Job())
+    
+    // FPS & Performance Logging Stats
+    private var statsStartTime = 0L
+    private var statsFramesProcessed = 0
+    private var statsFramesSent = 0
+    private var statsTotalProcessTimeMs = 0L
+    private var statsTotalBytesSent = 0L
+    
+    // Bitmap Reuse
+    private var reusableBitmap: Bitmap? = null
 
     companion object {
         var instance: ScreenCaptureService? = null
@@ -97,6 +120,11 @@ class ScreenCaptureService : Service() {
         val width = displayMetrics.widthPixels
         val height = displayMetrics.heightPixels
         val density = displayMetrics.densityDpi
+        
+        channelClient = Wearable.getChannelClient(this)
+        setupChannelStream()
+        
+        statsStartTime = System.currentTimeMillis()
 
         imageReader = ImageReader.newInstance(width, height, PixelFormat.RGBA_8888, 2)
         handlerThread = HandlerThread("ImageReaderThread").apply { start() }
@@ -112,6 +140,7 @@ class ScreenCaptureService : Service() {
             }
             
             var image: Image? = null
+            val processStartTime = System.currentTimeMillis()
             try {
                 image = reader.acquireLatestImage()
                 if (image != null) {
@@ -121,16 +150,24 @@ class ScreenCaptureService : Service() {
                     val rowStride = planes[0].rowStride
                     val rowPadding = rowStride - pixelStride * width
                     
-                    val bitmap = Bitmap.createBitmap(width + rowPadding / pixelStride, height, Bitmap.Config.ARGB_8888)
-                    bitmap.copyPixelsFromBuffer(buffer)
+                    val bitmapWidth = width + rowPadding / pixelStride
                     
-                    val croppedBitmap = Bitmap.createBitmap(bitmap, 0, 0, width, height)
+                    if (reusableBitmap == null || reusableBitmap!!.width != bitmapWidth || reusableBitmap!!.height != height) {
+                        reusableBitmap?.recycle()
+                        reusableBitmap = Bitmap.createBitmap(bitmapWidth, height, Bitmap.Config.ARGB_8888)
+                    }
+                    
+                    reusableBitmap!!.copyPixelsFromBuffer(buffer)
+                    
+                    val croppedBitmap = Bitmap.createBitmap(reusableBitmap!!, 0, 0, width, height)
                     val scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, currentScale, currentScale, true)
-                    sendBitmapToWatch(scaledBitmap)
+                    
+                    val processTime = System.currentTimeMillis() - processStartTime
+                    
+                    sendBitmapToWatch(scaledBitmap, processTime)
                     
                     scaledBitmap.recycle()
                     croppedBitmap.recycle()
-                    bitmap.recycle()
                     lastSendTime = currentTime
                 }
             } catch (e: Exception) {
@@ -148,40 +185,71 @@ class ScreenCaptureService : Service() {
         isStreaming = true
     }
 
+    private fun setupChannelStream() {
+        scope.launch {
+            try {
+                val nodes = Wearable.getNodeClient(this@ScreenCaptureService).connectedNodes.await()
+                for (node in nodes) {
+                    val channel = channelClient?.openChannel(node.id, "/preview_channel")?.await()
+                    if (channel != null) {
+                        activeChannel = channel
+                        channelOutputStream = channelClient?.getOutputStream(channel)?.await()
+                        Log.i(TAG, "ChannelStream opened to node: ${node.id}")
+                        break // Just connect to the first available watch
+                    }
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to setup ChannelStream", e)
+            }
+        }
+    }
+
     private var isSendingFrame = false
 
-    private fun sendBitmapToWatch(bitmap: Bitmap) {
+    private fun sendBitmapToWatch(bitmap: Bitmap, processTimeMs: Long) {
         if (isSendingFrame) {
-            // Drop frame if the previous one is still transmitting
             return
         }
         
         val stream = ByteArrayOutputStream()
         bitmap.compress(Bitmap.CompressFormat.JPEG, currentQuality, stream)
         val bytes = stream.toByteArray()
+        val dataSize = bytes.size
         
-        Log.d(TAG, "TX Data: ${bytes.size} bytes (${bytes.size / 1024} KB) @ FPS Target: ${1000L / transmissionIntervalMs}")
-
-        Wearable.getNodeClient(this).connectedNodes.addOnSuccessListener { nodes ->
-            val messageClient = Wearable.getMessageClient(this)
-            var tasksPending = nodes.size
-            
-            if (tasksPending == 0) {
+        isSendingFrame = true
+        
+        scope.launch {
+            try {
+                // Prepend 4 bytes for length prefix so the receiver knows the frame size
+                val lengthPrefix = java.nio.ByteBuffer.allocate(4).putInt(dataSize).array()
+                channelOutputStream?.write(lengthPrefix)
+                channelOutputStream?.write(bytes)
+                channelOutputStream?.flush()
+                
+                // Logging Stats
+                statsFramesSent++
+                statsTotalBytesSent += dataSize
+                statsTotalProcessTimeMs += processTimeMs
+            } catch (e: Exception) {
+                Log.e(TAG, "ChannelStream write failed, trying to reconnect", e)
+                setupChannelStream() // Try reconnecting
+            } finally {
                 isSendingFrame = false
-                return@addOnSuccessListener
             }
+        }
+        
+        statsFramesProcessed++
+        val now = System.currentTimeMillis()
+        if (now - statsStartTime >= 1000) {
+            val kbPerSec = statsTotalBytesSent / 1024
+            val avgProcessTime = if (statsFramesProcessed > 0) statsTotalProcessTimeMs / statsFramesProcessed else 0
+            Log.d(TAG, "PhoneStats [1s Window]: Captured=$statsFramesProcessed, Sent=$statsFramesSent FPS, Avg Process=${avgProcessTime}ms, TX=${kbPerSec} KB/s")
             
-            isSendingFrame = true
-            for (node in nodes) {
-                messageClient.sendMessage(node.id, "/preview", bytes).addOnCompleteListener {
-                    tasksPending--
-                    if (tasksPending <= 0) {
-                        isSendingFrame = false
-                    }
-                }
-            }
-        }.addOnFailureListener {
-            isSendingFrame = false
+            statsStartTime = now
+            statsFramesProcessed = 0
+            statsFramesSent = 0
+            statsTotalProcessTimeMs = 0
+            statsTotalBytesSent = 0
         }
     }
 
@@ -217,6 +285,15 @@ class ScreenCaptureService : Service() {
         imageReader?.close()
         handlerThread?.quitSafely()
         mediaProjection?.stop()
+        reusableBitmap?.recycle()
+        reusableBitmap = null
+        
+        try {
+            channelOutputStream?.close()
+            activeChannel?.let { channelClient?.close(it) }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error closing channel", e)
+        }
     }
 
     override fun onDestroy() {
