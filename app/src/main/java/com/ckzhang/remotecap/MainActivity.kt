@@ -106,6 +106,7 @@ class MainActivity : ComponentActivity() {
 
         val hasOverlay = Build.VERSION.SDK_INT < Build.VERSION_CODES.M || Settings.canDrawOverlays(this)
         val hasAccessibility = isAccessibilityServiceEnabled()
+        val hasGalleryPermission = checkGalleryPermission()
 
         if (!hasOverlay) {
             // Step 1: Overlay
@@ -131,6 +132,18 @@ class MainActivity : ComponentActivity() {
                 }
             }
             layoutContent.addView(btnAcc)
+            return
+        }
+        
+        if (!hasGalleryPermission) {
+            // Step 3: Gallery Permission
+            layoutContent.addView(createStepText("✅ 無障礙服務已開啟\n\n第三步：允許讀取相簿權限 (必要)", "這用來在拍照後，自動將最新的照片傳送到手錶上顯示。"))
+            val btnGallery = createStyledButton("點此允許讀取相簿權限").apply {
+                setOnClickListener {
+                    requestGalleryPermission()
+                }
+            }
+            layoutContent.addView(btnGallery)
             return
         }
 
@@ -185,6 +198,36 @@ class MainActivity : ComponentActivity() {
             }
             layoutContent.addView(btnUpgrade)
             layoutContent.addView(proDesc)
+        }
+    }
+
+    private fun checkGalleryPermission(): Boolean {
+        val perm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            android.Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+        return checkSelfPermission(perm) == android.content.pm.PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestGalleryPermission() {
+        val perm = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            android.Manifest.permission.READ_MEDIA_IMAGES
+        } else {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE
+        }
+        requestPermissions(arrayOf(perm), 1002)
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == 1002) {
+            if (grantResults.isNotEmpty() && grantResults[0] == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "成功取得相簿讀取權限！", Toast.LENGTH_SHORT).show()
+                renderOnboardingUI()
+            } else {
+                Toast.makeText(this, "未能取得相簿讀取權限，將無法傳送照片至手錶", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
