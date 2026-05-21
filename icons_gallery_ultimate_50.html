@@ -76,27 +76,26 @@
                     
                     // --- 1. The Phone + Bullseye ---
                     const phoneBody = isOutline
-                        ? \`<rect x="\${L.px - L.pw/2}" y="\${L.py - L.ph/2}" width="\${L.pw}" height="\${L.ph}" rx="\${L.pw*0.15}" fill="none" stroke="\${C.stroke}" stroke-width="4"/>\`
-                        : \`<rect x="\${L.px - L.pw/2}" y="\${L.py - L.ph/2}" width="\${L.pw}" height="\${L.ph}" rx="\${L.pw*0.15}" fill="\${C.base}" filter="url(#shadow)"/>\`;
+                        ? '<rect x="' + (L.px - L.pw/2) + '" y="' + (L.py - L.ph/2) + '" width="' + L.pw + '" height="' + L.ph + '" rx="' + (L.pw*0.15) + '" fill="none" stroke="' + C.stroke + '" stroke-width="4"/>'
+                        : '<rect x="' + (L.px - L.pw/2) + '" y="' + (L.py - L.ph/2) + '" width="' + L.pw + '" height="' + L.ph + '" rx="' + (L.pw*0.15) + '" fill="' + C.base + '" filter="url(#shadow)"/>';
                     
                     // Phone screen inset
-                    const phoneScreen = isOutline ? '' : \`<rect x="\${L.px - L.pw/2 + 4}" y="\${L.py - L.ph/2 + 4}" width="\${L.pw - 8}" height="\${L.ph - 8}" rx="\${L.pw*0.08}" fill="#000" opacity="0.3"/>\`;
+                    const phoneScreen = isOutline ? '' : '<rect x="' + (L.px - L.pw/2 + 4) + '" y="' + (L.py - L.ph/2 + 4) + '" width="' + (L.pw - 8) + '" height="' + (L.ph - 8) + '" rx="' + (L.pw*0.08) + '" fill="#000" opacity="0.3"/>';
 
                     const bcx = L.px + L.bx;
                     const bcy = L.py + L.by;
                     const br = L.pw * 0.22;
-                    const bullseye = \`
-                        <circle cx="\${bcx}" cy="\${bcy}" r="\${br}" fill="none" stroke="\${C.acc2}" stroke-width="2" filter="url(#glow)"/>
-                        <circle cx="\${bcx}" cy="\${bcy}" r="\${br*0.4}" fill="\${C.acc2}" filter="url(#glow-strong)"/>
-                        <path d="M\${bcx-br-6} \${bcy} h8 M\${bcx+br+6} \${bcy} h-8 M\${bcx} \${bcy-br-6} v8 M\${bcx} \${bcy+br+6} v-8" stroke="\${C.acc2}" stroke-width="2"/>
-                    \`;
+                    const bullseye = 
+                        '<circle cx="' + bcx + '" cy="' + bcy + '" r="' + br + '" fill="none" stroke="' + C.acc2 + '" stroke-width="2" filter="url(#glow)"/>' +
+                        '<circle cx="' + bcx + '" cy="' + bcy + '" r="' + (br*0.4) + '" fill="' + C.acc2 + '" filter="url(#glow-strong)"/>' +
+                        '<path d="M' + (bcx-br-6) + ' ' + bcy + ' h8 M' + (bcx+br+6) + ' ' + bcy + ' h-8 M' + bcx + ' ' + (bcy-br-6) + ' v8 M' + bcx + ' ' + (bcy+br+6) + ' v-8" stroke="' + C.acc2 + '" stroke-width="2"/>';
 
                     // --- 2. The Watch + Pill Remote ---
                     const watchBody = isOutline
-                        ? \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr}" fill="#0f0f13" stroke="\${C.stroke}" stroke-width="4"/>\`
-                        : \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr}" fill="\${C.base}" filter="url(#shadow)"/>\`;
+                        ? '<circle cx="' + L.wx + '" cy="' + L.wy + '" r="' + L.wr + '" fill="#0f0f13" stroke="' + C.stroke + '" stroke-width="4"/>'
+                        : '<circle cx="' + L.wx + '" cy="' + L.wy + '" r="' + L.wr + '" fill="' + C.base + '" filter="url(#shadow)"/>';
                     
-                    const watchInner = isOutline ? '' : \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr-4}" fill="#000" opacity="0.4"/>\`;
+                    const watchInner = isOutline ? '' : '<circle cx="' + L.wx + '" cy="' + L.wy + '" r="' + (L.wr-4) + '" fill="#000" opacity="0.4"/>';
 
                     const pillW = L.wr * 0.7;
                     const pillH = L.wr * 1.3;
@@ -105,12 +104,12 @@
                     
                     // The Pill Body
                     const pillBase = isOutline 
-                        ? \`<rect x="\${pillX}" y="\${pillY}" width="\${pillW}" height="\${pillH}" rx="\${pillW*0.5}" fill="#0f0f13" stroke="\${C.stroke}" stroke-width="2"/>\`
-                        : \`<rect x="\${pillX}" y="\${pillY}" width="\${pillW}" height="\${pillH}" rx="\${pillW*0.5}" fill="#222" stroke="\${C.stroke}" stroke-width="2" filter="url(#shadow)"/>\`;
+                        ? '<rect x="' + pillX + '" y="' + pillY + '" width="' + pillW + '" height="' + pillH + '" rx="' + (pillW*0.5) + '" fill="#0f0f13" stroke="' + C.stroke + '" stroke-width="2"/>'
+                        : '<rect x="' + pillX + '" y="' + pillY + '" width="' + pillW + '" height="' + pillH + '" rx="' + (pillW*0.5) + '" fill="#222" stroke="' + C.stroke + '" stroke-width="2" filter="url(#shadow)"/>';
 
                     // The Red Shutter inside Pill
-                    const shutter = \`<circle cx="\${L.wx}" cy="\${L.wy - L.wr*0.15}" r="\${pillW*0.35}" fill="\${C.acc1}" filter="url(#glow-strong)"/>\`;
-                    const pillBtn2 = \`<circle cx="\${L.wx}" cy="\${L.wy + L.wr*0.35}" r="\${pillW*0.1}" fill="#888"/>\`; // small secondary button on pill
+                    const shutter = '<circle cx="' + L.wx + '" cy="' + (L.wy - L.wr*0.15) + '" r="' + (pillW*0.35) + '" fill="' + C.acc1 + '" filter="url(#glow-strong)"/>';
+                    const pillBtn2 = '<circle cx="' + L.wx + '" cy="' + (L.wy + L.wr*0.35) + '" r="' + (pillW*0.1) + '" fill="#888"/>';
 
                     // --- 3. The Radio Waves ---
                     const dx = bcx - L.wx;
@@ -118,13 +117,12 @@
                     const dist = Math.sqrt(dx*dx + dy*dy);
                     const angle = Math.atan2(dy, dx) * 180 / Math.PI;
                     
-                    const waveG = \`
-                        <g transform="translate(\${L.wx}, \${L.wy}) rotate(\${angle})">
-                            <path d="M \${L.wr+4} -8 A \${L.wr+4} \${L.wr+4} 0 0 1 \${L.wr+4} 8" fill="none" stroke="\${C.wave}" stroke-width="2" stroke-linecap="round"/>
-                            <path d="M \${L.wr+12} -14 A \${L.wr+12} \${L.wr+12} 0 0 1 \${L.wr+12} 14" fill="none" stroke="\${C.wave}" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
-                            <path d="M \${L.wr+20} -20 A \${L.wr+20} \${L.wr+20} 0 0 1 \${L.wr+20} 20" fill="none" stroke="\${C.wave}" stroke-width="2" stroke-linecap="round"/>
-                        </g>
-                    \`;
+                    const waveG = 
+                        '<g transform="translate(' + L.wx + ', ' + L.wy + ') rotate(' + angle + ')">' +
+                            '<path d="M ' + (L.wr+4) + ' -8 A ' + (L.wr+4) + ' ' + (L.wr+4) + ' 0 0 1 ' + (L.wr+4) + ' 8" fill="none" stroke="' + C.wave + '" stroke-width="2" stroke-linecap="round"/>' +
+                            '<path d="M ' + (L.wr+12) + ' -14 A ' + (L.wr+12) + ' ' + (L.wr+12) + ' 0 0 1 ' + (L.wr+12) + ' 14" fill="none" stroke="' + C.wave + '" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>' +
+                            '<path d="M ' + (L.wr+20) + ' -20 A ' + (L.wr+20) + ' ' + (L.wr+20) + ' 0 0 1 ' + (L.wr+20) + ' 20" fill="none" stroke="' + C.wave + '" stroke-width="2" stroke-linecap="round"/>' +
+                        '</g>';
 
                     // --- Assembly Logic ---
                     let content = '';
