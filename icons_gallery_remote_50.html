@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>50 AnyCam Concepts (Strictly Remote/Camera/Watch)</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f13; color: #fff; margin: 0; padding: 40px; }
+        h1 { text-align: center; color: #00E5FF; margin-bottom: 10px; font-size: 2.2rem; }
+        p.subtitle { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 1.1rem; }
+        .category-title { grid-column: 1 / -1; font-size: 1.5rem; color: #FF2A65; margin-top: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 24px; max-width: 1400px; margin: auto; }
+        .card { background: #1c1c22; padding: 20px 10px; border-radius: 12px; text-align: center; border: 1px solid #2a2a35; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); border-color: #00E5FF; background: #23232c; }
+        svg { width: 90px; height: 90px; margin: 0 auto 15px; display: block; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.4)); }
+        .num { font-size: 12px; color: #00E5FF; margin-bottom: 8px; font-weight: bold; }
+        .desc { font-size: 13px; color: #ccc; padding: 0 10px; line-height: 1.4; }
+    </style>
+</head>
+<body>
+    <h1>50 Highly-Targeted AnyCam Concepts</h1>
+    <p class="subtitle">Focus: Smartwatch, Remote Control, Camera Shutter, Streaming Preview, and Floating Targets.</p>
+    <div class="grid" id="app"></div>
+
+    <script>
+        const defs = `
+            <defs>
+                <linearGradient id="g-cam" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF2A65"/><stop offset="100%" stop-color="#FF7B93"/></linearGradient>
+                <linearGradient id="g-watch" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#0072FF"/></linearGradient>
+                <linearGradient id="g-signal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#FFA500"/></linearGradient>
+                <linearGradient id="metal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E0E0E0"/><stop offset="100%" stop-color="#888888"/></linearGradient>
+                <linearGradient id="darkMetal" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#444"/><stop offset="100%" stop-color="#111"/></linearGradient>
+            </defs>
+        `;
+
+        const icons = [
+            // Category A: Watch + Camera Hybrid (Directly merging the two physical objects)
+            {cat: "A. Watch + Camera Hybrid"},
+            {n:"01. Watch Strap + Lens", d:"手錶錶帶夾著相機鏡頭", c:`<rect x="44" y="10" width="40" height="108" fill="url(#darkMetal)" rx="8"/><circle cx="64" cy="64" r="44" fill="url(#metal)"/><circle cx="64" cy="64" r="32" fill="#222"/><circle cx="64" cy="64" r="16" fill="url(#g-cam)"/>`},
+            {n:"02. Smartwatch + Shutter", d:"手錶螢幕上顯示巨大快門", c:`<rect x="24" y="24" width="80" height="80" rx="24" fill="url(#darkMetal)" stroke="url(#metal)" stroke-width="6"/><circle cx="64" cy="64" r="28" fill="#fff"/><circle cx="64" cy="64" r="22" fill="url(#g-cam)"/>`},
+            {n:"03. Camera Body + Watch Dial", d:"相機機身，鏡頭是手錶刻度", c:`<rect x="14" y="34" width="100" height="64" rx="12" fill="url(#g-cam)"/><rect x="24" y="24" width="24" height="10" fill="url(#metal)"/><circle cx="64" cy="64" r="32" fill="#222" stroke="#fff" stroke-width="4" stroke-dasharray="4 8"/>`},
+            {n:"04. Wearable Aperture", d:"手錶錶圈是由光圈葉片組成", c:`<circle cx="64" cy="64" r="48" fill="url(#darkMetal)"/><path d="M64 16 L84 44 L64 64 L44 44 Z" fill="#fff" opacity="0.8"/><path d="M112 64 L84 84 L64 64 L84 44 Z" fill="#fff" opacity="0.6"/><path d="M64 112 L44 84 L64 64 L84 84 Z" fill="#fff" opacity="0.4"/><path d="M16 64 L44 44 L64 64 L44 84 Z" fill="#fff" opacity="0.2"/>`},
+            {n:"05. Watch + Flash", d:"手錶打出閃光燈", c:`<rect x="34" y="14" width="60" height="100" rx="16" fill="url(#darkMetal)"/><path d="M64 44 L54 64 L74 64 L64 84 Z" fill="url(#g-signal)"/><circle cx="64" cy="28" r="6" fill="#fff"/>`},
+            {n:"06. Watch Face Rec Dot", d:"手錶螢幕顯示錄影紅點", c:`<circle cx="64" cy="64" r="48" fill="url(#metal)"/><circle cx="64" cy="64" r="40" fill="#111"/><circle cx="64" cy="64" r="16" fill="#FF0000"/><text x="64" y="100" font-family="Arial" font-size="12" font-weight="bold" fill="#FF0000" text-anchor="middle">REC</text>`},
+            {n:"07. Split Watch/Camera", d:"左半手錶，右半相機", c:`<path d="M64 16 A 48 48 0 0 0 64 112 L64 16" fill="url(#g-watch)"/><path d="M64 16 A 48 48 0 0 1 64 112 L64 16" fill="url(#g-cam)"/><circle cx="64" cy="64" r="20" fill="#fff"/>`},
+            {n:"08. Lens with Watch Hands", d:"相機鏡頭裡有手錶指針", c:`<circle cx="64" cy="64" r="50" fill="url(#darkMetal)" stroke="url(#g-cam)" stroke-width="8"/><line x1="64" y1="64" x2="64" y2="34" stroke="#fff" stroke-width="6" stroke-linecap="round"/><line x1="64" y1="64" x2="84" y2="64" stroke="#fff" stroke-width="6" stroke-linecap="round"/>`},
+            {n:"09. Digital Watch + Shutter", d:"電子錶時間+相機快門", c:`<rect x="14" y="34" width="100" height="60" rx="12" fill="#111" stroke="url(#metal)" stroke-width="6"/><text x="34" y="64" font-family="Courier" font-size="20" fill="#00E5FF">10:09</text><circle cx="94" cy="64" r="16" fill="url(#g-cam)"/>`},
+            {n:"10. Round Smartwatch Lens", d:"圓形智慧錶，錶面是鏡頭反光", c:`<circle cx="64" cy="64" r="48" fill="url(#darkMetal)" stroke="url(#metal)" stroke-width="8"/><path d="M34 34 Q 64 14 94 34" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0.6"/><circle cx="64" cy="64" r="16" fill="url(#g-watch)"/>`},
+
+            // Category B: Remote Sync & Wireless (Phone + Watch connection)
+            {cat: "B. Remote Sync & Connection"},
+            {n:"11. Camera + Wi-Fi Waves", d:"相機發射無線訊號", c:`<rect x="24" y="44" width="50" height="40" rx="8" fill="url(#g-cam)"/><circle cx="49" cy="64" r="12" fill="#fff"/><path d="M84 44 A 20 20 0 0 1 84 84" fill="none" stroke="url(#g-watch)" stroke-width="6" stroke-linecap="round"/><path d="M96 34 A 32 32 0 0 1 96 94" fill="none" stroke="url(#g-watch)" stroke-width="6" stroke-linecap="round"/>`},
+            {n:"12. Watch sending Signal", d:"手錶發送訊號", c:`<rect x="14" y="34" width="40" height="60" rx="12" fill="url(#darkMetal)"/><circle cx="34" cy="64" r="12" fill="url(#g-watch)"/><line x1="64" y1="64" x2="114" y2="64" stroke="url(#g-signal)" stroke-width="8" stroke-dasharray="10 10"/>`},
+            {n:"13. Remote Clicker", d:"遙控器發射到相機", c:`<rect x="14" y="44" width="30" height="40" rx="15" fill="url(#g-watch)"/><circle cx="94" cy="64" r="24" fill="url(#g-cam)"/><path d="M54 64 L64 64" stroke="#fff" stroke-width="6"/><path d="M48 50 L58 56" stroke="#fff" stroke-width="6"/><path d="M48 78 L58 72" stroke="#fff" stroke-width="6"/>`},
+            {n:"14. Sync Arrows + Shutter", d:"同步箭頭環繞快門", c:`<circle cx="64" cy="64" r="24" fill="url(#g-cam)"/><path d="M64 14 A 50 50 0 0 1 114 64" fill="none" stroke="url(#g-watch)" stroke-width="8"/><polygon points="114,64 104,50 124,50" fill="url(#g-watch)"/><path d="M64 114 A 50 50 0 0 1 14 64" fill="none" stroke="url(#g-watch)" stroke-width="8"/><polygon points="14,64 4,78 24,78" fill="url(#g-watch)"/>`},
+            {n:"15. Bluetooth + Lens", d:"藍牙圖示與相機鏡頭結合", c:`<circle cx="64" cy="64" r="50" fill="url(#darkMetal)" stroke="url(#g-watch)" stroke-width="6"/><path d="M64 24 L84 44 L64 64 L84 84 L64 104 L64 24 M64 64 L44 44 M64 64 L44 84" fill="none" stroke="#fff" stroke-width="6" stroke-linejoin="round"/><circle cx="64" cy="64" r="16" fill="url(#g-cam)" opacity="0.8"/>`},
+            {n:"16. Two Devices Linked", d:"手機與手錶透過線條相連", c:`<rect x="14" y="24" width="40" height="80" rx="8" fill="url(#metal)"/><rect x="84" y="44" width="30" height="40" rx="8" fill="url(#darkMetal)"/><line x1="54" y1="64" x2="84" y2="64" stroke="url(#g-signal)" stroke-width="6" stroke-linecap="round"/>`},
+            {n:"17. Cast / Mirror Icon", d:"投放/鏡像圖示加相機", c:`<path d="M14 104 A 50 50 0 0 1 64 54" fill="none" stroke="url(#g-watch)" stroke-width="8"/><path d="M14 84 A 30 30 0 0 1 44 54" fill="none" stroke="url(#g-watch)" stroke-width="8"/><rect x="54" y="24" width="60" height="40" rx="8" fill="url(#g-cam)"/><circle cx="84" cy="44" r="10" fill="#fff"/>`},
+            {n:"18. Node Connection", d:"節點連線至快門", c:`<circle cx="24" cy="24" r="8" fill="url(#g-watch)"/><circle cx="24" cy="104" r="8" fill="url(#g-watch)"/><line x1="24" y1="24" x2="74" y2="64" stroke="#fff" stroke-width="4"/><line x1="24" y1="104" x2="74" y2="64" stroke="#fff" stroke-width="4"/><circle cx="84" cy="64" r="24" fill="url(#g-cam)"/>`},
+            {n:"19. Radio Tower Shutter", d:"電波發射塔 + 快門", c:`<path d="M64 114 L64 64" stroke="#fff" stroke-width="8"/><circle cx="64" cy="64" r="16" fill="url(#g-cam)"/><path d="M44 44 A 28 28 0 0 1 84 44" fill="none" stroke="url(#g-signal)" stroke-width="6"/><path d="M24 24 A 56 56 0 0 1 104 24" fill="none" stroke="url(#g-signal)" stroke-width="6"/>`},
+            {n:"20. Satellite Watch", d:"手錶像是衛星接收器", c:`<circle cx="64" cy="84" r="30" fill="url(#darkMetal)"/><path d="M34 64 Q 64 24 94 64" fill="none" stroke="url(#g-watch)" stroke-width="8"/><circle cx="64" cy="54" r="12" fill="url(#g-cam)"/>`},
+
+            // Category C: Target & Control (Floating UI, crosshairs, accessibility)
+            {cat: "C. Floating Target & Control"},
+            {n:"21. Crosshair over Lens", d:"瞄準星鎖定相機鏡頭", c:`<circle cx="64" cy="64" r="36" fill="url(#g-cam)"/><line x1="64" y1="14" x2="64" y2="34" stroke="url(#g-watch)" stroke-width="8"/><line x1="64" y1="94" x2="64" y2="114" stroke="url(#g-watch)" stroke-width="8"/><line x1="14" y1="64" x2="34" y2="64" stroke="url(#g-watch)" stroke-width="8"/><line x1="94" y1="64" x2="114" y2="64" stroke="url(#g-watch)" stroke-width="8"/>`},
+            {n:"22. Tap Finger Shutter", d:"手指點擊快門", c:`<circle cx="64" cy="64" r="40" fill="url(#g-cam)"/><path d="M64 64 L84 104 L94 94 L74 54 A 10 10 0 0 0 54 64 Z" fill="#fff" stroke="#333" stroke-width="2"/>`},
+            {n:"23. Floating Bubble UI", d:"懸浮球包著相機", c:`<circle cx="64" cy="64" r="48" fill="url(#darkMetal)" stroke="url(#g-watch)" stroke-width="6"/><rect x="44" y="50" width="40" height="28" rx="6" fill="url(#g-cam)"/><circle cx="64" cy="64" r="8" fill="#fff"/>`},
+            {n:"24. Focus Brackets", d:"相機對焦框框", c:`<path d="M34 14 L14 14 L14 34" fill="none" stroke="url(#g-watch)" stroke-width="8"/><path d="M94 14 L114 14 L114 34" fill="none" stroke="url(#g-watch)" stroke-width="8"/><path d="M34 114 L14 114 L14 94" fill="none" stroke="url(#g-watch)" stroke-width="8"/><path d="M94 114 L114 114 L114 94" fill="none" stroke="url(#g-watch)" stroke-width="8"/><circle cx="64" cy="64" r="20" fill="url(#g-cam)"/>`},
+            {n:"25. Scope + Red Dot", d:"狙擊鏡與錄影紅點", c:`<circle cx="64" cy="64" r="50" fill="none" stroke="url(#metal)" stroke-width="4"/><circle cx="64" cy="64" r="24" fill="none" stroke="url(#metal)" stroke-width="2"/><line x1="14" y1="64" x2="114" y2="64" stroke="#444" stroke-width="2"/><line x1="64" y1="14" x2="64" y2="114" stroke="#444" stroke-width="2"/><circle cx="64" cy="64" r="10" fill="#FF0000"/>`},
+            {n:"26. Cursor clicking Lens", d:"滑鼠游標點擊鏡頭", c:`<circle cx="54" cy="54" r="34" fill="url(#g-cam)"/><polygon points="64,64 64,114 80,98 104,118 114,108 90,88 110,74" fill="#fff" stroke="#222" stroke-width="4"/>`},
+            {n:"27. App Grid Target", d:"多個App中鎖定一個", c:`<rect x="24" y="24" width="24" height="24" fill="#444"/><rect x="80" y="24" width="24" height="24" fill="#444"/><rect x="24" y="80" width="24" height="24" fill="#444"/><rect x="80" y="80" width="24" height="24" fill="url(#g-cam)"/><path d="M68 68 L92 68 L92 92" fill="none" stroke="url(#g-watch)" stroke-width="6"/>`},
+            {n:"28. Generic Phone Target", d:"手機螢幕上的標靶", c:`<rect x="34" y="14" width="60" height="100" rx="8" fill="url(#darkMetal)"/><circle cx="64" cy="64" r="20" fill="none" stroke="url(#g-watch)" stroke-width="6"/><circle cx="64" cy="64" r="6" fill="url(#g-cam)"/>`},
+            {n:"29. Laser Sight", d:"雷射光束打在快門上", c:`<line x1="14" y1="114" x2="56" y2="72" stroke="#FF0000" stroke-width="6"/><circle cx="74" cy="54" r="30" fill="url(#darkMetal)"/><circle cx="74" cy="54" r="14" fill="#fff"/>`},
+            {n:"30. Magic Wand / Control", d:"魔法棒/指揮棒點擊", c:`<circle cx="84" cy="44" r="24" fill="url(#g-cam)"/><path d="M14 114 L50 78" stroke="url(#g-signal)" stroke-width="12" stroke-linecap="round"/><circle cx="54" cy="74" r="6" fill="#fff"/>`},
+
+            // Category D: "Any" Concept + Photography (Infinity, All apps, universal)
+            {cat: "D. 'Any' & Universal Concept"},
+            {n:"31. Infinity Lens", d:"無限大符號化為鏡頭", c:`<path d="M34 64 C 34 34, 64 34, 64 64 C 64 94, 94 94, 94 64 C 94 34, 64 34, 64 64 C 64 94, 34 94, 34 64" fill="none" stroke="url(#g-watch)" stroke-width="12"/><circle cx="64" cy="64" r="10" fill="url(#g-cam)"/>`},
+            {n:"32. 'A' as Tripod", d:"字母A變成腳架架著相機", c:`<path d="M64 34 L34 114 M64 34 L94 114 M44 84 L84 84" stroke="url(#metal)" stroke-width="10" stroke-linecap="round"/><rect x="44" y="14" width="40" height="24" rx="4" fill="url(#g-cam)"/><circle cx="64" cy="26" r="8" fill="#fff"/>`},
+            {n:"33. Globe / Anywhere", d:"地球(隨處可用)+相機", c:`<circle cx="64" cy="64" r="48" fill="none" stroke="url(#g-watch)" stroke-width="6"/><path d="M64 16 A 24 48 0 0 0 64 112 A 24 48 0 0 0 64 16" fill="none" stroke="url(#g-watch)" stroke-width="6"/><line x1="16" y1="64" x2="112" y2="64" stroke="url(#g-watch)" stroke-width="6"/><rect x="44" y="44" width="40" height="30" rx="6" fill="url(#g-cam)"/><circle cx="64" cy="59" r="8" fill="#fff"/>`},
+            {n:"34. Omni Arrows", d:"四面八方的箭頭(Any)指向相機", c:`<path d="M64 10 L64 24 M64 118 L64 104 M10 64 L24 64 M118 64 L104 64" stroke="url(#g-watch)" stroke-width="8" stroke-linecap="round"/><circle cx="64" cy="64" r="32" fill="url(#g-cam)"/><circle cx="64" cy="64" r="12" fill="#fff"/>`},
+            {n:"35. AC Monogram Shutter", d:"A跟C交疊成快門", c:`<path d="M64 24 L34 94 L54 94 L64 64 L74 94 L94 94 Z" fill="url(#g-watch)"/><path d="M94 34 A 40 40 0 1 0 94 94" fill="none" stroke="url(#g-cam)" stroke-width="12"/><circle cx="64" cy="64" r="8" fill="#fff"/>`},
+            {n:"36. Any text in Lens", d:"Any文字在鏡頭中", c:`<circle cx="64" cy="64" r="50" fill="url(#darkMetal)" stroke="url(#g-cam)" stroke-width="8"/><text x="64" y="74" font-family="Arial" font-size="28" font-weight="bold" fill="#fff" text-anchor="middle">ANY</text>`},
+            {n:"37. Hand holding Camera", d:"任何時刻掌握相機", c:`<path d="M44 114 Q 64 84 84 114" fill="none" stroke="url(#metal)" stroke-width="12" stroke-linecap="round"/><rect x="34" y="34" width="60" height="40" rx="8" fill="url(#g-cam)"/><circle cx="64" cy="54" r="12" fill="#fff"/>`},
+            {n:"38. Star / Magic", d:"星形魔法(任何App皆可)", c:`<path d="M64 14 L74 44 L104 54 L74 64 L64 94 L54 64 L24 54 L54 44 Z" fill="url(#g-signal)"/><circle cx="64" cy="54" r="14" fill="url(#darkMetal)"/><circle cx="64" cy="54" r="6" fill="#fff"/>`},
+            {n:"39. Compass Shutter", d:"指南針(無處不在)+快門", c:`<circle cx="64" cy="64" r="48" fill="none" stroke="url(#metal)" stroke-width="6"/><polygon points="64,24 74,64 64,104 54,64" fill="url(#g-cam)"/><circle cx="64" cy="64" r="8" fill="#fff"/>`},
+            {n:"40. The 'A' Aperture", d:"A字母內含光圈", c:`<path d="M64 14 L24 104 L104 104 Z" fill="none" stroke="url(#g-watch)" stroke-width="12" stroke-linejoin="round"/><circle cx="64" cy="74" r="16" fill="url(#g-cam)"/>`},
+
+            // Category E: Streaming & Preview (Live view, screen casting)
+            {cat: "E. Streaming & Preview View"},
+            {n:"41. Eye in Watch", d:"手錶內有一隻眼睛(預覽)", c:`<rect x="24" y="24" width="80" height="80" rx="40" fill="url(#darkMetal)"/><path d="M44 64 Q 64 44 84 64 Q 64 84 44 64" fill="none" stroke="url(#g-watch)" stroke-width="6"/><circle cx="64" cy="64" r="8" fill="url(#g-watch)"/>`},
+            {n:"42. Screen Mirroring", d:"手機螢幕投射到手錶", c:`<rect x="14" y="24" width="40" height="60" rx="8" fill="url(#metal)"/><rect x="74" y="44" width="40" height="40" rx="20" fill="url(#darkMetal)"/><path d="M44 44 Q 64 34 84 54" fill="none" stroke="url(#g-signal)" stroke-width="4" stroke-dasharray="4 4"/>`},
+            {n:"43. Play Button Watch", d:"手錶上的播放鍵(影片串流)", c:`<circle cx="64" cy="64" r="48" fill="url(#darkMetal)" stroke="url(#metal)" stroke-width="6"/><polygon points="54,44 84,64 54,84" fill="url(#g-watch)"/>`},
+            {n:"44. Live Stream Cam", d:"相機加上 Live 波浪", c:`<rect x="24" y="44" width="60" height="40" rx="8" fill="url(#g-cam)"/><path d="M94 64 A 20 20 0 0 0 114 44" fill="none" stroke="#FF0000" stroke-width="6"/><path d="M94 64 A 30 30 0 0 0 124 34" fill="none" stroke="#FF0000" stroke-width="6"/>`},
+            {n:"45. Magnifying Glass", d:"放大鏡看相機(監看)", c:`<circle cx="54" cy="54" r="30" fill="none" stroke="url(#g-watch)" stroke-width="8"/><line x1="74" y1="74" x2="104" y2="104" stroke="url(#g-watch)" stroke-width="10" stroke-linecap="round"/><rect x="44" y="44" width="20" height="14" rx="2" fill="url(#metal)"/>`},
+            {n:"46. PiP (Picture in Picture)", d:"畫中畫(手錶看手機)", c:`<rect x="24" y="24" width="80" height="60" rx="8" fill="url(#darkMetal)"/><rect x="74" y="54" width="20" height="20" rx="4" fill="url(#g-watch)"/>`},
+            {n:"47. Data Stream Lens", d:"相機鏡頭是由資料流組成", c:`<circle cx="64" cy="64" r="40" fill="none" stroke="url(#g-watch)" stroke-width="6" stroke-dasharray="10 15"/><circle cx="64" cy="64" r="20" fill="url(#g-cam)"/>`},
+            {n:"48. Projector Watch", d:"手錶投影出相機畫面", c:`<rect x="14" y="44" width="24" height="40" rx="8" fill="url(#metal)"/><polygon points="38,54 84,24 84,104 38,74" fill="url(#g-watch)" opacity="0.3"/><circle cx="94" cy="64" r="16" fill="url(#g-cam)"/>`},
+            {n:"49. Film Strip Watch", d:"手錶錶帶是電影底片(影像流)", c:`<path d="M44 14 L44 114 M84 14 L84 114" stroke="url(#metal)" stroke-width="6" stroke-dasharray="10 10"/><rect x="44" y="44" width="40" height="40" rx="8" fill="url(#darkMetal)"/><circle cx="64" cy="64" r="10" fill="#fff"/>`},
+            {n:"50. Watch with Two Arrows", d:"手錶與雙向箭頭(雙向同步)", c:`<circle cx="64" cy="64" r="36" fill="url(#darkMetal)"/><path d="M44 64 A 20 20 0 0 1 84 64" fill="none" stroke="url(#g-signal)" stroke-width="4"/><polygon points="84,64 78,56 90,56" fill="url(#g-signal)"/><path d="M84 64 A 20 20 0 0 1 44 64" fill="none" stroke="url(#g-watch)" stroke-width="4"/><polygon points="44,64 38,72 50,72" fill="url(#g-watch)"/>`}
+        ];
+
+        const container = document.getElementById('app');
+        let html = '';
+        icons.forEach(i => {
+            if (i.cat) {
+                html += '<div class="category-title">' + i.cat + '</div>';
+            } else {
+                html += '<div class="card">' +
+                    '<div class="num">' + i.n.split('. ')[0] + '</div>' +
+                    '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">' +
+                        defs +
+                        i.c +
+                    '</svg>' +
+                    '<div class="desc">' + i.n.split('. ')[1] + '<br><span style="color:#666; font-size:11px;">' + i.d + '</span></div>' +
+                '</div>';
+            }
+        });
+        container.innerHTML = html;
+    </script>
+</body>
+</html>
