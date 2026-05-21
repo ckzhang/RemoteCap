@@ -13,7 +13,7 @@ class BillingManager(
 
     private val TAG = "BillingManager"
     private var billingClient: BillingClient
-    private val PRODUCT_ID_PRO = "remotecap_pro_unlock" // Set this in Google Play Console
+    private val PRODUCT_ID_PRO = "anycam_pro_unlock" // Set this in Google Play Console
     
     var isPro: Boolean
         get() {

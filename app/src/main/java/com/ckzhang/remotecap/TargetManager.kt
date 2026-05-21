@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 
 object TargetManager {
-    private const val PREFS_NAME = "RemoteCapPrefs"
+    private const val PREFS_NAME = "AnyCamPrefs"
     private const val KEY_X = "TARGET_X"
     private const val KEY_Y = "TARGET_Y"
     private const val KEY_COUNTDOWN = "COUNTDOWN_SEC"

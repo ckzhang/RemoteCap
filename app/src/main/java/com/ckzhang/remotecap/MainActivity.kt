@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
         }
 
         val title = TextView(this).apply {
-            text = "Remote Cap 📸"
+            text = "AnyCam 📸"
             textSize = 32f
             setTextColor(Color.WHITE)
             gravity = Gravity.CENTER

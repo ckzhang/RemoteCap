@@ -95,7 +95,7 @@ class ScreenCaptureService : Service() {
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
         val notification = NotificationCompat.Builder(this, channelId)
-            .setContentTitle("Remote Cap Live View")
+            .setContentTitle("AnyCam Live View")
             .setContentText("Streaming to watch...")
             .setSmallIcon(android.R.drawable.ic_menu_camera)
             .build()

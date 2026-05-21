@@ -11,6 +11,6 @@
     <color name="surface">#1E1E1E</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="text_secondary">#B3B3B3</color>
-    <string name="accessibility_service_description">Remote Cap 需使用無障礙服務，以便在您按下手錶按鈕時，代為點擊螢幕上的相機快門。</string>
-    <string name="app_name">Remote Cap</string>
+    <string name="accessibility_service_description">AnyCam 需使用無障礙服務，以便在您按下手錶按鈕時，代為點擊螢幕上的相機快門。</string>
+    <string name="app_name">AnyCam</string>
 </resources>
