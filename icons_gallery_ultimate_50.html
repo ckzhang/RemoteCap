@@ -142,15 +142,13 @@
                     const numStr = count.toString().padStart(2, '0');
                     const styleName = isOutline ? 'Wireframe Tech' : 'Solid Premium';
                     
-                    html += \`
-                    <div class="card">
-                        <div class="num">\${numStr}</div>
-                        <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
-                            \${defs}
-                            \${content}
-                        </svg>
-                        <div class="desc"><span class="layout-tag">\${L.name}</span>\${C.name}<br>\${styleName}</div>
-                    </div>\`;
+                    html += '<div class="card">' +
+                        '<div class="num">' + numStr + '</div>' +
+                        '<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">' +
+                            defs + content +
+                        '</svg>' +
+                        '<div class="desc"><span class="layout-tag">' + L.name + '</span>' + C.name + '<br>' + styleName + '</div>' +
+                    '</div>';
 
                     count++;
                 });
