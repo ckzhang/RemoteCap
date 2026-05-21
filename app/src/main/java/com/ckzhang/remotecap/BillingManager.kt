@@ -15,7 +15,18 @@ class BillingManager(
     private var billingClient: BillingClient
     private val PRODUCT_ID_PRO = "remotecap_pro_unlock" // Set this in Google Play Console
     
-    var isPro = false
+    var isPro: Boolean
+        get() {
+            // Priority: Real Purchase > Test Easter Egg
+            return _isRealPro || TargetManager.testProState
+        }
+        set(value) {
+            // Setter is now only used by the easter egg to override state for testing
+            TargetManager.testProState = value
+            activity.runOnUiThread { onProStatusChecked(isPro) }
+        }
+        
+    private var _isRealPro = false
 
     init {
         billingClient = BillingClient.newBuilder(context)
@@ -59,9 +70,9 @@ class BillingManager(
                         handlePurchase(purchase) // Acknowledge if not already
                     }
                 }
-                isPro = foundPro
+                _isRealPro = foundPro
                 activity.runOnUiThread { onProStatusChecked(isPro) }
-                Log.d(TAG, "Pro status check complete. Is Pro: $isPro")
+                Log.d(TAG, "Pro status check complete. Is Pro: $isPro (Real: $_isRealPro, Test: ${TargetManager.testProState})")
             }
         }
     }
@@ -122,13 +133,13 @@ class BillingManager(
                 billingClient.acknowledgePurchase(acknowledgePurchaseParams) { billingResult ->
                     if (billingResult.responseCode == BillingClient.BillingResponseCode.OK) {
                         Log.d(TAG, "Purchase acknowledged successfully.")
-                        isPro = true
+                        _isRealPro = true
                         activity.runOnUiThread { onProStatusChecked(isPro) }
                     }
                 }
             } else {
                 // Already acknowledged
-                isPro = true
+                _isRealPro = true
                 activity.runOnUiThread { onProStatusChecked(isPro) }
             }
         }

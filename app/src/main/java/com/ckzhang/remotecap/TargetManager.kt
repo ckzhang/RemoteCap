@@ -8,6 +8,7 @@ object TargetManager {
     private const val KEY_X = "TARGET_X"
     private const val KEY_Y = "TARGET_Y"
     private const val KEY_COUNTDOWN = "COUNTDOWN_SEC"
+    private const val KEY_TEST_PRO = "TEST_PRO_STATE"
 
     private var prefs: SharedPreferences? = null
 
@@ -33,5 +34,11 @@ object TargetManager {
         get() = prefs?.getInt(KEY_COUNTDOWN, 0) ?: 0
         set(value) {
             prefs?.edit()?.putInt(KEY_COUNTDOWN, value)?.apply()
+        }
+        
+    var testProState: Boolean
+        get() = prefs?.getBoolean(KEY_TEST_PRO, false) ?: false
+        set(value) {
+            prefs?.edit()?.putBoolean(KEY_TEST_PRO, value)?.apply()
         }
 }
