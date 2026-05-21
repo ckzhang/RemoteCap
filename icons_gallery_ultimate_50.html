@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>50 AnyCam Ultimate Fusion</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #0f0f13; color: #fff; margin: 0; padding: 40px; }
+        h1 { text-align: center; color: #00E5FF; margin-bottom: 10px; font-size: 2.2rem; }
+        p.subtitle { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 1.1rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.5; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; max-width: 1400px; margin: auto; }
+        .card { background: #1c1c22; padding: 20px 10px; border-radius: 16px; text-align: center; border: 1px solid #2a2a35; transition: transform 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.4); }
+        .card:hover { transform: translateY(-5px); border-color: #00E5FF; background: #23232c; box-shadow: 0 8px 24px rgba(0,229,255,0.2); }
+        svg { width: 100px; height: 100px; margin: 0 auto 15px; display: block; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.5)); }
+        .num { font-size: 14px; color: #fff; margin-bottom: 8px; font-weight: bold; background: #333; display: inline-block; padding: 2px 10px; border-radius: 12px; }
+        .desc { font-size: 11px; color: #aaa; padding: 0 5px; line-height: 1.4; }
+        .layout-tag { color: #FF1744; font-weight: bold; margin-bottom: 4px; display: block;}
+    </style>
+</head>
+<body>
+    <h1>50 Ultimate Fusion Concepts</h1>
+    <p class="subtitle">Requested Elements: <b>1. Pill Remote with Red Shutter (Inside Watch) + 2. Offset Bullseye (Inside Phone) + 3. Radio Waves connecting them.</b><br>Generated dynamically using 5 distinct spatial layouts, 5 rich color palettes, and 2 architectural styles (Solid vs. Wireframe).</p>
+    <div class="grid" id="app"></div>
+
+    <script>
+        const defs = `
+        <defs>
+            <linearGradient id="g-dark" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#2A2D34"/><stop offset="100%" stop-color="#111111"/></linearGradient>
+            <linearGradient id="g-red" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF1744"/><stop offset="100%" stop-color="#D50000"/></linearGradient>
+            <linearGradient id="g-cyan" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#00E5FF"/><stop offset="100%" stop-color="#00B0FF"/></linearGradient>
+            
+            <linearGradient id="g-synthbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1A1025"/><stop offset="100%" stop-color="#0D0814"/></linearGradient>
+            <linearGradient id="g-pink" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF007F"/><stop offset="100%" stop-color="#AA00FF"/></linearGradient>
+            <linearGradient id="g-lime" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#39FF14"/><stop offset="100%" stop-color="#00C853"/></linearGradient>
+
+            <linearGradient id="g-lightbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#F0F4F8"/><stop offset="100%" stop-color="#CFD8DC"/></linearGradient>
+            <linearGradient id="g-coral" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF7043"/><stop offset="100%" stop-color="#FF3D00"/></linearGradient>
+            <linearGradient id="g-indigo" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3D5AFE"/><stop offset="100%" stop-color="#1A237E"/></linearGradient>
+
+            <linearGradient id="g-luxbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#222222"/><stop offset="100%" stop-color="#000000"/></linearGradient>
+            <linearGradient id="g-crimson" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#D50000"/><stop offset="100%" stop-color="#880000"/></linearGradient>
+            <linearGradient id="g-gold" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FFD700"/><stop offset="100%" stop-color="#FF8F00"/></linearGradient>
+
+            <linearGradient id="g-oceanbg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#0A192F"/><stop offset="100%" stop-color="#020C1B"/></linearGradient>
+            <linearGradient id="g-magenta" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#E040FB"/><stop offset="100%" stop-color="#6200EA"/></linearGradient>
+            <linearGradient id="g-aqua" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#18FFFF"/><stop offset="100%" stop-color="#00B8D4"/></linearGradient>
+
+            <filter id="shadow"><feDropShadow dx="0" dy="4" stdDeviation="4" flood-opacity="0.6"/></filter>
+            <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            <filter id="glow-strong"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        `;
+
+        const colors = [
+            { name: "Cyberpunk", base: "url(#g-dark)", acc1: "url(#g-red)", acc2: "url(#g-cyan)", wave: "#00E5FF", stroke: "#444" },
+            { name: "Neon Synth", base: "url(#g-synthbg)", acc1: "url(#g-pink)", acc2: "url(#g-lime)", wave: "#39FF14", stroke: "#4B286D" },
+            { name: "Light Premium", base: "url(#g-lightbg)", acc1: "url(#g-coral)", acc2: "url(#g-indigo)", wave: "#FF9100", stroke: "#90A4AE" },
+            { name: "Luxury Gold", base: "url(#g-luxbg)", acc1: "url(#g-crimson)", acc2: "url(#g-gold)", wave: "#FFD700", stroke: "#555" },
+            { name: "Deep Ocean", base: "url(#g-oceanbg)", acc1: "url(#g-magenta)", acc2: "url(#g-aqua)", wave: "#00E5FF", stroke: "#112240" }
+        ];
+
+        const layouts = [
+            { name: "Diagonal Orbit", wx: 40, wy: 86, wr: 28, px: 84, py: 42, pw: 42, ph: 68, bx: 8, by: -16 },
+            { name: "Side by Side", wx: 34, wy: 64, wr: 24, px: 90, py: 64, pw: 40, ph: 70, bx: 10, by: -18 },
+            { name: "Hero Phone Back", wx: 86, wy: 86, wr: 24, px: 54, py: 54, pw: 56, ph: 84, bx: 14, by: -24 },
+            { name: "Hero Watch Back", wx: 54, wy: 64, wr: 40, px: 98, py: 64, pw: 30, ph: 54, bx: 0, by: -14 },
+            { name: "Vertical Action", wx: 64, wy: 32, wr: 24, px: 64, py: 90, pw: 74, ph: 44, bx: 20, by: -8 } // Phone is landscape
+        ];
+
+        let html = '';
+        let count = 1;
+
+        layouts.forEach((L, li) => {
+            colors.forEach((C, ci) => {
+                [0, 1].forEach(style => {
+                    const isOutline = style === 1;
+                    
+                    // --- 1. The Phone + Bullseye ---
+                    const phoneBody = isOutline
+                        ? \`<rect x="\${L.px - L.pw/2}" y="\${L.py - L.ph/2}" width="\${L.pw}" height="\${L.ph}" rx="\${L.pw*0.15}" fill="none" stroke="\${C.stroke}" stroke-width="4"/>\`
+                        : \`<rect x="\${L.px - L.pw/2}" y="\${L.py - L.ph/2}" width="\${L.pw}" height="\${L.ph}" rx="\${L.pw*0.15}" fill="\${C.base}" filter="url(#shadow)"/>\`;
+                    
+                    // Phone screen inset
+                    const phoneScreen = isOutline ? '' : \`<rect x="\${L.px - L.pw/2 + 4}" y="\${L.py - L.ph/2 + 4}" width="\${L.pw - 8}" height="\${L.ph - 8}" rx="\${L.pw*0.08}" fill="#000" opacity="0.3"/>\`;
+
+                    const bcx = L.px + L.bx;
+                    const bcy = L.py + L.by;
+                    const br = L.pw * 0.22;
+                    const bullseye = \`
+                        <circle cx="\${bcx}" cy="\${bcy}" r="\${br}" fill="none" stroke="\${C.acc2}" stroke-width="2" filter="url(#glow)"/>
+                        <circle cx="\${bcx}" cy="\${bcy}" r="\${br*0.4}" fill="\${C.acc2}" filter="url(#glow-strong)"/>
+                        <path d="M\${bcx-br-6} \${bcy} h8 M\${bcx+br+6} \${bcy} h-8 M\${bcx} \${bcy-br-6} v8 M\${bcx} \${bcy+br+6} v-8" stroke="\${C.acc2}" stroke-width="2"/>
+                    \`;
+
+                    // --- 2. The Watch + Pill Remote ---
+                    const watchBody = isOutline
+                        ? \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr}" fill="#0f0f13" stroke="\${C.stroke}" stroke-width="4"/>\`
+                        : \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr}" fill="\${C.base}" filter="url(#shadow)"/>\`;
+                    
+                    const watchInner = isOutline ? '' : \`<circle cx="\${L.wx}" cy="\${L.wy}" r="\${L.wr-4}" fill="#000" opacity="0.4"/>\`;
+
+                    const pillW = L.wr * 0.7;
+                    const pillH = L.wr * 1.3;
+                    const pillX = L.wx - pillW/2;
+                    const pillY = L.wy - pillH/2;
+                    
+                    // The Pill Body
+                    const pillBase = isOutline 
+                        ? \`<rect x="\${pillX}" y="\${pillY}" width="\${pillW}" height="\${pillH}" rx="\${pillW*0.5}" fill="#0f0f13" stroke="\${C.stroke}" stroke-width="2"/>\`
+                        : \`<rect x="\${pillX}" y="\${pillY}" width="\${pillW}" height="\${pillH}" rx="\${pillW*0.5}" fill="#222" stroke="\${C.stroke}" stroke-width="2" filter="url(#shadow)"/>\`;
+
+                    // The Red Shutter inside Pill
+                    const shutter = \`<circle cx="\${L.wx}" cy="\${L.wy - L.wr*0.15}" r="\${pillW*0.35}" fill="\${C.acc1}" filter="url(#glow-strong)"/>\`;
+                    const pillBtn2 = \`<circle cx="\${L.wx}" cy="\${L.wy + L.wr*0.35}" r="\${pillW*0.1}" fill="#888"/>\`; // small secondary button on pill
+
+                    // --- 3. The Radio Waves ---
+                    const dx = bcx - L.wx;
+                    const dy = bcy - L.wy;
+                    const dist = Math.sqrt(dx*dx + dy*dy);
+                    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+                    
+                    const waveG = \`
+                        <g transform="translate(\${L.wx}, \${L.wy}) rotate(\${angle})">
+                            <path d="M \${L.wr+4} -8 A \${L.wr+4} \${L.wr+4} 0 0 1 \${L.wr+4} 8" fill="none" stroke="\${C.wave}" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M \${L.wr+12} -14 A \${L.wr+12} \${L.wr+12} 0 0 1 \${L.wr+12} 14" fill="none" stroke="\${C.wave}" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
+                            <path d="M \${L.wr+20} -20 A \${L.wr+20} \${L.wr+20} 0 0 1 \${L.wr+20} 20" fill="none" stroke="\${C.wave}" stroke-width="2" stroke-linecap="round"/>
+                        </g>
+                    \`;
+
+                    // --- Assembly Logic ---
+                    let content = '';
+                    if (li === 2) {
+                        // Phone Back, Watch Front
+                        content = phoneBody + phoneScreen + bullseye + waveG + watchBody + watchInner + pillBase + shutter + pillBtn2;
+                    } else if (li === 3) {
+                        // Watch Back, Phone Front
+                        content = watchBody + watchInner + pillBase + shutter + pillBtn2 + waveG + phoneBody + phoneScreen + bullseye;
+                    } else {
+                        // Watch Left/Top, Phone Right/Bottom
+                        content = phoneBody + phoneScreen + bullseye + watchBody + watchInner + pillBase + shutter + pillBtn2 + waveG;
+                    }
+
+                    const numStr = count.toString().padStart(2, '0');
+                    const styleName = isOutline ? 'Wireframe Tech' : 'Solid Premium';
+                    
+                    html += \`
+                    <div class="card">
+                        <div class="num">\${numStr}</div>
+                        <svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+                            \${defs}
+                            \${content}
+                        </svg>
+                        <div class="desc"><span class="layout-tag">\${L.name}</span>\${C.name}<br>\${styleName}</div>
+                    </div>\`;
+
+                    count++;
+                });
+            });
+        });
+
+        document.getElementById('app').innerHTML = html;
+    </script>
+</body>
+</html>
